@@ -104,7 +104,7 @@ export const GamesSection: FC = () => {
                   width={80}
                   height={80}
                   className="rounded-lg flex-shrink-0"
-                  loading="lazy"
+                  loading={isTop ? "eager" : "lazy"}
                   priority={isTop}
                   style={isTop ? { width: 96, height: 96 } : undefined}
                 />
