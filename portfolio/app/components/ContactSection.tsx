@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { ContactForm } from "./ContactForm";
 
 export const ContactSection: FC = () => {
   return (
@@ -44,6 +45,8 @@ export const ContactSection: FC = () => {
             Download resume
           </a>
         </div>
+
+        <ContactForm />
 
         <p className="hand mt-14 text-center text-2xl">
           Built by Raj G in Chennai.
