@@ -24,6 +24,7 @@ const gstData: CaseStudyData = {
   ],
   howWent:
     "First run: nothing worked. No buttons, nothing. Just a window that looked at me like I'd made a mistake. Then it worked, and it was wrong. The first successful run was full of mismatches that weren't real, because the GSTIN, party name or invoice number would differ by one or two characters between the files. To a human, obviously the same invoice. To a computer, strangers. And you can't hand an accountant mostly right. The fix was fuzzy matching with manners: near-identical text counts as a match, and fields get a priority order, GSTIN first, then invoice number, then party name, because names are the messiest. Then my dad tried it. It worked, and he started using it. What took most of a day now takes minutes. I promised one minute and delivered two minutes at most, but I'll take that against a full day. Thank you, Dad, for trusting me with real business work even after saying no way, and for being the best first tester a developer could ask for.",
+  screenshot: { src: "/images/gst.jpeg", width: 1600, height: 640 },
   stack: ["Python", "Tkinter", "pandas"],
   repo: "https://github.com/gsraj0301/gst-reconciler",
 };

@@ -1,4 +1,5 @@
 import type { CSSProperties, FC } from "react";
+import Image from "next/image";
 
 type Project = {
   title: string;
@@ -12,6 +13,7 @@ type Project = {
   feature?: boolean;
   story?: string;
   stats?: { value: string; label: string }[];
+  screenshot?: { src: string; width: number; height: number };
 };
 
 const projects: Project[] = [
@@ -23,6 +25,7 @@ const projects: Project[] = [
     href: "https://agni-pride.onrender.com",
     ctaLabel: "Visit site",
     stack: ["Node.js", "Express", "MySQL", "JWT auth", "Cloudinary"],
+    screenshot: { src: "/images/pride.png", width: 1660, height: 907 },
     fill: "var(--card)",
     tilt: "-1.5deg",
     feature: true,
@@ -41,6 +44,7 @@ const projects: Project[] = [
     href: "https://kindled-pythonanywhere.com",
     ctaLabel: "Visit site",
     stack: ["Django", "SQLite", "PythonAnywhere"],
+    screenshot: { src: "/images/kindled.png", width: 1660, height: 907 },
     fill: "var(--blush)",
     tilt: "1.5deg",
     story: "/work/kindled",
@@ -77,6 +81,7 @@ const projects: Project[] = [
     href: "https://github.com/gsraj0301/gst-reconciler",
     ctaLabel: "Get the .exe",
     stack: ["Python", "Tkinter", "Excel reports"],
+    screenshot: { src: "/images/gst.jpeg", width: 1600, height: 640 },
     fill: "var(--marigold)",
     tilt: "-2deg",
     story: "/work/gst-reconciler",
@@ -147,6 +152,16 @@ export const WorkSection: FC = () => {
                     {project.cardLine}
                   </p>
 
+                  {project.screenshot ? (
+                    <Image
+                      src={project.screenshot.src}
+                      alt={project.title}
+                      width={project.screenshot.width}
+                      height={project.screenshot.height}
+                      className="mt-4 rounded-lg shadow-hard"
+                      loading="lazy"
+                    />
+                  ) : null}
                   <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Stack">
                     {project.stack.map((tech) => (
                       <li key={tech} className="chip chip-solid">

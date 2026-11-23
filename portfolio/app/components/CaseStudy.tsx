@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import Image from "next/image";
 
 export type CaseStudyGlance = {
   role: string;
@@ -18,6 +19,7 @@ export type CaseStudyData = {
   features: string[];
   howWent: string;
   stack: string[];
+  screenshot?: { src: string; width: number; height: number };
   repo: string;
   live?: string;
 };
@@ -99,6 +101,17 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
 
           <h2 className="text-h3 mt-10">How it went</h2>
           <p className="mt-2 max-w-[62ch] text-ink-soft">{data.howWent}</p>
+
+          {data.screenshot ? (
+            <Image
+              src={data.screenshot.src}
+              alt={data.title}
+              width={data.screenshot.width}
+              height={data.screenshot.height}
+              className="mt-10 rounded-lg shadow-hard"
+              loading="lazy"
+            />
+          ) : null}
 
           <h2 className="text-h3 mt-12">Stack</h2>
           <ul className="mt-3 flex flex-wrap gap-1.5">

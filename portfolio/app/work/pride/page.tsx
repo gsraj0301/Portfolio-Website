@@ -24,6 +24,7 @@ const prideData: CaseStudyData = {
   ],
   howWent:
     "It ran a whole semester: 231 teams, 2,000 users, 14 competitions and a letter of appreciation from the college. It also broke. The free MySQL database kept dropping connections, Render wiped uploaded posters until Cloudinary took over, and a live scoring bug keyed evaluations to the team instead of the Smart India Hackathon (SIH) statement. I found six dual-SIH teams, told the in-charge honestly, and fixed it so nobody lost a mark. God helped me stay calm there. I also learned to rotate secrets and read every line my tools write. What worked was the boring stuff: clear roles, a short edit window, and telling people the truth when a number was wrong. What I would change is the testing. I tested features, not the messy overlap between two competitions on the same day. The biggest lesson: you don't need to know everything to start. You need someone to trust you, and the will to build, break, fix and repeat. I'm grateful to my faculty mentors for the trust, and to the in-charge who answered every late question.",
+  screenshot: { src: "/images/pride.png", width: 1660, height: 907 },
   stack: [
     "Node.js",
     "Express",
