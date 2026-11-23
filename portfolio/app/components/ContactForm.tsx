@@ -5,6 +5,9 @@ import { supabase, supabaseConfigured } from "@/app/lib/supabase";
 
 type FormState = "idle" | "sending" | "ok" | "error";
 
+const inputClass =
+  "w-full rounded-xl border-2 border-ink bg-card px-4 py-3 text-ink placeholder:text-ink-soft/70";
+
 export function ContactForm() {
   const [state, setState] = useState<FormState>("idle");
   const [name, setName] = useState("");
@@ -42,37 +45,54 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-8 grid grid-cols-1 gap-3 max-w-[46ch]"
+      className="mt-10 grid max-w-[46ch] grid-cols-1 gap-2"
     >
-      <label className="text-tag block text-ink">Name</label>
+      <p className="bricolage text-h3">Or leave a message</p>
+
+      <label htmlFor="contact-name" className="text-tag mt-2 font-semibold">
+        Name
+      </label>
       <input
+        id="contact-name"
+        name="name"
         type="text"
+        autoComplete="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Raj G"
-        className="px-4 py-3 rounded-xl border border-ink/30 text-ink focus:outline-none focus:ring-2 focus:ring-tomato"
+        placeholder="Your name"
+        className={inputClass}
         disabled={isSending}
         required
       />
 
-      <label className="text-tag block text-ink">Email</label>
+      <label htmlFor="contact-email" className="text-tag mt-2 font-semibold">
+        Email
+      </label>
       <input
+        id="contact-email"
+        name="email"
         type="email"
+        autoComplete="email"
+        inputMode="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="you@example.com"
-        className="px-4 py-3 rounded-xl border border-ink/30 text-ink focus:outline-none focus:ring-2 focus:ring-tomato"
+        className={inputClass}
         disabled={isSending}
         required
       />
 
-      <label className="text-tag block text-ink">Message</label>
+      <label htmlFor="contact-message" className="text-tag mt-2 font-semibold">
+        Message
+      </label>
       <textarea
+        id="contact-message"
+        name="message"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Internship, project, or just want to talk games?"
         rows={4}
-        className="px-4 py-3 rounded-xl border border-ink/30 text-ink focus:outline-none focus:ring-2 focus:ring-tomato"
+        className={inputClass}
         disabled={isSending}
         required
       />
@@ -80,21 +100,27 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isSending}
-        className="btn btn-primary min-h-11 text-base"
+        className="btn btn-on-fill mt-3 min-h-11 justify-self-start text-base"
       >
-        {isSending ? "Sending…" : "Send message"}
+        {isSending ? "Sending..." : "Send message"}
       </button>
 
-      {state === "ok" && (
-        <p className="mt-2 text-small text-ink font-semibold">
-          Message sent — I'll get back to you.
+      {state === "ok" ? (
+        <p
+          role="status"
+          className="mt-2 rounded-xl border-2 border-ink bg-card px-4 py-3 text-small font-semibold text-ink"
+        >
+          Message sent. I&rsquo;ll get back to you.
         </p>
-      )}
-      {state === "error" && (
-        <p className="mt-2 text-small text-tomato font-semibold">
+      ) : null}
+      {state === "error" ? (
+        <p
+          role="alert"
+          className="mt-2 rounded-xl border-2 border-ink bg-card px-4 py-3 text-small font-semibold text-ink"
+        >
           Could not send. Email me at gsraj.developer@gmail.com instead.
         </p>
-      )}
+      ) : null}
     </form>
   );
 }

@@ -1,4 +1,5 @@
 import type { CSSProperties, FC } from "react";
+import Image from "next/image";
 
 type Stat = {
   number: string;
@@ -62,12 +63,13 @@ export const Header: FC = () => {
             </a>
           </div>
           <div className="mt-6 flex items-center gap-3">
-            <img
+            <Image
               src="/raj.jpg"
               alt="Raj G"
-              width="400"
-              height="400"
-              className="rounded-full border-2 border-ink"
+              width={64}
+              height={64}
+              priority
+              className="h-16 w-16 rounded-full border-2 border-ink object-cover"
             />
             <span className="hand text-2xl text-ink">Raj G</span>
           </div>

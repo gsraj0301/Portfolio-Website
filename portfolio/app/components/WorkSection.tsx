@@ -158,7 +158,8 @@ export const WorkSection: FC = () => {
                       alt={project.title}
                       width={project.screenshot.width}
                       height={project.screenshot.height}
-                      className="mt-4 rounded-lg shadow-hard"
+                      className="mt-4 h-auto w-full rounded-lg border-2 border-ink"
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       loading="lazy"
                     />
                   ) : null}

@@ -77,7 +77,7 @@ export const GamesSection: FC = () => {
               <li
                 key={game.rank}
                 className={[
-                  "sticker flex items-start gap-5",
+                  "sticker flex items-start gap-3 sm:gap-5",
                   isTop ? "p-6 sm:p-8" : "p-5 sm:p-6",
                 ].join(" ")}
                 style={
@@ -101,12 +101,16 @@ export const GamesSection: FC = () => {
                 <Image
                   src={`/images/${game.image}`}
                   alt={game.title}
-                  width={80}
-                  height={80}
-                  className="rounded-lg flex-shrink-0"
+                  width={96}
+                  height={96}
+                  className={[
+                    "shrink-0 rounded-lg border-2 border-ink object-cover",
+                    isTop
+                      ? "h-16 w-16 sm:h-24 sm:w-24"
+                      : "h-14 w-14 sm:h-20 sm:w-20",
+                  ].join(" ")}
                   loading={isTop ? "eager" : "lazy"}
                   priority={isTop}
-                  style={isTop ? { width: 96, height: 96 } : undefined}
                 />
                 <div className="flex-1">
                   <h3 className={isTop ? "text-h2" : "text-h3"}>

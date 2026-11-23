@@ -42,11 +42,22 @@ export function SiteNav() {
 
   return (
     <>
-      <a href="/" className="lg:hidden block shell pt-5 pb-1 text-lg">
-        <span className="bricolage font-extrabold tracking-tight text-ink">
+      <div className="shell flex items-center justify-between pb-1 pt-4 lg:hidden">
+        <a
+          href="/"
+          className="bricolage text-lg font-extrabold tracking-tight text-ink"
+        >
           Raj G
-        </span>
-      </a>
+        </a>
+        <a
+          href="/raj-g-resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-11 items-center rounded-full border-2 border-ink bg-card px-4 text-[0.9375rem] font-semibold text-ink shadow-[2px_2px_0_var(--ink)]"
+        >
+          Resume
+        </a>
+      </div>
 
       <header className="hidden lg:block sticky top-0 z-40 border-b-2 border-ink bg-paper">
         <nav

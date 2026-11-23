@@ -108,7 +108,8 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
               alt={data.title}
               width={data.screenshot.width}
               height={data.screenshot.height}
-              className="mt-10 rounded-lg shadow-hard"
+              className="mt-10 h-auto w-full rounded-lg border-2 border-ink"
+              sizes="(min-width: 768px) 680px, 100vw"
               loading="lazy"
             />
           ) : null}
