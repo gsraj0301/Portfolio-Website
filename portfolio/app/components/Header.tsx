@@ -61,6 +61,16 @@ export const Header: FC = () => {
               Say hi
             </a>
           </div>
+          <div className="mt-6 flex items-center gap-3">
+            <img
+              src="/raj.jpg"
+              alt="Raj G"
+              width="400"
+              height="400"
+              className="rounded-full border-2 border-ink"
+            />
+            <span className="hand text-2xl text-ink">Raj G</span>
+          </div>
         </div>
 
         <div className="relative mx-auto flex w-full max-w-sm flex-col">

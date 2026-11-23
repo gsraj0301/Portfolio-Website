@@ -15,7 +15,7 @@ const kindledData: CaseStudyData = {
   },
   problem:
     "Every student I know wants to learn more than the syllabus: web dev, ML, UI/UX, even how to talk to people without panicking. But the moment you open YouTube to learn one thing, you get a pile of recommended videos, a gaming clip and a five-minute break that eats your evening. The internet doesn't lack resources. It lacks someone saying, start here, this one is actually good. For Tamil-medium learners it's worse: great tutorials exist, but they're scattered like lost socks.",
-  why: "I'm a student myself, so I felt this one personally. I built the thing I wished existed: videos I watched and picked myself, with a note on why each is worth your time. The notes are drafted with an AI helper and edited by me, so they stay in my voice. No algorithm, no ads, no accounts, no login, no certificates. Just the feeling of, I understood it.",
+  why: "I'm a student myself, so I felt this one personally. I built the thing I wished existed: videos I watched and picked myself, with a note on why each is worth your time. The notes are drafted with an AI helper and edited by me, so they stay in my voice. No algorithm, no ads, no login, no certificates. Just the feeling of, I understood it.",
   features: [
     "Django and SQLite on the backend, plain HTML, CSS and JS on the frontend, hosted on PythonAnywhere. Zero budget, maximum stubbornness.",
     "67+ curated videos across 12 categories, from programming and ML to UI/UX, books and self development, with a heavy Tamil pillar: the full HTML, CSS, JS, Node, Express and React series, in order.",

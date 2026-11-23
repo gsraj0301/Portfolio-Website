@@ -49,7 +49,7 @@ It ran a whole semester: 231 teams, 2,000 users, 14 competitions and a letter of
 Every student I know wants to learn more than the syllabus: web dev, ML, UI/UX, even how to talk to people without panicking. But the moment you open YouTube to learn one thing, you get a pile of recommended videos, a gaming clip and a five-minute break that eats your evening. The internet doesn't lack resources. It lacks someone saying, start here, this one is actually good. For Tamil-medium learners it's worse: great tutorials exist, but they're scattered like lost socks.
 
 **Why I built it**
-I'm a student myself, so I felt this one personally. I built the thing I wished existed: videos I watched and picked myself, with a note on why each is worth your time. The notes are drafted with an AI helper and edited by me, so they stay in my voice. No algorithm, no ads, no accounts, no login, no certificates. Just the feeling of, I understood it.
+I'm a student myself, so I felt this one personally. I built the thing I wished existed: videos I watched and picked myself, with a note on why each is worth your time. The notes are drafted with an AI helper and edited by me, so they stay in my voice. No algorithm, no ads, no login, no certificates. Just the feeling of, I understood it.
 
 **What it does**
 - Django and SQLite on the backend, plain HTML, CSS and JS on the frontend, hosted on PythonAnywhere. Zero budget, maximum stubbornness.
@@ -119,12 +119,12 @@ I was in that office almost every day, so I wasn't guessing at the problem. I wa
 
 **What it does**
 - A fully offline Android app: no server, no cloud, no login. The worker logs expenses as they happen into a local SQLite database.
-- Every morning the worker taps once and sends my father yesterday's itemized spending on WhatsApp, powered by WorkManager and share_plus.
+- Every morning the worker sends my father yesterday's itemized spending on WhatsApp in two taps, powered by WorkManager and share_plus.
 - Month-end close locks the period and rolls over to the next month automatically, so the calculator can retire.
 - Custom categories for tea, water, biscuits, snacks, transport and petrol, built with Python and Flet on Flutter, with the APK shipped through GitHub Actions.
 
 **How it went (broke)**
-Built in under four days, then used for real: the worker ran it for a three-day trial on July 2, 3 and 4, with real expenses and real consequences. Then things broke, which was the fun part.
+Built in under four days, then used for real on July 2, 3 and 4 — and it's still in daily use at my father's office. Real expenses, real business, real consequences. Then things broke, which was the fun part.
 
 The WhatsApp button did nothing on the phone. I had forgotten to await an async launch_url() call, so the coroutine quietly never ran. The bug wasn't loud. It was polite, which is the worst kind. SQLite also got lost on Android: desktop paths and phone paths are not friends, and the database had no idea where to live until it landed in the right app directory. The boss fight was WorkManager and share_plus, two Flutter plugins that Flet doesn't hand you on a plate, so I built a custom Flutter template and tried things until the red text turned green.
 
@@ -149,7 +149,7 @@ I was sitting right next to the problem. My dad told me how long the reconciliat
 **How it went (broke)**
 First run: nothing worked. No buttons, nothing. Just a window that looked at me like I'd made a mistake. Then it worked, and it was wrong. The first successful run was full of mismatches that weren't real, because the GSTIN, party name or invoice number would differ by one or two characters between the files. To a human, obviously the same invoice. To a computer, strangers. And you can't hand an accountant mostly right.
 
-The fix was fuzzy matching with manners: near-identical text counts as a match, and fields get a priority order, GSTIN first, then invoice number, then party name, because names are the messiest. Then my dad tried it. It worked, and he started using it. What took most of a day now takes minutes. I promised one minute and delivered a few, but I'll take that against a full day. Thank you, Dad, for trusting me with real business work even after saying no way, and for being the best first tester a developer could ask for.
+The fix was fuzzy matching with manners: near-identical text counts as a match, and fields get a priority order, GSTIN first, then invoice number, then party name, because names are the messiest. Then my dad tried it. It worked, and he started using it. What took most of a day now takes minutes. I promised one minute and delivered two minutes at most, but I'll take that against a full day. Thank you, Dad, for trusting me with real business work even after saying no way, and for being the best first tester a developer could ask for.
 
 Repo: github.com/gsraj0301/gst-reconciler
 *This file lives alongside CONTENT.md and DESIGN.md. All copy must respect the markers `[]` (Raj must supply) and `[CHECK]` (Raj must confirm). When a field says `[REPLACE]`, stop and ask for it instead of filling it in.*
