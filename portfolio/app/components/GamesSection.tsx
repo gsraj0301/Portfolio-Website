@@ -1,4 +1,5 @@
 import type { CSSProperties, FC } from "react";
+import Image from "next/image";
 
 const consoles = ["SNES", "GBA", "PlayStation", "PS2", "NDS", "3DS", "PS3", "PC"];
 
@@ -6,26 +7,31 @@ const games = [
   {
     rank: 5,
     title: "Growlanser series (PS2)",
+    image: "growlanser.png",
     line: "Combat that never gets boring, choices that actually matter, multiple endings, and a story that's crazy good. This is why I still love JRPGs.",  
   },
   {
     rank: 4,
     title: "Mass Effect trilogy",
+    image: "Mass_Effect.png",
     line: "Three games with a great story, characters you really grow with, and combat that stays fun.",
   },
   {
     rank: 3,
     title: "Dragon Age: Origins",
+    image: "dragon_age_origins.png",
     line: "Fantasy is my favourite genre, and this one nails it: a story that pulls you in and combat that never gets boring.",
   },
   {
     rank: 2,
     title: "Sleeping Dogs",
+    image: "sleeping_dogs.png",
     line: "Crazy martial-arts fights in an open-world Hong Kong. What else do you need?",
   },
   {
     rank: 1,
     title: "Telltale games",
+    image: "telltale.png",
     line: "I love games that tell a story, and Telltale tells them best. Come back, please.",
   },
 ];
@@ -92,7 +98,17 @@ export const GamesSection: FC = () => {
                 >
                   {game.rank}
                 </span>
-                <div>
+                <Image
+                  src={`/images/${game.image}`}
+                  alt={game.title}
+                  width={80}
+                  height={80}
+                  className="rounded-lg flex-shrink-0"
+                  loading="lazy"
+                  priority={isTop}
+                  style={isTop ? { width: 96, height: 96 } : undefined}
+                />
+                <div className="flex-1">
                   <h3 className={isTop ? "text-h2" : "text-h3"}>
                     {game.title}
                   </h3>
