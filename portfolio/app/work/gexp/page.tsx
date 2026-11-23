@@ -9,7 +9,7 @@ const gexpData: CaseStudyData = {
   glance: {
     role: "Solo Android build",
     stack: "Python, Flet, SQLite",
-    status: "Three-day live trial, July",
+    status: "Three-day live trial, July and currently in use at my father's business",
     linkLabel: "GitHub repo",
     linkHref: "https://github.com/gsraj0301/GPexp",
   },

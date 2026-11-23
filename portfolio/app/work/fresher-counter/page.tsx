@@ -26,7 +26,7 @@ const fresherData: CaseStudyData = {
     "I built it, demoed it to my class in-charge, took his input, changed the site and deployed it. Then came a sudden request: the principal needed a page to see the count too. I added a read-only overview and coordinated it with the first-year HOD. The real bug was the login. I had forgotten to await Next.js's async cookies() call, so every login bounced back to the login page. I got unblocked by reading the raw Cookie header, then fixed the await properly. On the day, I waited for news, and in the evening my class in-charge told me the site was very helpful. I'm grateful for the chance to build to faculty requirements and actually be useful.",
   stack: ["Next.js", "Supabase", "Vercel", "JWT auth", "bcrypt"],
   repo: "https://github.com/gsraj0301/fresher-day-registrations",
-  live: "https://fresher-day-registrations.vercel.app",
+  live: "https://fresher-day-registrations.vercel.app/",
 };
 
 export default function FresherCounterPage() {
