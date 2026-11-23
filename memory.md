@@ -4,8 +4,8 @@ Built this portfolio while reflecting on the projects that shaped my first
 two years as a full‑stack builder.
 
 - **PRIDE** – the first real full‑stack experience. Node.js, Express, MySQL,
-  JWT, Cloudinary, Backblaze B2. Learnt that free hosting has opinions, that
-  `.env` committed to GitHub is a rookie mistake, and that 2,000+ students
+  JWT, Cloudinary, Backblaze B2. Learnt that free hosting has opinions, to
+  rotate secrets and read every line my tools write, and that 2,000+ students
   can keep a portal alive for a whole semester. God helped me stay calm when
   the scoring bug went live, and the principal’s letter of appreciation made
   every bug worth it.
@@ -14,24 +14,25 @@ two years as a full‑stack builder.
   Django + SQLite + PythonAnywhere, the ModuleNotFoundError that wasn’t, the
   traffic numbers that lied, and the honest 27 real users who actually stuck
   around. Learnt that building a product and building a habit are two different
-  projects. God helped me through every deployment and every error message.
+  projects.
 
-- **Fresher’s counter** – the “WhatsApp is chaotic” project. Next.js 16 +
-  Tailwind v4 + TypeScript + Supabase + Vercel. JWT + bcrypt for auth, live
+- **Fresher’s counter** – the “WhatsApp is chaotic” project. Next.js +
+  Tailwind + TypeScript + Supabase + Vercel. JWT + bcrypt for auth, live
   totals for faculty, one class‑incharge’s grateful note. Learnt that
   real‑world usage numbers are more useful than vanity metrics.
 
 - **Gexp** – the “father’s expense tracker” project. Python + Flet + SQLite +
-  WorkManager + GitHub Actions. Daily expenses, month close, WhatsApp summary,
-  custom categories (Tea, Water, Biscuit, Snack, Transport, Cartoon, Petrol).
-  Learnt that the smallest useful version shipped this week beats a perfect
-  one next month.
+  WorkManager + GitHub Actions. Daily expenses, month close, WhatsApp summary
+  in two taps, custom categories (tea, water, biscuits, snacks, transport,
+  petrol). Still in daily use at my father's business. Learnt that the smallest
+  useful version shipped this week beats a perfect one next month.
 
 - **GST Reconciler** – the “Tally vs GSTR‑2B” project. Python + Tkinter +
   Pandas + openpyxl. Drag‑and‑drop Excel files, flag mismatches, colour‑coded
-  report, preserve originals. 7 real client workbooks, 46.65% match rate,
-  accountants who actually use it. Learnt that matching by GSTIN + invoice
-  number + party name, tolerating ≤ ₹10 value differences, is the sweet spot.
+  report, preserve originals. My dad does accounting for several firms; each
+  reconciliation ate most of a day and now takes two minutes at most. Learnt
+  that matching by GSTIN + invoice number + party name, tolerating ≤ ₹10 value
+  differences, is the sweet spot.
 
 - **Fake Job Posting Detector** – the “ML for good” project. TF‑IDF +
   Logistic Regression, 90% fake recall, ROC‑AUC 0.989, 17,880 Kaggle
@@ -44,7 +45,7 @@ two years as a full‑stack builder.
   (“Built and shipped with” / “Used or familiar with”), drop anything you
   can’t demo in an interview.
 
-Grateful for God, for Dr. Purushothaman, for my class in‑charge and HOD,
-for Balaji A, and for every bug that taught me something. The biggest lesson:
+Grateful for God, for my faculty mentors, for my class in‑charge and HOD,
+and for every bug that taught me something. The biggest lesson:
 you don't need to know everything to start. You need someone to trust you,
 and the willingness to build, break, fix, and repeat.

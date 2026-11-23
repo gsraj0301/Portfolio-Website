@@ -1,5 +1,7 @@
 # DESIGN.md: Raj G portfolio, "sticker board" style
 
+> Last updated: 2026-11-23 (matches the shipped site)
+
 Read this before writing any UI. It defines how the site looks and moves.
 Copy lives in `CONTENT.md`. Behaviour and pages live in `SPEC.md`. If this file
 conflicts with either, this file wins on visuals and those files win on content
@@ -38,7 +40,8 @@ Do not do any of these. If a component seems to need one, redesign the component
 - No fade-up-on-scroll on every section. No hover transition on everything.
 - No stock illustrations, stock photos, or emoji.
 - No lorem ipsum. If copy is missing, stop and ask for it.
-- No game box art, console logos, or other copyrighted artwork. Use text only.
+- No console logos or third-party artwork. Exception (Raj's explicit call):
+  game box-art thumbnails he supplies are allowed in the Games section only.
 - No skill bars, percentages, star ratings, or technology logos in the skills
   section.
 
@@ -212,8 +215,8 @@ Real facts only (see `CONTENT.md`). Fills rotate through marigold, card, mint.
   `--shadow-hard-lg`. No colour change.
 
 ### Nav
-- Desktop (1024+): top bar. Logo "raj g." in Display 800 (links to the top of
-  the home page), then pill links: work, skills, games, words, resume. "Say hi"
+- Desktop (1024+): sticky top bar. Logo "Raj G" in Display 800 (links to the
+  top of the home page), then pill links: Work, Skills, Games, Words, Resume. "Say hi"
   is the tomato pill and jumps to contact. "Resume" opens the PDF in a new tab.
   The pill for the section currently in view gets marigold fill (scroll-spy
   state change, not an animation).
@@ -222,9 +225,8 @@ Real facts only (see `CONTENT.md`). Fills rotate through marigold, card, mint.
   Skills, Games, Contact. Icons from the single icon set: briefcase, wrench,
   gamepad, mail. The current section's item gets a marigold circle behind its
   icon. Respect `env(safe-area-inset-bottom)`. Each target at least 44x44px.
-- Mobile also shows the small "raj g." logo at the top-left of the page (not
-  sticky). It scrolls to the top. The resume link on mobile lives in the
-  contact section.
+- Mobile also shows a non-sticky top bar: "Raj G" logo at the left (links to
+  the top) and a Resume pill at the right (opens the PDF in a new tab).
 - On case-study pages the nav is replaced by a "Back to work" pill at the top
   and bottom. The mobile bottom pill is not shown there.
 - Include a visible "skip to content" link as the first focusable element.
@@ -233,10 +235,9 @@ Real facts only (see `CONTENT.md`). Fills rotate through marigold, card, mint.
 Anatomy: tag chip (type of project), title (H3), one-line problem, optional
 screenshot, one CTA. Sizes:
 
-- Feature (PRIDE portal): spans 2 columns on desktop, shows screenshot.
-- Standard (Kindled, Fresher's counter, Gexp, GST Reconciler): 1 column.
-- Small (Also built: Fake Job Posting Detector, Hand Gesture system): compact,
-  no screenshot, title and one line.
+- Feature (PRIDE portal): spans 2 columns on desktop, shows screenshot + stats.
+- Standard (Kindled, Fresher's counter, Gexp, GST Reconciler, Fake Job Posting
+  Detector): 1 column. Screenshot above the stack chips where provided.
 
 Fills vary: card, blush, mint, marigold (feature uses card). The CTA verb
 matches the project type: "Visit site", "Get the APK", "Get the .exe",
@@ -244,7 +245,7 @@ matches the project type: "Visit site", "Get the APK", "Get the .exe",
 
 ### Tag chip
 Pill, `--line`, `--shadow-hard-sm`, 14px Body 500, lower-case text such as
-"college", "family business", "for learners", "tool for an accountant".
+"college", "family business", "for learners", "for accountants".
 
 ### Skills section: capability stickers
 The skills section answers "what can this person build?" Each sticker is one
@@ -297,9 +298,10 @@ Reconciler screenshots) must be blurred or replaced with fake data before use.
 For apps with no live link, show a short looping screen recording
 (muted, `playsinline`, poster frame, under 2MB) in the same frame.
 
-### Die-cut photo
-Raj's photo with a thick white outline (8px) and an ink outer line, as a
-sticker on the About block. One photo only.
+### Photo avatar
+Raj's photo as a 64px circle with a 2px ink outline in the hero, handwritten
+"Raj G" beside it. One photo only. Source compressed to 400x400 (~30KB) and
+served through `next/image`.
 
 ### Doodles
 A small set of hand-drawn SVG marks: arrow, star, squiggle, circle. Ink stroke,
@@ -311,15 +313,16 @@ Functional only (nav, external link, download). One outline icon set, 24px,
 2px stroke, ink colour.
 
 ### Games section (marigold band)
-- Timeline strip of consoles as text chips from SNES to PS3, with a short
-  branch for Dreamcast and Sega. Text only, no logos.
-- "About 1000 games" count-up on first view, with final value shown instantly
-  under reduced motion.
-- Top 5 as stickers, ranked 5 down to 1 with large Display numerals. The number 1
+- Console strip as text chips from SNES to PS3 & PC. Text only, no logos.
+- Static "About 1,000" figure in Display, caption "games I play, SNES to PS3 &
+  PC". Deliberately not a count-up: an animated exact number would misrepresent
+  an estimate.
+- Top 5 as stickers, ranked 5 down to 1 with large Display numerals and a small
+  box-art thumbnail (Raj-supplied images, ink outline, rounded). The number 1
   sticker is the largest and uses card fill with a tomato numeral. One short
   line per game from `CONTENT.md`.
-- Optional: Raj's own photo of his shelf in a screenshot frame.
-- Mobile: timeline scrolls horizontally with scroll-snap; top 5 stack.
+- Mobile: console strip scrolls horizontally with scroll-snap; top 5 stack;
+  thumbnails shrink (56px) so the text keeps room.
 
 ### Words section (novels)
 Two book-shaped stickers built in CSS: tall rectangle, a thicker spine edge on
@@ -327,16 +330,19 @@ the left, title in Display 800, an "in progress" chip. No invented cover art.
 Hook paragraph below each, 62ch max.
 
 ### Contact (tomato band)
-Large email address in Display 800 as a mailto link, then LinkedIn and GitHub
-as secondary buttons. No phone number on the site. Footer sign-off in
-Handwritten, centred.
+Large email address in Display 800 as a mailto link, then LinkedIn, GitHub and
+Download resume as card-fill buttons. Below them, the Supabase contact form:
+card-fill inputs with 2px ink outlines, card-fill submit button (never
+tomato-on-tomato), success/error messages as card pills with ink text. No phone
+number on the site. Footer sign-off in Handwritten, centred.
 
 ### Case-study page
 Single column, 62ch reading width, no tilt on body content. Order: title and
-tag, the problem in one sentence, why Raj built it, what it does, how it went
-(real usage, what broke), stack as solid tech chips (with a link to `#skills`
-on the home page), links. Screenshots in frames between sections. "Back to
-work" link at the top and bottom.
+tag, intro, at-a-glance strip (role / stack / status / link as a dashed-border
+metadata row, not a fifth beat), the problem in one sentence, why Raj built it,
+what it does, how it went (real usage, what broke), screenshot above the stack,
+stack as solid tech chips (with a link to `/#skills` on the home page), links.
+"Back to work" link at the top and bottom.
 
 ## 8. Motion
 
@@ -344,19 +350,18 @@ Principle: one orchestrated moment, plus motion that responds to a person's
 action. Nothing else moves.
 
 1. Hero slap (page load, once): the hero stickers scale from 1.25 to 1 and
-   settle into their tilt, staggered 90ms, 450ms each, ease-out with a small
-   overshoot. Total under 1.1s. Headline and buttons are visible immediately
-   and do not animate.
-2. Press and hover on buttons and project stickers as described above.
+   settle into their tilt, staggered 0/90/180ms, 450ms each, ease-out. CSS
+   keyframes only, no animation library. Headline and buttons are visible
+   immediately and do not animate.
+2. Press and hover on buttons and project chips as described above.
    Duration 120ms.
-3. Sticker wiggle on hover (pointer devices only): rotate +/-2 degrees once,
-   200ms. Only on stat stickers and project stickers.
-4. Games count-up: one time, 900ms.
-5. Optional easter egg (last build phase): typing the Konami code makes the
-   cursor a pixel arrow and drops a handful of pixel-art stickers once.
+3. Smooth anchor scroll for nav jumps (auto under reduced motion).
 
-Under `prefers-reduced-motion: reduce`: no slap, no wiggle, no count-up, no
-easter egg animation. Everything renders in its final state.
+Dropped from the shipped build: games count-up (static "About 1,000" instead),
+sticker wiggle, Konami easter egg.
+
+Under `prefers-reduced-motion: reduce`: no slap, no smooth scroll, no
+transitions. Everything renders in its final state.
 
 Never animate layout properties. Animate `transform` and `opacity` only.
 
@@ -387,14 +392,15 @@ Never animate layout properties. Animate `transform` and `opacity` only.
 - Targets on a mid-range Android phone over 4G: LCP under 2.5s, CLS under 0.1,
   Lighthouse performance 90+, accessibility 100.
 
-## 11. Assets Raj must provide
+## 11. Assets (status)
 
-- One photo of himself (clear, good light).
-- Screenshots or short screen recordings for: PRIDE portal, Kindled, Fresher's
-  counter, Gexp, GST Reconciler. Blur or fake all private data.
-- A photo of the game shelf (optional).
-- 3 to 5 hand-drawn doodles or sketches to trace (arrow, star, squiggle).
-- Resume PDF.
+- Photo: done (`images/raj.jpg`, compressed copy in `portfolio/public/raj.jpg`).
+- Screenshots: done for PRIDE, Kindled, GST Reconciler (fake data only for GST).
+  Pending: Fresher's counter, Gexp (blur or fake all private data).
+- Game box art: done (five thumbnails in `portfolio/public/images/`).
+- Resume PDF: done (`portfolio/public/raj-g-resume.pdf`).
+- Hand-drawn doodles: not provided; none rendered (the handwritten notes carry
+  the hand-made feel instead).
 
 ## 12. Definition of done for visuals
 

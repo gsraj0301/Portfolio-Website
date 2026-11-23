@@ -1,107 +1,164 @@
 # ARCHITECTURE.md: Raj G portfolio, technical overview
 
-This file gives a high‑level overview of the portfolio website's architecture,
-data model and deployment. It is intended to live alongside CONTENT.md and
-DESIGN.md.
+> Last updated: 2026-11-23
 
-## 1. Tech stack
+High-level overview of the portfolio's architecture, data model and deployment.
+Lives alongside CONTENT.md (copy), DESIGN.md (visuals), SPEC.md (behaviour) and
+CASE_STUDY.md (case-study source copy).
 
-- **Framework:** Next.js 16 (App Router) with TypeScript.
-- **Styling:** Tailwind CSS v4, tokens exposed via `@theme` as CSS variables
-  matching DESIGN.md (`--paper`, `--card`, `--ink`, `--marigold`, `--mint`,
-  `--blush`, `--ink-soft`). `color-scheme: light` only.
-- **Fonts:** `next/font` for Bricolage Grotesque (Display), Figtree (Body),
-  Caveat (Handwritten). Subset to Latin. `font-display: swap`.
-- **Motion:** `motion` (the successor to Framer Motion) for the hero slap and the
-  games count‑up; CSS for hover/press effects. Reduced‑motion support disables
-  all animations via `prefers-reduced-motion: reduce`.
-- **MDX:** metadata in `src/data/projects.ts`, narrative in
-  `src/content/work/*.mdx` via `next-mdx-remote/rsc` + `gray-matter`. Front‑matter
-  supplies title, tag, stack, live/repo links. Body contains the four‑beat case
-  study (Problem / Why / What / Broke).
-- **Icons:** `lucide-react`, one outline icon set, 24px, 2px stroke, ink colour.
-- **Images:** `next/image` with WebP format, explicit width/height, lazy‑load
-  below the fold, `srcset` for screenshots.
-- **Analytics:** `@vercel/analytics` embedded in the layout.
-- **No database / no backend** on the portfolio itself. Case‑study data is
-  pre‑generated at build time (`generateStaticParams`). Contact is a
-  `mailto:` link. Resume is a static PDF in `public/`.
+## 1. Tech stack (as shipped)
+
+- **Framework:** Next.js **14.2.15** (App Router) with TypeScript, React **18**.
+  Pinned by the environment: the dev machine runs **Node 18.19.1**, which rules
+  out Next 15/16 and Tailwind v4 (`@tailwindcss/oxide` needs Node 20+).
+- **Styling:** Tailwind CSS **v3.4.17** + PostCSS + Autoprefixer. Design tokens
+  from DESIGN.md live in `app/globals.css` (`:root` CSS variables) and
+  `tailwind.config.js` (colors, shadows, fonts). `color-scheme: light` only.
+- **Fonts:** `@fontsource` packages (Bricolage Grotesque, Figtree, Caveat),
+  imported as CSS in `app/layout.tsx`; woff2 emitted at build. (`next/font`
+  does not resolve these families on Next 14.)
+- **Motion:** plain CSS only — hero "slap" keyframes, button hover/press,
+  smooth anchor scroll. No animation library. Everything disabled under
+  `prefers-reduced-motion: reduce`. The games figure is static text
+  ("About 1,000"), not a count-up.
+- **Icons:** `lucide-react`, outline set, 2px stroke (nav + external-link).
+- **Images:** `next/image` with explicit width/height, `sizes`, lazy loading
+  below the fold; sources in `portfolio/public/` and `portfolio/public/images/`.
+- **Contact form:** `@supabase/supabase-js` v2, browser client, anon insert
+  into a `contacts` table (see §5). No other backend; no database for content.
+- **Content:** typed data inline in components/pages (no MDX, no CMS).
+  `CONTENT.md` and `CASE_STUDY.md` are the copy references; the live code is
+  the source of truth.
 
 ## 2. Data model
 
-### 2.1 `src/data/projects.ts` (typed cards)
+### 2.1 Work cards — `app/components/WorkSection.tsx`
 
 ```ts
-export type Project = {
-  slug:          'pride' | 'kindled' | 'fresher-counter' | 'gexp' | 'gst-reconciler';
-  title:         string;
-  tag:           'college' | 'for learners' | 'college' | 'family business' | 'tool for an accountant';
-  size:          'feature' | 'standard' | 'small';
-  cardLine:      string;        // one‑line sticker copy
-  cta:           { label: string; href: string; external?: boolean };
-  image?: { src: string; alt: string }; // WebP, optional screenshot
-  stack:         string[];      // tech chips for the "Seen in" row
-  repo?: string;               // GitHub repo URL
-  live?: string;               // live demo URL (may be null)
+type Project = {
+  title: string;
+  tag: string;            // "college" | "for learners" | "family business" | "for accountants" | ""
+  cardLine: string;
+  href: string;           // CTA target (live site or repo)
+  ctaLabel: string;       // "Visit site" | "Get the APK" | "Get the .exe" | "Read the story"
+  stack: string[];
+  fill: string;           // CSS var
+  tilt: string;
+  feature?: boolean;      // PRIDE spans 2 columns, shows stats
+  story?: string;         // internal case-study route
+  stats?: { value: string; label: string }[];
+  screenshot?: { src: string; width: number; height: number };
 };
 ```
 
-### 2.2 `src/content/work/*.mdx` (case‑study narrative)
+Six cards: PRIDE (feature), Kindled, Fresher's counter, Gexp, GST Reconciler,
+Fake Job Posting Detector (repo-only, no case-study page).
 
-Front‑matter fields (all optional, but at least one should be filled):
+### 2.2 Case studies — `app/components/CaseStudy.tsx`
 
-| Field | Purpose |
-|---|---|
-| `title` | Shown as H3 on the case‑study page. |
-| `tag` | Tag chip type (maps to PROJECT_TAGS in CONTENT.md). |
-| `stack` | Array of tech names; displayed as solid chips on the page and linked to `#skills` on the home page. |
-| `live` | Live demo URL; if present, shown as "Visit site" CTA. |
-| `repo` | GitHub repo URL; shown as "Read the story" or "Get the APK" etc. |
-| `problem` | One‑sentence problem statement. |
-| `why` | 2‑3 sentence "Why I built it" paragraph. |
-| `what` | 3‑4 bullet points of what the project does. |
-| `broke` | Honest "what broke / what I'd change" paragraph. |
+```ts
+type CaseStudyData = {
+  title: string; tag: string; intro: string;
+  glance: { role; stack; status; linkLabel; linkHref };  // metadata strip, not a beat
+  problem: string; why: string; features: string[]; howWent: string;
+  stack: string[];
+  screenshot?: { src; width; height };   // rendered above the Stack section
+  repo: string; live?: string;
+};
+```
 
-The MDX body renders the four‑beat structure; any `[CHECK]` or `[REPLACE]` markers are
-kept as‑is and flagged for Raj before launch.
+Each route is a thin `page.tsx` holding one `CaseStudyData` object:
+`app/work/{pride,kindled,fresher-counter,gexp,gst-reconciler}/page.tsx`.
+Copy rules: no emoji, no em dashes, "God helped me" at most once per study
+(PRIDE and Gexp only), no unconfirmed `[CHECK]`/`[REPLACE]` markers.
 
 ## 3. Build pipeline
 
-1. **Scaffold** – `create-next-app` (or manual) with Tailwind v4 config,
-   `next/font` for the three families, `motion` installed.
-2. **Content** – Populate `src/data/projects.ts` with the five project cards.
-3. **MDX files** – Write `src/content/work/*.mdx` for each case study, filling
-   the front‑matter fields from the project READMEs. Keep `[CHECK]` markers
-   where a number needs verification.
-4. **Static generation** – `generateStaticParams` in `app/work/[slug]/page.tsx`
-   generates a static page for each of the five slugs (`pride`, `kindled`,
-   `fresher-counter`, `gexp`, `gst-reconciler`). No client‑side routing needed.
-5. **Motion** – Import `motion` components for the hero slap and count‑up; all
-   other hover/press effects are plain CSS (lighter, automatic reduced‑motion).
-6. **SEO** – `next/metadata` or `metadata` export per page, JSON‑LD Person+
-   WebSite schema, sitemap (`sitemap.ts`), robots (`robots.ts`).
-7. **Deploy** – Vercel. `@vercel/analytics` enabled. Custom domain optional.
+1. `npm run build` = `next build && node scripts/check-markers.mjs`.
+2. **Marker guard:** `scripts/check-markers.mjs` scans `.next/server/app` and
+   `.next/static` text output and **fails the build** if `[CHECK` or
+   `[REPLACE` appears anywhere. Unconfirmed copy can never ship.
+3. All pages are statically prerendered (no dynamic routes, no server actions).
+4. **Dist-dir split:** `next.config.js` sets `distDir` to `.next-dev` under
+   `next dev` and `.next` for build/start, so a running dev server can never
+   corrupt a production build (this previously caused
+   `Cannot find module './379.js'` crashes). Both are gitignored.
 
-## 4. Page‑level behaviour
+## 4. Page-level behaviour
 
-- **Home page** – Hero sticker cluster "slaps" on first load ( Motion ), then
-  settles. Scroll‑spy highlights the current nav pill. All sections are
-  vertically padded: 72px on mobile, 112px on desktop. Section divider is a
-  dashed 2px ink line between paper sections.
-- **Case‑study pages** – "Back to work" link at top and bottom always visible.
-  Stack chips under the narrative link to `#skills` on the home page.
-- **404** – Static `not-found.tsx`, no redirection.
+- **Home:** hero sticker cluster slaps in once (CSS, staggered 0/90/180ms);
+  IntersectionObserver scroll-spy drives nav active states; dashed perforation
+  dividers between paper sections; colour bands (blush/marigold/tomato) need none.
+- **Nav:** desktop sticky top bar (Work/Skills/Games/Words/Resume/Say hi);
+  mobile top bar with logo + Resume pill, plus fixed bottom pill
+  (Work/Skills/Games/Contact) with safe-area inset.
+- **Anchors:** `scroll-margin-top` 24px mobile / 88px desktop; smooth scroll
+  (auto under reduced motion).
+- **Case studies:** "Back to work" top and bottom; at-a-glance metadata strip;
+  stack chips link to `/#skills`.
+- **404:** styled static `not-found.tsx`.
 
-## 5. Assets Raj must provide (summarised from DESIGN.md §11)
+## 5. Contact form (Supabase)
 
-- One photo of himself.
-- Screenshots or short screen recordings for PRIDE, Kindled, Fresher's counter,
-  Gexp, GST Reconciler (blur or fake all private data).
-- 1200×630 social‑preview image.
-- 3‑5 hand‑drawn doodles or sketches (arrow, star, squiggle).
-- Updated resume PDF (general full‑stack, not the DataAnalyst one).
+- Client: `app/lib/supabase.ts` reads `NEXT_PUBLIC_SUPABASE_URL` and
+  `NEXT_PUBLIC_SUPABASE_ANON_KEY` (publishable key — safe for the browser).
+- Form: `app/components/ContactForm.tsx` inserts `{name, email, message}` into
+  `public.contacts`; success/error render as readable card pills; mailto is
+  the fallback.
+- Required SQL (run once in the Supabase SQL editor):
 
----
-*This file lives alongside CONTENT.md and SPEC.md. It summarises the technical
-choices and the data model used by the site. For visual rules, see DESIGN.md.
-For content rules, see CONTENT.md.*
+```sql
+create table contacts (
+  id bigint generated by default as identity primary key,
+  name text not null,
+  email text not null,
+  message text not null,
+  created_at timestamptz default now()
+);
+alter table contacts enable row level security;
+create policy "anon can insert contacts"
+  on contacts for insert to anon with check (true);
+grant insert on public.contacts to anon;   -- new projects do not auto-grant
+```
+
+- Env vars live in `portfolio/.env` locally (gitignored) and in the Vercel
+  project settings for production. Never commit keys; never use a
+  `service_role` key in the frontend.
+
+## 6. Deployment
+
+- Vercel, repo `https://github.com/gsraj0301/Portfolio-Website` (branch
+  `master`). Set the two `NEXT_PUBLIC_SUPABASE_*` env vars in the dashboard.
+- Resume is a static PDF at `portfolio/public/raj-g-resume.pdf`.
+
+## 7. Directory structure
+
+```
+Portfolio Website/
+├── ARCHITECTURE.md / SPEC.md / DESIGN.md / CONTENT.md / CASE_STUDY.md / memory.md
+├── images/                  # Raj's original assets (photo, screenshots, box art)
+├── public/                  # repo-root copy of the resume
+└── portfolio/               # the Next.js app (run all commands here)
+    ├── app/
+    │   ├── layout.tsx       # metadata + @fontsource imports
+    │   ├── page.tsx         # home composition
+    │   ├── globals.css      # design system layer
+    │   ├── not-found.tsx
+    │   ├── lib/supabase.ts
+    │   ├── components/      # SiteNav, Header, WorkSection, SkillsSection,
+    │   │                    # HowIBuildSection, GamesSection, WordsSection,
+    │   │                    # ContactSection, ContactForm, CaseStudy
+    │   └── work/*/page.tsx  # five case studies
+    ├── public/              # served assets (raj.jpg, images/, resume PDF)
+    ├── scripts/check-markers.mjs
+    ├── tailwind.config.js / postcss.config.js / next.config.js
+    └── .env                 # gitignored
+```
+
+## 8. Open items
+
+- Novel hooks (Words section) still placeholders; quote strip not rendered
+  until real quotes + permission are provided.
+- Screenshots pending for Fresher's counter and Gexp; APK/.exe release links
+  pending (CTAs point at repos meanwhile).
+- Supabase `grant insert` must be run before the form accepts submissions.

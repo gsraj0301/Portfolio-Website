@@ -1,6 +1,11 @@
 # CASE_STUDY.md: Raj G portfolio case studies
 
-All case studies follow the same four‑beat structure. Copy the template, fill the fields from your project READMEs, and keep the `[CHECK]` markers where a number or decision needs Raj's confirmation before launch.
+> Last updated: 2026-11-23. All five studies below are live at
+> `portfolio/app/work/{pride,kindled,fresher-counter,gexp,gst-reconciler}/page.tsx`
+> and match this copy. Each page also carries an at-a-glance metadata strip
+> (role, stack, status, link).
+
+All case studies follow the same four‑beat structure. Copy the template, fill the fields from your project READMEs, and keep `[CHECK]` markers only in this file while a number or decision awaits Raj's confirmation. The build fails if any marker reaches the output (`scripts/check-markers.mjs`).
 
 ---
 
@@ -81,7 +86,7 @@ Next up: the new first-years, more Tamil content, and being there at the exact m
 11. **No technology logos** – Text chips only. Logos are trademarks and add clutter.
 12. **Graphic limits** – Max 5 hand‑drawn doodles or sketches on the whole page. Decorative doodles are `aria-hidden`.
 13. **Case‑study page flow** – An at‑a‑glance strip (role, stack, status, link) as metadata, not a fifth beat, then title and tag, problem in one sentence, why built, what it does, how it went (real usage), stack as solid tech chips (with a link to `#skills` on the home page), links. Screenshots in frames between sections. "Back to work" link at top and bottom.
-12. **Motion** – Principle: one orchestrated moment, plus motion that responds to a person's action. Nothing else moves. Hero slap (page load, once), press and hover on buttons and project stickers, sticker wiggle on hover (pointer devices only), games count‑up. Under `prefers‑reduced‑motion: reduce` no slap, no wiggle, no count‑up, no easter‑egg animation. Everything renders in its final state. Never animate layout properties; animate `transform` and `opacity` only.
+12. **Motion** – Principle: one orchestrated moment, plus motion that responds to a person's action. Nothing else moves. Hero slap (page load, once), press and hover on buttons and project chips, smooth anchor scroll. The games figure is static "About 1,000" (no count‑up). Under `prefers‑reduced‑motion: reduce` no slap, no smooth scroll, no transitions. Everything renders in its final state. Never animate layout properties; animate `transform` and `opacity` only.
 14. **Accessibility** – WCAG AA contrast for all text and UI. Visible focus on everything focusable: `outline: 3px solid var(--ink); outline-offset: 3px;` plus `box-shadow: 0 0 0 6px var(--marigold)`. Tap targets at least 44×44px. Logical heading order, one H1 per page, landmarks for header, main, nav, footer. Tilt is decorative. Screen reader order follows DOM order, which must be the reading order. Meaningful alt text on every screenshot. Never use colour alone to carry meaning.
 15. **Performance and responsive quality floor** – Mobile first. Verify at 360, 390, 768, 1280 and 1440px widths. No horizontal page scroll at any width (only the games timeline scrolls sideways, inside its own container). Images: WebP or AVIF, explicit width and height, lazy‑load below the fold, `srcset` for screenshots. Fonts: three families, Latin subset, `font-display: swap`, preload the display font only. No 3D, no canvas, no video over 2MB, no animation libraries beyond what the motion list above needs. Targets on a mid‑range Android phone over 4G: LCP under 2.5s, CLS under 0.1, Lighthouse performance 90+, accessibility 100.
 
