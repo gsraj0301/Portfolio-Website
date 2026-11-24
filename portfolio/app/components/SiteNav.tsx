@@ -44,12 +44,12 @@ export function SiteNav() {
   return (
     <>
       <div className="shell pb-1 pt-4 lg:hidden">
-        <Link
-          href="/"
-          className="bricolage inline-flex min-h-11 items-center text-lg font-extrabold tracking-tight text-ink"
-        >
-          raj g.
-        </Link>
+<Link
+            href="/"
+            className="bricolage inline-flex min-h-11 items-center text-lg font-extrabold tracking-tight text-ink"
+          >
+            Raj G
+          </Link>
       </div>
 
       <header className="hidden lg:block sticky top-0 z-40 border-b-2 border-ink bg-paper">
@@ -61,7 +61,7 @@ export function SiteNav() {
             href="/"
             className="bricolage inline-flex min-h-11 items-center text-xl font-extrabold tracking-tight"
           >
-            raj g.
+            Raj G
           </Link>
 
           <div className="flex items-center gap-1">

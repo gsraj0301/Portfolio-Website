@@ -56,23 +56,16 @@ export function useCountUp(
   options?: { startDelay?: number; startFromZero?: boolean; prefix?: string; suffix?: string }
 ): { value: number; display: string } {
   const reduce = useReducedMotion();
-  const [value, setValue] = useState(target);
+  const [value, setValue] = useState(0);
   const hasRun = useRef(false);
+  const isServer = typeof window === "undefined";
 
   useEffect(() => {
     if (reduce) return;
     if (hasRun.current) return;
+    hasRun.current = true;
 
-    const startFromZero = options?.startFromZero ?? true;
     const startDelay = options?.startDelay ?? 0;
-
-    if (startFromZero) {
-      const reset = requestAnimationFrame(() => setValue(0));
-      return () => cancelAnimationFrame(reset);
-    }
-
-    const el = document.getElementById("countup-trigger");
-    if (!el) return;
 
     const timer = setTimeout(() => {
       const start = performance.now();
@@ -88,9 +81,11 @@ export function useCountUp(
     }, startDelay);
 
     return () => clearTimeout(timer);
-  }, [target, duration, reduce, options?.startDelay, options?.startFromZero]);
+  }, [target, duration, reduce, options?.startDelay]);
 
-  const display = (options?.prefix ?? "") + value.toLocaleString("en-US") + (options?.suffix ?? "");
+  const display = isServer || reduce
+    ? (options?.prefix ?? "") + target.toLocaleString("en-US") + (options?.suffix ?? "")
+    : (options?.prefix ?? "") + value.toLocaleString("en-US") + (options?.suffix ?? "");
 
   return { value, display };
 }
