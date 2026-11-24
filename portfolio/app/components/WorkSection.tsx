@@ -179,7 +179,7 @@ export const WorkSection: FC = () => {
               <article
                 key={project.title}
                 className={[
-                  "sticker wiggle flex flex-col",
+                  "sticker wiggle sticker-work flex flex-col",
                   isSmall ? "p-5" : "p-6 sm:p-7",
                   isFeature ? "md:col-span-2" : "",
                 ].join(" ")}

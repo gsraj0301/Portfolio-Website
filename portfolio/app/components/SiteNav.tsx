@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Briefcase, Wrench, Coffee, Mail } from "lucide-react";
+import { ScrollProgress } from "./ScrollProgress";
 
 const desktopLinks = [
   { id: "work", label: "Work" },
@@ -54,7 +55,7 @@ export function SiteNav() {
       <header className="hidden lg:block sticky top-0 z-40 border-b-2 border-ink bg-paper">
         <nav
           aria-label="Primary"
-          className="shell flex h-16 items-center justify-between gap-4"
+          className="shell flex h-16 items-center justify-between gap-4 relative"
         >
           <Link
             href="/"
@@ -97,9 +98,12 @@ export function SiteNav() {
               Say hi
             </a>
           </div>
+
+          <ScrollProgress />
         </nav>
       </header>
 
+      <ScrollProgress />
       <nav
         aria-label="Sections"
         className="lg:hidden fixed inset-x-0 bottom-0 z-50 mx-auto mb-3 w-[calc(100%-24px)] max-w-md rounded-full border-2 border-ink bg-ink px-2 py-2 shadow-[0_6px_0_rgba(28,23,19,0.25)]"

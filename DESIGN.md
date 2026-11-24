@@ -392,19 +392,40 @@ action. Nothing else moves.
    settle into their tilt, staggered 90ms, 450ms each, ease-out with a small
    overshoot. Total under 1.1s. Headline and buttons are visible immediately
    and do not animate.
-2. Press and hover on buttons and project stickers as described above.
-   Duration 120ms.
-3. Sticker wiggle on hover (pointer devices only): rotate +/-2 degrees once,
+   - The hero photo sticker now also slaps in at 270ms delay.
+   - The handwritten "(yes, really)" note fades and rises at 360ms delay.
+2. Hero statistics count-up (page load, once): the "2,000+" and "2 novels"
+   stat stickers count up from 0 over 900ms with ease-out-cubic, matching the
+   hobbies count-up. The "About 1,000 games" figure already counts up.
+   Staggered with the slap at 0/90/180ms.
+3. Press and hover on buttons and project stickers as described above.
+   Duration 120ms. Project stickers now grow shadow on hover (no transform
+   conflict with wiggle) and press down on click.
+4. Sticker wiggle on hover (pointer devices only): rotate +/-2 degrees once,
    200ms. Only on stat stickers and project stickers.
-4. Hobbies count-up (the "about 1,000 games" number): one time, 900ms.
-5. Project demo loops: muted, `playsinline`, looping recordings inside the
-   screenshot frame, each under 2MB with a poster image. They play only while in
-   view. Under reduced motion they show the poster and do not play.
-6. Optional easter egg (last build phase): typing the Konami code makes the
-   cursor a pixel arrow and drops a handful of pixel-art stickers once.
+5. Hobbies count-up (the "about 1,000 games" number): one time, 900ms on first
+   intersection.
+6. How I build timeline connector (first intersection, once): a dashed
+   perforation line draws left-to-right across the four step cards at desktop
+   (≥1024px), with step numbers popping in sequence. Mobile shows no connector
+   (numbers alone convey sequence).
+7. Contact form micro-interactions: invalid fields shake (200ms, transform
+   only); success card scales in (200ms); submit button shows `aria-busy`
+   while sending.
+8. Route crossfade (180ms): opacity crossfade between home and case-study
+   pages on navigation.
+9. Scroll progress bar: 3px marigold bar under the sticky desktop header
+   (viewport-top on mobile), scaling with scroll position. Updates under
+   reduced motion as state indicator.
+10. Project demo loops: muted, `playsinline`, looping recordings inside the
+    screenshot frame, each under 2MB with a poster image. They play only while in
+    view. Under reduced motion they show the poster and do not play.
+11. Optional easter egg (last build phase): typing the Konami code makes the
+    cursor a pixel arrow and drops a handful of text stickers once.
 
-Under `prefers-reduced-motion: reduce`: no slap, no wiggle, no count-up, no
-demo loops, no easter egg animation. Everything renders in its final state.
+Under `prefers-reduced-motion: reduce`: no slap, no count-ups, no wiggle, no
+timeline draw, no crossfade, no easter egg animation. Everything renders in its
+final state. The scroll progress bar still updates (state indicator).
 
 Never animate layout properties. Animate `transform` and `opacity` only.
 

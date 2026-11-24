@@ -21,6 +21,15 @@ function FieldError({ id, message }: { id: string; message: string }) {
   );
 }
 
+function FieldWrapper({ children, errorKey, errors }: { children: React.ReactNode; errorKey: keyof FieldErrors; errors: FieldErrors }) {
+  const shouldShake = !!errors[errorKey];
+  return (
+    <div className={shouldShake ? "shake" : ""} key={errors[errorKey] ? "shake" : "stable"}>
+      {children}
+    </div>
+  );
+}
+
 export function ContactForm() {
   const [state, setState] = useState<FormState>("idle");
   const [name, setName] = useState("");
@@ -82,7 +91,7 @@ export function ContactForm() {
 
   if (state === "ok") {
     return (
-      <div className="sticker-lg p-6 sm:p-8" role="status">
+      <div className="sticker-lg p-6 sm:p-8 pop-in" role="status">
         <p className="bricolage text-h3">Got it. I&rsquo;ll reply soon.</p>
       </div>
     );
@@ -108,76 +117,83 @@ export function ContactForm() {
         />
       </div>
 
-      <div className="mt-5">
-        <label htmlFor="contact-name" className="text-tag font-medium">
-          Name
-        </label>
-        <input
-          id="contact-name"
-          name="name"
-          type="text"
-          autoComplete="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className={inputClass}
-          disabled={isSending}
-          aria-invalid={errors.name ? true : undefined}
-          aria-describedby={errors.name ? "contact-name-error" : undefined}
-          required
-        />
-        {errors.name ? (
-          <FieldError id="contact-name-error" message={errors.name} />
-        ) : null}
-      </div>
+      <FieldWrapper errorKey="name" errors={errors}>
+        <div className="mt-5">
+          <label htmlFor="contact-name" className="text-tag font-medium">
+            Name
+          </label>
+          <input
+            id="contact-name"
+            name="name"
+            type="text"
+            autoComplete="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className={inputClass}
+            disabled={isSending}
+            aria-invalid={errors.name ? true : undefined}
+            aria-describedby={errors.name ? "contact-name-error" : undefined}
+            required
+          />
+          {errors.name ? (
+            <FieldError id="contact-name-error" message={errors.name} />
+          ) : null}
+        </div>
+      </FieldWrapper>
 
-      <div className="mt-4">
-        <label htmlFor="contact-email" className="text-tag font-medium">
-          Email
-        </label>
-        <input
-          id="contact-email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          inputMode="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={inputClass}
-          disabled={isSending}
-          aria-invalid={errors.email ? true : undefined}
-          aria-describedby={errors.email ? "contact-email-error" : undefined}
-          required
-        />
-        {errors.email ? (
-          <FieldError id="contact-email-error" message={errors.email} />
-        ) : null}
-      </div>
+      <FieldWrapper errorKey="email" errors={errors}>
+        <div className="mt-4">
+          <label htmlFor="contact-email" className="text-tag font-medium">
+            Email
+          </label>
+          <input
+            id="contact-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            inputMode="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={inputClass}
+            disabled={isSending}
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={errors.email ? "contact-email-error" : undefined}
+            required
+          />
+          {errors.email ? (
+            <FieldError id="contact-email-error" message={errors.email} />
+          ) : null}
+        </div>
+      </FieldWrapper>
 
-      <div className="mt-4">
-        <label htmlFor="contact-message" className="text-tag font-medium">
-          Message
-        </label>
-        <textarea
-          id="contact-message"
-          name="message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          rows={4}
-          maxLength={1000}
-          className={inputClass}
-          disabled={isSending}
-          aria-invalid={errors.message ? true : undefined}
-          aria-describedby={errors.message ? "contact-message-error" : undefined}
-          required
-        />
-        {errors.message ? (
-          <FieldError id="contact-message-error" message={errors.message} />
-        ) : null}
-      </div>
+      <FieldWrapper errorKey="message" errors={errors}>
+        <div className="mt-4">
+          <label htmlFor="contact-message" className="text-tag font-medium">
+            Message
+          </label>
+          <textarea
+            id="contact-message"
+            name="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={4}
+            maxLength={1000}
+            className={inputClass}
+            disabled={isSending}
+            aria-invalid={errors.message ? true : undefined}
+            aria-describedby={errors.message ? "contact-message-error" : undefined}
+            required
+          />
+          {errors.message ? (
+            <FieldError id="contact-message-error" message={errors.message} />
+          ) : null}
+        </div>
+      </FieldWrapper>
 
       <button
         type="submit"
         disabled={isSending}
+        aria-busy={isSending}
         className="btn btn-primary mt-5 min-h-[48px] w-full text-base sm:w-auto"
       >
         {isSending ? "Sending" : "Send message"}

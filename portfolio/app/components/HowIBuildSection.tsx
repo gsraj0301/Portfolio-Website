@@ -1,4 +1,7 @@
-import type { FC } from "react";
+"use client";
+
+import type { CSSProperties, FC } from "react";
+import { useInView } from "@/app/lib/motion";
 
 const steps = [
   {
@@ -20,6 +23,8 @@ const steps = [
 ];
 
 export const HowIBuildSection: FC = () => {
+  const ref = useInView(0.15);
+
   return (
     <section
       id="how-i-build"
@@ -31,20 +36,31 @@ export const HowIBuildSection: FC = () => {
           How I build
         </h2>
 
-        <ol className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, i) => (
-            <li key={step.title} className="sticker flex flex-col p-6">
-              <span
-                className="bricolage text-4xl font-extrabold leading-none text-ink"
-                aria-hidden="true"
-              >
-                {i + 1}
-              </span>
-              <h3 className="text-h3 mt-4">{step.title}</h3>
-              <p className="text-small mt-2 text-ink-soft">{step.body}</p>
-            </li>
-          ))}
-        </ol>
+        <div className="relative">
+          <div
+            className="timeline-line hidden lg:block"
+            aria-hidden="true"
+            style={{ animationPlayState: ref ? "running" : "paused" } as CSSProperties}
+          />
+          <ol className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step, i) => (
+              <li key={step.title} className="sticker flex flex-col p-6">
+                <span
+                  className="bricolage text-4xl font-extrabold leading-none text-ink timeline-num"
+                  aria-hidden="true"
+                  style={{
+                    "--pop-delay": `${100 + i * 160}ms`,
+                    animationPlayState: ref ? "running" : "paused",
+                  } as CSSProperties}
+                >
+                  {i + 1}
+                </span>
+                <h3 className="text-h3 mt-4">{step.title}</h3>
+                <p className="text-small mt-2 text-ink-soft">{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
 
         <p className="text-small mt-10 max-w-[62ch] text-ink-soft">
           I use AI coding tools as my hands. I decide what gets built, read what

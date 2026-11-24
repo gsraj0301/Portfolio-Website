@@ -1,17 +1,8 @@
 import type { CSSProperties, FC } from "react";
 import Image from "next/image";
+import { StatSticker } from "./StatSticker";
 
-type Stat = {
-  number: string;
-  label: string;
-  fill: string;
-  tilt: string;
-  delay: string;
-  width: string;
-  align: string;
-};
-
-const stats: Stat[] = [
+const stats = [
   {
     number: "2,000+",
     label: "students on the PRIDE portal",
@@ -20,6 +11,9 @@ const stats: Stat[] = [
     delay: "0ms",
     width: "62%",
     align: "self-end",
+    countUp: true,
+    countUpTarget: 2000,
+    countUpSuffix: "+",
   },
   {
     number: "About 1,000",
@@ -29,6 +23,9 @@ const stats: Stat[] = [
     delay: "90ms",
     width: "58%",
     align: "self-start",
+    countUp: true,
+    countUpTarget: 1000,
+    countUpPrefix: "About ",
   },
   {
     number: "2",
@@ -38,6 +35,8 @@ const stats: Stat[] = [
     delay: "180ms",
     width: "55%",
     align: "self-end",
+    countUp: true,
+    countUpTarget: 2,
   },
 ];
 
@@ -64,8 +63,8 @@ export const Header: FC = () => {
           </div>
           <div className="mt-6 flex items-center gap-3">
             <div
-              className="photo-sticker tilt p-2"
-              style={{ "--tilt": "-2deg" } as CSSProperties}
+              className="photo-sticker tilt slap p-2"
+              style={{ "--tilt": "-2deg", "--slap-delay": "270ms" } as CSSProperties}
             >
               <Image
                 src="/raj.jpg"
@@ -76,35 +75,32 @@ export const Header: FC = () => {
                 className="h-16 w-16 rounded-full border-[6px] border-card object-cover"
               />
             </div>
-            <span className="hand text-2xl text-ink">Raj G</span>
+            <span className="hand text-2xl text-ink slap" style={{ "--slap-delay": "360ms" } as CSSProperties}>
+              Raj G
+            </span>
           </div>
         </div>
 
         <div className="relative mx-auto flex w-full max-w-sm flex-col">
-          {stats.map((stat, i) => (
-            <div
+          {stats.map((stat) => (
+            <StatSticker
               key={stat.number}
-              className={[
-                "sticker slap wiggle relative flex flex-col p-5",
-                i > 0 ? "-mt-3" : "",
-                stat.align,
-              ].join(" ")}
-              style={
-                {
-                  "--tilt": stat.tilt,
-                  "--slap-delay": stat.delay,
-                  width: stat.width,
-                  background: stat.fill,
-                } as CSSProperties
-              }
-            >
-              <span className="bricolage text-3xl font-bold leading-none">
-                {stat.number}
-              </span>
-              <span className="mt-2 text-small text-ink-soft">{stat.label}</span>
-            </div>
+              number={stat.number}
+              label={stat.label}
+              fill={stat.fill}
+              tilt={stat.tilt}
+              delay={stat.delay}
+              width={stat.width}
+              align={stat.align}
+              countUp={stat.countUp}
+              countUpTarget={stat.countUpTarget}
+              countUpPrefix={stat.countUpPrefix}
+              countUpSuffix={stat.countUpSuffix}
+            />
           ))}
-          <p className="hand mt-4 self-end text-2xl text-ink">(yes, really)</p>
+          <p className="hand mt-4 self-end text-2xl text-ink slap" style={{ "--slap-delay": "360ms" } as CSSProperties}>
+            (yes, really)
+          </p>
         </div>
       </div>
     </section>
