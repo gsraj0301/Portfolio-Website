@@ -198,11 +198,43 @@
   }
 
   .sticker {
+    --tilt-effective: var(--tilt, 0deg);
     background: var(--card);
     border: var(--line);
     border-radius: var(--r-sticker);
     box-shadow: var(--shadow-hard);
-    transform: rotate(var(--tilt, 0deg));
+    transform: rotate(var(--tilt-effective));
+  }
+
+  .sticker-lg {
+    background: var(--card);
+    border: var(--line);
+    border-radius: var(--r-sticker);
+    box-shadow: var(--shadow-hard-lg);
+  }
+
+  .frame {
+    border: var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow-hard);
+  }
+
+  .photo-sticker {
+    border: var(--line);
+    border-radius: var(--r-pill);
+    background: var(--card);
+    box-shadow: var(--shadow-hard);
+  }
+
+  .tilt {
+    --tilt-effective: var(--tilt, 0deg);
+    transform: rotate(var(--tilt-effective));
+  }
+
+  @media (hover: hover) {
+    .wiggle:hover {
+      animation: wiggle 200ms var(--ease-out);
+    }
   }
 
   .panel {
@@ -271,12 +303,14 @@
   }
 
   .book {
+    --tilt-effective: var(--tilt, 0deg);
     position: relative;
     border: var(--line);
     border-left-width: 10px;
     border-radius: var(--r-sticker);
     box-shadow: var(--shadow-hard);
     background: var(--card);
+    transform: rotate(var(--tilt-effective));
   }
 }
 
@@ -318,13 +352,27 @@
 }
 
 @keyframes slap {
-  from {
+  0% {
     opacity: 0;
     transform: scale(1.25) rotate(0deg);
   }
-  to {
+  70% {
     opacity: 1;
-    transform: scale(1) rotate(var(--tilt, 0deg));
+    transform: scale(0.97) rotate(var(--tilt-effective));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(var(--tilt-effective));
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(var(--tilt-effective));
+  }
+  50% {
+    transform: rotate(calc(var(--tilt-effective) + 2deg));
   }
 }
 
@@ -341,8 +389,25 @@ footer[id] {
 }
 
 @media (max-width: 640px) {
+  :root {
+    --shadow-hard: 3px 3px 0 var(--ink);
+    --shadow-hard-lg: 5px 5px 0 var(--ink);
+    --shadow-hard-sm: 1px 1px 0 var(--ink);
+  }
+
   .sticker {
-    transform: rotate(calc(var(--tilt, 0deg) / 2));
+    --tilt-effective: calc(var(--tilt, 0deg) / 2);
+    transform: rotate(var(--tilt-effective));
+  }
+
+  .book {
+    --tilt-effective: calc(var(--tilt, 0deg) / 2);
+    transform: rotate(var(--tilt-effective));
+  }
+
+  .tilt {
+    --tilt-effective: calc(var(--tilt, 0deg) / 2);
+    transform: rotate(var(--tilt-effective));
   }
 }
 
@@ -359,6 +424,10 @@ footer[id] {
   .slap {
     animation: none;
     opacity: 1;
-    transform: rotate(var(--tilt, 0deg));
+    transform: rotate(var(--tilt-effective));
+  }
+
+  .wiggle:hover {
+    animation: none;
   }
 }

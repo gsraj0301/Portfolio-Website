@@ -1,6 +1,6 @@
 # ARCHITECTURE.md: Raj G portfolio, technical overview
 
-> Last updated: 2026-11-23
+> Last updated: 2026-11-24
 
 High-level overview of the portfolio's architecture, data model and deployment.
 Lives alongside CONTENT.md (copy), DESIGN.md (visuals), SPEC.md (behaviour) and
@@ -17,10 +17,10 @@ CASE_STUDY.md (case-study source copy).
 - **Fonts:** `@fontsource` packages (Bricolage Grotesque, Figtree, Caveat),
   imported as CSS in `app/layout.tsx`; woff2 emitted at build. (`next/font`
   does not resolve these families on Next 14.)
-- **Motion:** plain CSS only — hero "slap" keyframes, button hover/press,
-  smooth anchor scroll. No animation library. Everything disabled under
-  `prefers-reduced-motion: reduce`. The games figure is static text
-  ("About 1,000"), not a count-up.
+- **Motion:** plain CSS only — hero "slap" keyframes (overshoot), button hover/press,
+  smooth anchor scroll, Games count-up (900ms on first intersection), sticker wiggle
+  (hover/tap on stat/project stickers). No animation library. Everything disabled under
+  `prefers-reduced-motion: reduce`. The Games figure animates once; static under reduced motion.
 - **Icons:** `lucide-react`, outline set, 2px stroke (nav + external-link).
 - **Images:** `next/image` with explicit width/height, `sizes`, lazy loading
   below the fold; sources in `portfolio/public/` and `portfolio/public/images/`.
@@ -44,15 +44,15 @@ type Project = {
   stack: string[];
   fill: string;           // CSS var
   tilt: string;
-  feature?: boolean;      // PRIDE spans 2 columns, shows stats
+  feature?: boolean;      // PRIDE spans 2 columns, screenshot on right at desktop
+  small?: boolean;        // Fake Job: compact card, no stack chips
   story?: string;         // internal case-study route
-  stats?: { value: string; label: string }[];
   screenshot?: { src: string; width: number; height: number };
 };
 ```
 
 Six cards: PRIDE (feature), Kindled, Fresher's counter, Gexp, GST Reconciler,
-Fake Job Posting Detector (repo-only, no case-study page).
+Fake Job Posting Detector (repo-only, no case-study page; small, no stack chips).
 
 ### 2.2 Case studies — `app/components/CaseStudy.tsx`
 
@@ -87,11 +87,12 @@ Copy rules: no emoji, no em dashes, "God helped me" at most once per study
 ## 4. Page-level behaviour
 
 - **Home:** hero sticker cluster slaps in once (CSS, staggered 0/90/180ms);
-  IntersectionObserver scroll-spy drives nav active states; dashed perforation
-  dividers between paper sections; colour bands (blush/marigold/tomato) need none.
-- **Nav:** desktop sticky top bar (Work/Skills/Games/Words/Resume/Say hi);
-  mobile top bar with logo + Resume pill, plus fixed bottom pill
-  (Work/Skills/Games/Contact) with safe-area inset.
+  IntersectionObserver scroll-spy drives nav active states (active starts empty);
+  dashed perforation dividers between paper sections; colour bands (blush/marigold/tomato) need none.
+  Section order: Hero, What people said (conditional), Work, Skills, How I build, Hobbies, Contact.
+- **Nav:** desktop sticky top bar (Work/Skills/Hobbies/Resume/Say hi; logo `raj g.`);
+  mobile top bar with logo only (no Resume pill), plus fixed bottom pill
+  (Work/Skills/Hobbies/Contact; icons: briefcase/wrench/coffee/mail) with safe-area inset.
 - **Anchors:** `scroll-margin-top` 24px mobile / 88px desktop; smooth scroll
   (auto under reduced motion).
 - **Case studies:** "Back to work" top and bottom; at-a-glance metadata strip;
@@ -105,6 +106,8 @@ Copy rules: no emoji, no em dashes, "God helped me" at most once per study
 - Form: `app/components/ContactForm.tsx` inserts `{name, email, message}` into
   `public.contacts`; success/error render as readable card pills; mailto is
   the fallback.
+- Fields: name, email, message (labels above, no placeholders, honeypot, 1000 char max).
+- Success: `Got it. I'll reply soon.` (replaces form); Error: mailto fallback with privacy line.
 - Required SQL (run once in the Supabase SQL editor):
 
 ```sql
@@ -136,7 +139,7 @@ grant insert on public.contacts to anon;   -- new projects do not auto-grant
 ```
 Portfolio Website/
 ├── ARCHITECTURE.md / SPEC.md / DESIGN.md / CONTENT.md / CASE_STUDY.md / memory.md
-├── images/                  # Raj's original assets (photo, screenshots, box art)
+├── images/                  # Raj's original assets (photo, screenshots)
 ├── public/                  # repo-root copy of the resume
 └── portfolio/               # the Next.js app (run all commands here)
     ├── app/
@@ -146,7 +149,7 @@ Portfolio Website/
     │   ├── not-found.tsx
     │   ├── lib/supabase.ts
     │   ├── components/      # SiteNav, Header, WorkSection, SkillsSection,
-    │   │                    # HowIBuildSection, GamesSection, WordsSection,
+    │   │                    # HowIBuildSection, HobbiesSection, HobbiesCountUp,
     │   │                    # ContactSection, ContactForm, CaseStudy
     │   └── work/*/page.tsx  # five case studies
     ├── public/              # served assets (raj.jpg, images/, resume PDF)
@@ -157,8 +160,7 @@ Portfolio Website/
 
 ## 8. Open items
 
-- Novel hooks (Words section) still placeholders; quote strip not rendered
-  until real quotes + permission are provided.
+- Quote strip not rendered until real quotes + permission are provided.
 - Screenshots pending for Fresher's counter and Gexp; APK/.exe release links
   pending (CTAs point at repos meanwhile).
 - Supabase `grant insert` must be run before the form accepts submissions.

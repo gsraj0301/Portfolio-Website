@@ -63,14 +63,19 @@ export const Header: FC = () => {
             </a>
           </div>
           <div className="mt-6 flex items-center gap-3">
-            <Image
-              src="/raj.jpg"
-              alt="Raj G"
-              width={64}
-              height={64}
-              priority
-              className="h-16 w-16 rounded-full border-2 border-ink object-cover"
-            />
+            <div
+              className="photo-sticker tilt p-2"
+              style={{ "--tilt": "-2deg" } as CSSProperties}
+            >
+              <Image
+                src="/raj.jpg"
+                alt="Raj G"
+                width={64}
+                height={64}
+                priority
+                className="h-16 w-16 rounded-full border-[6px] border-card object-cover"
+              />
+            </div>
             <span className="hand text-2xl text-ink">Raj G</span>
           </div>
         </div>
@@ -80,7 +85,7 @@ export const Header: FC = () => {
             <div
               key={stat.number}
               className={[
-                "sticker slap relative flex flex-col p-5",
+                "sticker slap wiggle relative flex flex-col p-5",
                 i > 0 ? "-mt-3" : "",
                 stat.align,
               ].join(" ")}

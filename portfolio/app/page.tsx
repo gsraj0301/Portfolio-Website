@@ -3,8 +3,7 @@ import { Header } from "./components/Header";
 import { WorkSection } from "./components/WorkSection";
 import { SkillsSection } from "./components/SkillsSection";
 import { HowIBuildSection } from "./components/HowIBuildSection";
-import { GamesSection } from "./components/GamesSection";
-import { WordsSection } from "./components/WordsSection";
+import { HobbiesSection } from "./components/HobbiesSection";
 import { ContactSection } from "./components/ContactSection";
 
 export default function Home() {
@@ -19,8 +18,7 @@ export default function Home() {
         <WorkSection />
         <SkillsSection />
         <HowIBuildSection />
-        <GamesSection />
-        <WordsSection />
+        <HobbiesSection />
       </main>
       <ContactSection />
     </>

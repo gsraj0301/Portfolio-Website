@@ -1,7 +1,7 @@
 # Raj G — portfolio website
 
 Personal portfolio: a "sticker board" of real projects, case studies, skills,
-games and novels. Built with Next.js (App Router) + Tailwind CSS, deployed on
+and hobbies (games, old PCs, writing, reading, chess). Built with Next.js (App Router) + Tailwind CSS, deployed on
 Vercel.
 
 - Live repo: https://github.com/gsraj0301/Portfolio-Website
@@ -15,7 +15,7 @@ Vercel.
 - `@fontsource` fonts: Bricolage Grotesque, Figtree, Caveat
 - `lucide-react` icons, `next/image` for all imagery
 - Supabase (`@supabase/supabase-js`) for the contact form only
-- CSS-only motion (hero slap, hover/press), reduced-motion safe
+- CSS-only motion (hero slap, hover/press, games count-up, sticker wiggle), reduced-motion safe
 
 Node 18 is the supported floor (Next 14 / Tailwind v3 are pinned for it).
 
@@ -84,10 +84,10 @@ app/
   not-found.tsx         styled 404
   lib/supabase.ts       browser client
   components/           SiteNav, Header, WorkSection, SkillsSection,
-                        HowIBuildSection, GamesSection, WordsSection,
+                        HowIBuildSection, HobbiesSection, HobbiesCountUp,
                         ContactSection, ContactForm, CaseStudy
   work/*/page.tsx       five case studies (pride, kindled, fresher-counter,
                         gexp, gst-reconciler)
-public/                 raj.jpg, raj-g-resume.pdf, images/ (screenshots, box art)
+public/                 raj.jpg, raj-g-resume.pdf, images/ (screenshots, repair photos)
 scripts/check-markers.mjs
 ```

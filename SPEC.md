@@ -1,6 +1,6 @@
 # SPEC.md: Raj G portfolio, page behaviour and content
 
-> Last updated: 2026-11-23 (matches the shipped site)
+> Last updated: 2026-11-24 (matches the shipped site)
 
 This file defines the pages, navigation, motion and content behaviour for the
 portfolio website. Copy lives in `CONTENT.md`. Visual rules live in `DESIGN.md`.
@@ -21,15 +21,15 @@ wins on visuals.
 
 Section order (from top to bottom):
 
-1. **Hero** – headline, sub-line, two buttons, circular photo avatar with handwritten name, stat stickers (2,000+ students / About 1,000 games / 2 novels), handwritten "(yes, really)".
-2. **Work** – bento grid of six project stickers: PRIDE (feature, spans 2 columns, real stats), Kindled, Fresher's counter, Gexp, GST Reconciler, Fake Job Posting Detector. Screenshots (where provided) sit above the stack chips. Each card has a CTA plus "Read the story" where a case-study page exists.
-3. **What I can build** – six capability stickers (Web apps, Desktop/mobile, Data/ML, Logins/files/email, Putting things online, Working with people). Colours rotate: card, mint, blush, marigold. Max 8 chips in "Built and shipped with", max 6 in "Used or familiar with" (row hidden when empty). No percentage bars, no star ratings, no technology logos.
-4. **How I build** – four numbered steps (start with a real person, ship the smallest useful version, put it in front of real users, fix what breaks). Closing line: "I use AI coding tools as my hands. I decide what gets built, read what they write, and fix what breaks." Blush band.
-5. **Games** – console strip (text chips, SNES to PS3 & PC). Static "About 1,000" figure (deliberately not a count-up, so it never reads as exact), caption "games I play". Top 5 as stickers ranked 5 down to 1 with large Display numerals and Raj-supplied box-art thumbnails; one short line per game from CONTENT.md. Marigold band.
-6. **Words** – two book‑shaped stickers (Hands That Remember, Sword That Talks). Status chip `in progress` on both. Hook paragraphs pending from Raj; genre lines shown meanwhile. Say "I write", never "author", until something is published.
-7. **Contact** – tomato band. Large email address (mailto link), LinkedIn button, GitHub button, Download resume button, then the Supabase contact form (name, email, message). Footer sign‑off in Handwritten, centred: "Built by Raj G in Chennai."
+1. **Hero** – headline, sub-line, two buttons, die-cut photo sticker with handwritten name, stat stickers (2,000+ students / About 1,000 games / 2 novels), handwritten "(yes, really)".
+2. **What people said** – conditional quote strip (renders only if real quotes exist; no empty gap).
+3. **Work** – bento grid of six project stickers: PRIDE (feature, spans 2 columns, screenshot on right at desktop, no stats panel), Kindled, Fresher's counter, Gexp, GST Reconciler, Fake Job Posting Detector (small, no stack chips). Card anatomy: tag, title, card line, optional screenshot, stack chips, CTA, "Read the story" link when case study exists.
+4. **What I can build** – six capability stickers (Web apps, Desktop/mobile, Data/ML, Logins/files/email, Putting things online, Working with people). Colours rotate: card, mint, blush, marigold. Max 8 chips in "Built and shipped with", max 6 in "Used or familiar with" (row hidden when empty). No percentage bars, no star ratings, no technology logos.
+5. **How I build** – four numbered steps (start with a real person, ship the smallest useful version, put it in front of real users, fix what breaks). Closing line: "I use AI coding tools as my hands. I decide what gets built, read what they write, and fix what breaks." Blush band.
+6. **Hobbies** – marigold band. Heading "When I'm not coding", intro line. Games sticker with animated count-up "About 1,000" (900ms on first intersection, final under reduced motion), console strip (text chips), text-only top 5 ranked 5→1 (no box art). Old PCs sticker: 5 PCs / 3 laptops display numerals, copy, optional repair photos in screenshot frames. Writing sticker: two book stickers (Hands That Remember, Sword That Talks) with genre, status `in progress`, no hooks. Reading sticker: two paragraphs. Chess sticker: inline SVG checkerboard + copy. Tinkering omitted. No box art, no console logos, no clip art.
+7. **Contact** – tomato band, two-column desktop layout. Left: large email (mailto), LinkedIn/GitHub/Resume buttons. Right: Supabase contact form with labels (no placeholders), honeypot, inline errors, 1,000 char limit, submit "Send message"/"Sending", success "Got it. I'll reply soon.", error with mailto fallback, privacy line. Footer sign‑off in Handwritten, centred: "Built by Raj G in Chennai."
 
-**Section ids for anchors and scroll‑spy:** `work`, `skills`, `games`, `words`, `contact`.
+**Section ids for anchors and scroll‑spy:** `work`, `skills`, `hobbies`, `contact`.
 
 ### 2.2 Case‑study pages (`/work/pride`, `/work/kindled`, `/work/fresher-counter`, `/work/gexp`, `/work/gst-reconciler`)
 
@@ -59,15 +59,15 @@ Order:
 
 ### 2.4 Navigation
 
-**Desktop (1024+):** sticky top bar. Logo "Raj G" in Display 800 (links to the top of the home page), then pill links: `Work`, `Skills`, `Games`, `Words`, `Resume` (opens the PDF in a new tab). `Say hi` is the tomato pill and jumps to `#contact`. The pill for the section currently in view gets marigold fill (scroll‑spy state change, not an animation). Include a visible "skip to content" link as the first focusable element.
+**Desktop (1024+):** sticky top bar. Logo `raj g.` in Display 800 (links to the top of the home page), then pill links: `Work`, `Skills`, `Hobbies`, `Resume` (opens the PDF in a new tab). `Say hi` is the tomato pill and jumps to `#contact`. The pill for the section currently in view gets marigold fill (scroll‑spy state change, not an animation). Include a visible "skip to content" link as the first focusable element. Active pill starts empty (no section highlighted on load).
 
-**Mobile:** non-sticky top bar with the "Raj G" logo (left) and a `Resume` pill (right, opens the PDF in a new tab). Plus a floating bottom pill, ink fill, paper icons with visible text labels under each icon (labels at 14px). Exactly four items, in this order: `Work`, `Skills`, `Games`, `Contact`. The current section's item gets a marigold circle behind its icon. Respect `env(safe-area-inset-bottom)`. Each target at least 44×44px.
+**Mobile:** non-sticky top bar with the `raj g.` logo only (left, no Resume pill). Plus a fixed bottom pill, ink fill, paper icons with visible text labels (14px). Exactly four items, in this order: `Work`, `Skills`, `Hobbies`, `Contact` (icons: briefcase, wrench, coffee, mail). The current section's item gets a marigold circle behind its icon. Respect `env(safe-area-inset-bottom)`. Each target at least 44×44px.
 
 **Anchor offsets:** `scroll-margin-top` 24px below 1024px, 88px at 1024+ (sticky header). Smooth scrolling, disabled under reduced motion.
 
 **On case‑study pages** the nav is replaced by a "Back to work" pill at the top and bottom. The mobile bottom pill is not shown there.
 
-### 2.4 Skills section
+### 2.5 Skills section
 
 Six capability stickers (content in `CONTENT.md`). Layout: bento grid on desktop (two wide stickers, four standard), single column on mobile with every sticker fully visible (no accordions, no carousels). Tilt and fills follow the normal sticker rules. Fills rotate through card, mint, blush, marigold.
 
@@ -89,27 +89,27 @@ Anatomy of a capability sticker, top to bottom:
 - Hover (pointer devices): project chips use the button hover lift. Tech chips do not react.
 - Case‑study pages list their stack as the same solid tech chips, plus a link to `#skills` on the home page.
 
-### 2.5 "Also built" (resolved)
+### 2.6 "Also built" (resolved)
 
 There is no separate strip. **Fake Job Posting Detector** is a standard Work card (no case-study page): "Flags fraudulent job postings: 90% recall, ROC-AUC 0.989, trained on 17,880 Kaggle postings." CTA links to `https://github.com/gsraj0301/Fake-Job-Posting-Detector`. The Data/ML capability sticker's "Seen in" links to the same repo. Hand Gesture system and Traqo were dropped.
 
-### 2.6 Quote strip ("What people said")
+### 2.7 Quote strip ("What people said")
 
 Appears only if real quotes exist. Never write or polish a quote on someone's behalf. One or two stickers, card fill, tilt no more than 1.5 degrees. The quote is Body 500 at 1.25rem (not handwritten). Under it: name and role in Body 400, `--ink-soft`. No avatars, no quotation‑mark icons. If no quotes are provided, the section does not render and leaves no empty gap.
 
-### 2.7 Motion (principle: one orchestrated moment, plus motion that responds to a person's action. Nothing else moves.)
+### 2.8 Motion (principle: one orchestrated moment, plus motion that responds to a person's action. Nothing else moves.)
 
 1. **Hero slap** (page load, once): the hero stickers scale from 1.25 to 1 and settle into their tilt, staggered 0/90/180ms, 450ms each, ease‑out. Headline and buttons are visible immediately and do not animate. Implemented as CSS keyframes, no library.
-2. **Press and hover on buttons and project chips:** Duration 120ms. Translate -2px -2px and grow shadow to `--shadow-hard-lg` on hover; translate 2px 2px and shrink shadow to `--shadow-hard-sm` on press.
-3. **Smooth anchor scroll** for nav jumps (auto under reduced motion).
+2. **Games count-up** (first intersection, once): "About 1,000" animates from 0 to 1,000 over 900ms using `requestAnimationFrame`; SSR renders final value; under `prefers-reduced-motion` stays at 1,000.
+3. **Sticker wiggle** (hover/tap): stat stickers and project cards wiggle on pointer interaction (CSS keyframes, `--tilt-effective`); disabled under reduced motion.
+4. **Press and hover on buttons and project chips:** Duration 120ms. Translate -2px -2px and grow shadow to `--shadow-hard-lg` on hover; translate 2px 2px and shrink shadow to `--shadow-hard-sm` on press.
+5. **Smooth anchor scroll** for nav jumps (auto under reduced motion).
 
-Not implemented (deliberately): games count-up (the figure is static "About 1,000" so it never reads as exact), sticker wiggle, Konami easter egg.
-
-Under `prefers-reduced-motion: reduce`: no slap, no smooth scroll, no transitions. Everything renders in its final state.
+Under `prefers-reduced-motion: reduce`: no slap, no count-up, no wiggle, no smooth scroll, no transitions. Everything renders in its final state.
 
 Never animate layout properties. Animate `transform` and `opacity` only.
 
-### 2.8 SEO, a11y, performance
+### 2.9 SEO, a11y, performance
 
 - **WCAG AA contrast** for all text and UI. Re‑check every fill and ink pair.
 - **Visible focus** on everything focusable: `outline: 3px solid var(--ink); outline-offset: 3px;` plus `box-shadow: 0 0 0 6px var(--marigold)`.
@@ -118,24 +118,25 @@ Never animate layout properties. Animate `transform` and `opacity` only.
 - **Meaningful alt text** on every screenshot. Decorative doodles are `aria-hidden`.
 - **Never use colour alone** to carry meaning.
 - **Mobile first.** Verify at 360, 390, 768, 1280 and 1440px widths.
-- **No horizontal page scroll** at any width. Only the games timeline scrolls sideways, inside its own container.
-- **Images:** WebP or AVIF, explicit width and height, lazy‑load below the fold, `srcset` for screenshots.
+- **No horizontal page scroll** at any width. Only the console strip scrolls sideways, inside its own container.
+- **Images:** JPEG/PNG sources optimized by `next/image` to WebP/AVIF; explicit width and height, lazy‑load below the fold, `srcset` for screenshots.
 - **Fonts:** three families, Latin subset, `font-display: swap`, preload the display font only.
 - **No 3D, no canvas, no video over 2MB**, no animation libraries beyond what the motion list above needs.
 - **Targets on a mid‑range Android phone over 4G:** LCP under 2.5s, CLS under 0.1, Lighthouse performance 90+, accessibility 100.
 
-### 2.9 Contact form (Supabase)
+### 2.10 Contact form (Supabase)
 
-- Fields: name, email, message (all required, labeled, autocomplete on).
-- Submit inserts into `public.contacts` via the anon Supabase client; button shows "Sending..." while in flight; success/error render as readable card pills (ink on card, never colour-on-colour). Mailto is the fallback on error.
+- Fields: name, email, message (all required, labeled above fields, no placeholders, autocomplete on); message max 1,000 chars; honeypot field (`website`) off-screen, `aria-hidden`, `tabIndex=-1`.
+- Inline field errors with `AlertCircle` icon and accessible `aria-describedby`.
+- Submit inserts into `public.contacts` via the anon Supabase client; button shows "Sending" while in flight; success replaces form with `Got it. I'll reply soon.` (role="status"); error renders as card pill with mailto fallback `The send did not go through. Email me at gsraj.developer@gmail.com instead.` (role="alert"); privacy line `I'll only use your email to reply to you.`.
 - Backend requirements: RLS enabled, anon insert policy, and `grant insert on public.contacts to anon` (new Supabase projects do not auto-grant; without it inserts return 401).
 - Env: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` in `portfolio/.env` (gitignored) and in Vercel project settings.
 
-### 2.10 Build guard
+### 2.11 Build guard
 
 `npm run build` runs `next build && node scripts/check-markers.mjs`. The script scans the built output (`.next/server/app`, `.next/static`) and fails the build if `[CHECK` or `[REPLACE` appears anywhere, so unconfirmed copy can never ship.
 
-### 2.11 Replacement checklist (status)
+### 2.12 Replacement checklist (status)
 
 | # | Where it goes | Status |
 |---|---|---|
@@ -147,11 +148,11 @@ Never animate layout properties. Animate `transform` and `opacity` only.
 | 6 | Fresher's counter | Copy + live URL done; screenshot pending |
 | 7 | Gexp | Copy done (in daily use, two taps); screenshot + APK release link pending (CTA points at repo) |
 | 8 | GST Reconciler | Copy + screenshot done (fake data only); .exe release link pending (CTA points at repo) |
-| 9 | Also built | Done: Fake Job Posting Detector is a Work card. Hand Gesture/Traqo dropped |
+| 9 | Fake Job Posting Detector | Done: small Work card, no stack chips |
 | 10 | Skills | Done: tiers reconciled with projects (Django/Supabase/PythonAnywhere/GitHub Actions/bcrypt) |
 | 11 | How I build | Done: AI-tools line in Raj's words |
-| 12 | Games | Done: console list, box art, static "About 1,000" |
-| 13 | Words | Pending: hook paragraph for each novel |
+| 12 | Hobbies: Games | Done: console list, text-only top 5, animated count-up |
+| 13 | Hobbies: Old PCs, Writing, Reading, Chess | Done: copy + repair photos |
 | 14 | Contact | Done: resume PDF + Supabase form (grant insert required) |
 
 ---

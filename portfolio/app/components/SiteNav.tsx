@@ -1,26 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Briefcase, Wrench, Gamepad2, Mail } from "lucide-react";
+import Link from "next/link";
+import { Briefcase, Wrench, Coffee, Mail } from "lucide-react";
 
 const desktopLinks = [
   { id: "work", label: "Work" },
   { id: "skills", label: "Skills" },
-  { id: "games", label: "Games" },
-  { id: "words", label: "Words" },
+  { id: "hobbies", label: "Hobbies" },
 ];
 
 const mobileLinks = [
   { id: "work", label: "Work", Icon: Briefcase },
   { id: "skills", label: "Skills", Icon: Wrench },
-  { id: "games", label: "Games", Icon: Gamepad2 },
+  { id: "hobbies", label: "Hobbies", Icon: Coffee },
   { id: "contact", label: "Contact", Icon: Mail },
 ];
 
-const spyIds = ["work", "skills", "games", "words", "contact"];
+const spyIds = ["work", "skills", "hobbies", "contact"];
 
 export function SiteNav() {
-  const [active, setActive] = useState("work");
+  const [active, setActive] = useState("");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -42,21 +42,13 @@ export function SiteNav() {
 
   return (
     <>
-      <div className="shell flex items-center justify-between pb-1 pt-4 lg:hidden">
-        <a
+      <div className="shell pb-1 pt-4 lg:hidden">
+        <Link
           href="/"
-          className="bricolage text-lg font-extrabold tracking-tight text-ink"
+          className="bricolage inline-flex min-h-11 items-center text-lg font-extrabold tracking-tight text-ink"
         >
-          Raj G
-        </a>
-        <a
-          href="/raj-g-resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex min-h-11 items-center rounded-full border-2 border-ink bg-card px-4 text-[0.9375rem] font-semibold text-ink shadow-[2px_2px_0_var(--ink)]"
-        >
-          Resume
-        </a>
+          raj g.
+        </Link>
       </div>
 
       <header className="hidden lg:block sticky top-0 z-40 border-b-2 border-ink bg-paper">
@@ -64,9 +56,12 @@ export function SiteNav() {
           aria-label="Primary"
           className="shell flex h-16 items-center justify-between gap-4"
         >
-          <a href="/" className="bricolage text-xl font-extrabold tracking-tight">
-            Raj G
-          </a>
+          <Link
+            href="/"
+            className="bricolage inline-flex min-h-11 items-center text-xl font-extrabold tracking-tight"
+          >
+            raj g.
+          </Link>
 
           <div className="flex items-center gap-1">
             {desktopLinks.map((link) => {
@@ -77,7 +72,7 @@ export function SiteNav() {
                   href={`#${link.id}`}
                   aria-current={isActive ? "true" : undefined}
                   className={[
-                    "rounded-full border-2 px-3.5 py-1.5 text-[0.9375rem] font-medium transition-colors",
+                    "inline-flex min-h-11 items-center rounded-full border-2 px-3.5 py-1.5 text-[0.9375rem] font-medium transition-colors",
                     isActive
                       ? "border-ink bg-marigold text-ink"
                       : "border-transparent text-ink hover:bg-card hover:border-ink",
@@ -91,13 +86,13 @@ export function SiteNav() {
               href="/raj-g-resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border-2 border-transparent px-3.5 py-1.5 text-[0.9375rem] font-medium text-ink transition-colors hover:border-ink hover:bg-card"
+              className="inline-flex min-h-11 items-center rounded-full border-2 border-transparent px-3.5 py-1.5 text-[0.9375rem] font-medium text-ink transition-colors hover:border-ink hover:bg-card"
             >
               Resume
             </a>
             <a
               href="#contact"
-              className="btn btn-primary ml-2 px-4 py-2 text-base min-h-11"
+              className="btn btn-primary ml-2 px-4 py-2 text-base min-h-12"
             >
               Say hi
             </a>

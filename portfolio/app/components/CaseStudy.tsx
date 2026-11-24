@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export type CaseStudyGlance = {
   role: string;
@@ -33,18 +34,18 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
 
       <header className="border-b-2 border-dashed border-ink">
         <div className="shell flex h-16 items-center justify-between gap-4">
-          <a
+          <Link
             href="/"
             className="bricolage text-xl font-extrabold tracking-tight"
           >
-            Raj G
-          </a>
-          <a
+            raj g.
+          </Link>
+          <Link
             href="/#work"
-            className="btn btn-secondary min-h-11 px-4 py-2 text-base"
+            className="btn btn-secondary min-h-12 px-4 py-2 text-base"
           >
             Back to work
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -108,7 +109,7 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
               alt={data.title}
               width={data.screenshot.width}
               height={data.screenshot.height}
-              className="mt-10 h-auto w-full rounded-lg border-2 border-ink"
+              className="frame mt-10 h-auto w-full"
               sizes="(min-width: 768px) 680px, 100vw"
               loading="lazy"
             />
@@ -123,12 +124,12 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
             ))}
           </ul>
           <p className="text-small mt-3 text-ink-soft">
-            <a
+            <Link
               href="/#skills"
-              className="font-semibold underline decoration-2 underline-offset-4"
+              className="inline-flex min-h-11 items-center font-semibold underline decoration-2 underline-offset-4"
             >
               See how I use this stack
-            </a>
+            </Link>
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
@@ -153,12 +154,12 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
           </div>
 
           <div className="mt-14 border-t-2 border-dashed border-ink/40 pt-8">
-            <a
+            <Link
               href="/#work"
-              className="text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"
+              className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"
             >
               Back to work
-            </a>
+            </Link>
           </div>
         </article>
       </main>

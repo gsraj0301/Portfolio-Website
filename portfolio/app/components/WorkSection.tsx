@@ -11,8 +11,8 @@ type Project = {
   fill: string;
   tilt: string;
   feature?: boolean;
+  small?: boolean;
   story?: string;
-  stats?: { value: string; label: string }[];
   screenshot?: { src: string; width: number; height: number };
 };
 
@@ -30,11 +30,6 @@ const projects: Project[] = [
     tilt: "-1.5deg",
     feature: true,
     story: "/work/pride",
-    stats: [
-      { value: "2,000", label: "students signed up" },
-      { value: "231", label: "teams took part" },
-      { value: "14", label: "competitions run" },
-    ],
   },
   {
     title: "Kindled",
@@ -92,10 +87,11 @@ const projects: Project[] = [
     cardLine:
       "Flags fraudulent job postings: 90% recall, ROC-AUC 0.989, trained on 17,880 Kaggle postings.",
     href: "https://github.com/gsraj0301/Fake-Job-Posting-Detector",
-    ctaLabel: "View on GitHub",
+    ctaLabel: "Read the story",
     stack: ["Python", "scikit-learn", "pandas", "NumPy", "matplotlib"],
     fill: "var(--card)",
     tilt: "1.5deg",
+    small: true,
   },
 ];
 
@@ -112,57 +108,43 @@ export const WorkSection: FC = () => {
         </p>
 
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <article
-              key={project.title}
-              className={[
-                "sticker flex flex-col p-6 sm:p-7",
-                project.feature ? "md:col-span-2" : "",
-              ].join(" ")}
-              style={
-                {
-                  "--tilt": project.tilt,
-                  background: project.fill,
-                } as CSSProperties
-              }
-            >
-              <div
-                className={
-                  project.feature
-                    ? "grid gap-8 lg:grid-cols-[1.6fr_1fr]"
-                    : "flex flex-1 flex-col"
-                }
-              >
-                <div className="flex flex-col">
-                  {project.tag ? (
-                    <span className="tag self-start">{project.tag}</span>
-                  ) : null}
+          {projects.map((project) => {
+            const isFeature = Boolean(project.feature);
+            const isSmall = Boolean(project.small);
 
-                  <h3 className={project.tag ? "text-h3 mt-4" : "text-h3"}>
-                    {project.story ? (
-                      <a href={project.story} className="hover:underline">
-                        {project.title}
-                      </a>
-                    ) : (
-                      project.title
-                    )}
-                  </h3>
+            const body = (
+              <div className="flex flex-1 flex-col">
+                {project.tag ? (
+                  <span className="tag self-start">{project.tag}</span>
+                ) : null}
 
-                  <p className="text-small prose-measure mt-2 text-ink-soft">
-                    {project.cardLine}
-                  </p>
+                <h3 className={project.tag ? "text-h3 mt-4" : "text-h3"}>
+                  {project.story ? (
+                    <a href={project.story} className="hover:underline">
+                      {project.title}
+                    </a>
+                  ) : (
+                    project.title
+                  )}
+                </h3>
 
-                  {project.screenshot ? (
-                    <Image
-                      src={project.screenshot.src}
-                      alt={project.title}
-                      width={project.screenshot.width}
-                      height={project.screenshot.height}
-                      className="mt-4 h-auto w-full rounded-lg border-2 border-ink"
-                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                      loading="lazy"
-                    />
-                  ) : null}
+                <p className="text-small prose-measure mt-2 text-ink-soft">
+                  {project.cardLine}
+                </p>
+
+                {!isFeature && project.screenshot ? (
+                  <Image
+                    src={project.screenshot.src}
+                    alt={`${project.title} screenshot`}
+                    width={project.screenshot.width}
+                    height={project.screenshot.height}
+                    className="frame mt-4 h-auto w-full"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    loading="lazy"
+                  />
+                ) : null}
+
+                {!isSmall ? (
                   <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Stack">
                     {project.stack.map((tech) => (
                       <li key={tech} className="chip chip-solid">
@@ -170,49 +152,65 @@ export const WorkSection: FC = () => {
                       </li>
                     ))}
                   </ul>
+                ) : null}
 
-                  <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-6">
+                <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-6">
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary px-4 py-2.5 text-base min-h-12"
+                  >
+                    {project.ctaLabel}
+                  </a>
+                  {project.story ? (
                     <a
-                      href={project.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-primary px-4 py-2.5 text-base min-h-11"
+                      href={project.story}
+                      className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"
                     >
-                      {project.ctaLabel}
+                      Read the story
                     </a>
-                    {project.story ? (
-                      <a
-                        href={project.story}
-                        className="text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"
-                      >
-                        Read the story
-                      </a>
+                  ) : null}
+                </div>
+              </div>
+            );
+
+            return (
+              <article
+                key={project.title}
+                className={[
+                  "sticker wiggle flex flex-col",
+                  isSmall ? "p-5" : "p-6 sm:p-7",
+                  isFeature ? "md:col-span-2" : "",
+                ].join(" ")}
+                style={
+                  {
+                    "--tilt": project.tilt,
+                    background: project.fill,
+                  } as CSSProperties
+                }
+              >
+                {isFeature ? (
+                  <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-start">
+                    {body}
+                    {project.screenshot ? (
+                      <Image
+                        src={project.screenshot.src}
+                        alt={`${project.title} screenshot`}
+                        width={project.screenshot.width}
+                        height={project.screenshot.height}
+                        className="frame h-auto w-full"
+                        sizes="(min-width: 1024px) 45vw, 100vw"
+                        loading="lazy"
+                      />
                     ) : null}
                   </div>
-                </div>
-
-                {project.feature && project.stats ? (
-                  <dl className="hidden border-l-2 border-dashed border-ink/40 pl-8 lg:flex lg:flex-col lg:justify-center">
-                    {project.stats.map((stat, i) => (
-                      <div
-                        key={stat.label}
-                        className={
-                          i > 0
-                            ? "mt-4 border-t-2 border-dashed border-ink/40 pt-4"
-                            : ""
-                        }
-                      >
-                        <dt className="text-small text-ink-soft">{stat.label}</dt>
-                        <dd className="bricolage mt-1 text-4xl font-extrabold leading-none">
-                          {stat.value}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                ) : null}
-              </div>
-            </article>
-          ))}
+                ) : (
+                  body
+                )}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 # CONTENT.md: Raj G portfolio copy
 
-> Last updated: 2026-11-23 (matches the shipped site)
+> Last updated: 2026-11-24 (matches the shipped site)
 
 All words on the site come from this file. Do not invent copy. If a field says
 `[REPLACE]`, stop and ask for it instead of filling it in. The live code is the
@@ -47,7 +47,7 @@ Case-study long copy lives in `CASE_STUDY.md` and the five
 - Primary button: `See my work` (jumps to `#work`)
 - Secondary button: `Say hi` (jumps to `#contact`)
 - Handwritten note (next to the stickers): `(yes, really)`
-- Photo: circular avatar, `public/raj.jpg` (compressed 400x400), handwritten
+- Photo: die-cut sticker, `public/raj.jpg` (compressed 400x400), handwritten
   name "Raj G" beside it.
 
 Stat stickers (real facts only):
@@ -72,15 +72,17 @@ people. Currently not rendered.
 Section heading: `Things I've built for real people`
 Intro line: `Every one of these started with someone who had a problem. Tap one for the full story.`
 
-Order: PRIDE (feature size), Kindled, Fresher's counter, Gexp, GST Reconciler,
-Fake Job Posting Detector. Screenshots sit above the stack chips.
+Order: PRIDE (feature, spans 2 columns), Kindled, Fresher's counter, Gexp,
+GST Reconciler, Fake Job Posting Detector (small, no stack chips).
+
+Card anatomy (top to bottom): tag (if any), title, card line, screenshot (if any),
+stack chips (hidden on Fake Job), CTA, "Read the story" link when a case study exists.
 
 ### 3.1 PRIDE portal
 
 - slug: `pride`
 - tag: `college`
-- size: feature (spans 2 columns, stats: 2,000 students signed up / 231 teams
-  took part / 14 competitions run)
+- size: feature (spans 2 columns; screenshot on the right on desktop; no stats strip)
 - Card line: `One platform for college competitions. Used by 2,000+ students for a whole semester.`
 - CTA: `Visit site` to `https://agni-pride.onrender.com`
 - Screenshot: done, `public/images/pride.png` (1660x907, no private student data)
@@ -142,11 +144,11 @@ Fake Job Posting Detector. Screenshots sit above the stack chips.
 
 ### 3.6 Fake Job Posting Detector
 
-Standard Work card, no case-study page. CTA `Read the story` links to the repo.
+Small Work card, no case-study page, no stack chips. CTA `Read the story` links to the repo.
 
 - Card line: `Flags fraudulent job postings: 90% recall, ROC-AUC 0.989, trained on 17,880 Kaggle postings.`
 - Repo: `https://github.com/gsraj0301/Fake-Job-Posting-Detector`
-- Stack chips: Python, scikit-learn, pandas, NumPy, matplotlib
+- Stack chips (shown in Skills only): Python, scikit-learn, pandas, NumPy, matplotlib
 - Seen in skills: Data, ML and dashboards
 
 ## 4. Skills
@@ -207,37 +209,67 @@ Four steps (this is a real sequence, numbers are allowed):
 Closing line (about AI tools):
 `I use AI coding tools as my hands. I decide what gets built, read what they write, and fix what breaks.`
 
-## 6. Games
+## 6. Hobbies
 
-Section heading: `Games`
-Intro line: `I'll always pick a story first.`
-Figure: static `About 1,000` (not a count-up, so it never reads as exact),
-caption `games I play, SNES to PS3 & PC`.
+Section heading: `When I'm not coding` (marigold band)
+Intro line: `Games, old PCs, chess and stories. Where the keyboard takes a break.`
 
-Console strip (text chips, in order): SNES, GBA, PlayStation, PS2, NDS, 3DS, PS3, PC
+### 6.1 Games
 
-Top 5, ranked from 5 down to 1, each with Raj-supplied box-art thumbnail
-(`public/images/*.png`):
+- Figure: animated count-up `About 1,000` (900ms on first view; final value under
+  `prefers-reduced-motion`).
+- Paragraph: `From SNES to PS3 and PC. Give me a great story over great graphics
+  any day, and yes, I keep a ranked top 5.`
+- Console strip (text chips, in order): SNES, GBA, PlayStation, PS2, NDS, 3DS, PS3, PC
+- Top 5, ranked 5 down to 1, **text-only** (no box art):
+  5. Growlanser series (PS2): `Combat that never gets boring, choices that actually matter, multiple endings, and a story that's crazy good. This is why I still love JRPGs.`
+  4. Mass Effect trilogy: `Three games with a great story, characters you really grow with, and combat that stays fun.`
+  3. Dragon Age: Origins: `Fantasy is my favourite genre, and this one nails it: a story that pulls you in and combat that never gets boring.`
+  2. Sleeping Dogs: `Crazy martial-arts fights in an open-world Hong Kong. What else do you need?`
+  1. Telltale games: `I love games that tell a story, and Telltale tells them best. Come back, please.` (largest card, tomato numeral)
 
-5. Growlanser series (PS2): `Combat that never gets boring, choices that actually matter, multiple endings, and a story that's crazy good. This is why I still love JRPGs.`
-4. Mass Effect trilogy: `Three games with a great story, characters you really grow with, and combat that stays fun.`
-3. Dragon Age: Origins: `Fantasy is my favourite genre, and this one nails it: a story that pulls you in and combat that never gets boring.`
-2. Sleeping Dogs: `Crazy martial-arts fights in an open-world Hong Kong. What else do you need?`
-1. Telltale games: `I love games that tell a story, and Telltale tells them best. Come back, please.`
+### 6.2 Old PCs
 
-## 7. Words
+- Stats: `5` PCs / `3` laptops (display numerals)
+- Copy: `My grandfather and uncle had old PCs that had seen better decades,
+  so I became the family PC doctor. Five PCs and three laptops
+  diagnosed so far, and the waiting room is still open.`
+- Repair photos (optional, in screenshot frames):
+  - `public/images/pc-repair.jpeg` (899x1599), alt "A desktop PC repair"
+  - `public/images/laptop-repair.jpeg` (1599x899), alt "A laptop repair"
 
-Section heading: `Words`
-Intro line: `I also write. Under the name Raj G, I'm working on two novels. I started with ChoiceScript interactive fiction before moving to prose.`
+### 6.3 Writing
 
-Book stickers (status chip `in progress` on both):
+- Intro: `I write fiction as Raj G. Two novels in progress: one with giant
+  mechs, one with a talking sword. Yes, the sword talks.`
+- Book stickers (status chip `in progress`):
+  - Hands That Remember: genre `Sci-fi mech story.`
+  - Sword That Talks: genre `Fantasy with a talking sword named Ozarion.`
+- No hook paragraphs (render title + genre only). Say "I write", never "author".
 
-- Hands That Remember: genre line `Sci-fi mech story.` Hook: [PLACEHOLDER: chapter incomplete, hooks to be written]
-- Sword That Talks: genre line `Fantasy with a talking sword named Ozarion.` Hook: [PLACEHOLDER: chapter incomplete, hooks to be written]
+### 6.4 Reading
 
-Say "I write", never "author", until something is published.
+- Paragraph 1: `Most of my reading is choose-your-own-adventure books from
+  Choice of Games and Hosted Games, where I get to make all the
+  bad decisions.`
+- Paragraph 2: `The rest is fantasy, like Ranger's Apprentice and Lord of
+  the Rings.`
 
-## 8. Contact
+### 6.5 Chess
+
+- Copy: `I play chess. In my head I'm a grandmaster. The board has
+  other opinions.`
+- Inline SVG checkerboard (CSS, no clip art), `aria-hidden`.
+
+### 6.6 Tinkering
+
+- Omitted (no copy supplied).
+
+**Hard constraints:** No game box art, no copyrighted artwork, no console logos,
+no chess clip art. Hobby stickers use Raj's own photos or plain typography and
+CSS patterns.
+
+## 7. Contact
 
 - Heading: `Say hi`
 - Sub-line: `Internship, project, or just want to talk games? Email is fastest.`
@@ -245,26 +277,31 @@ Say "I write", never "author", until something is published.
 - LinkedIn button: `LinkedIn` to `https://www.linkedin.com/in/raj-g-314576384/`
 - GitHub button: `GitHub` to `https://github.com/gsraj0301`
 - Resume button: `Download resume` to `/raj-g-resume.pdf`
-- Contact form: "Or leave a message" — name, email, message; inserts into
-  Supabase `contacts`; success "Message sent. I'll get back to you."; error
-  falls back to the email address.
+- Contact form: "Or leave a message" — name, email, message (labels above
+  fields, no placeholders); inserts into Supabase `contacts`; honeypot field;
+  max 1,000 chars on message; inline field errors with icon; submit "Send
+  message" / "Sending"; success replaces form with `Got it. I'll reply soon.`;
+  error falls back to mailto: `The send did not go through. Email me at
+  gsraj.developer@gmail.com instead.`; privacy line `I'll only use your email to
+  reply to you.`
 - No phone number anywhere on the site.
 - Footer sign-off (handwritten, centred): `Built by Raj G in Chennai.`
 
-## 9. Navigation labels
+## 8. Navigation labels
 
-- Desktop: Work, Skills, Games, Words, Resume, Say hi
-- Mobile top bar: Raj G logo + Resume pill
-- Mobile bottom pill: Work, Skills, Games, Contact
-- Case-study pages: `Back to work`
+- Desktop: Work, Skills, Hobbies, Resume, Say hi (logo: `raj g.`)
+- Mobile top bar: `raj g.` logo only (no Resume pill)
+- Mobile bottom pill: Work, Skills, Hobbies, Contact (icons: briefcase, wrench,
+  coffee, mail)
+- Case-study pages: `Back to work` (top and bottom)
 
-## 10. 404 page
+## 9. 404 page
 
 - Heading: `Page not found`
 - Line: `This sticker fell off the board.`
 - Button: `Go home`
 
-## 11. Replacement checklist (status)
+## 10. Replacement checklist (status)
 
 | # | Where it goes | Status |
 | --- | --- | --- |
@@ -276,9 +313,9 @@ Say "I write", never "author", until something is published.
 | 6 | Fresher's counter | Copy + URL done; screenshot pending |
 | 7 | Gexp | Copy done; screenshot + APK release link pending |
 | 8 | GST Reconciler | Copy + screenshot done; .exe release link pending |
-| 9 | Also built | Done: Fake Job Posting Detector card |
+| 9 | Fake Job Posting Detector | Done: small Work card, no stack chips |
 | 10 | Skills | Done: tiers reconciled with projects |
 | 11 | How I build | Done: AI-tools line |
-| 12 | Games | Done: consoles, box art, static figure |
-| 13 | Words | Pending: hook paragraph for each novel |
+| 12 | Hobbies: Games | Done: console list, text-only top 5, animated count-up |
+| 13 | Hobbies: Old PCs, Writing, Reading, Chess | Done: copy + repair photos |
 | 14 | Contact | Done: resume PDF + Supabase form (grant insert required) |

@@ -1,7 +1,5 @@
 # DESIGN.md: Raj G portfolio, "sticker board" style
 
-> Last updated: 2026-11-23 (matches the shipped site)
-
 Read this before writing any UI. It defines how the site looks and moves.
 Copy lives in `CONTENT.md`. Behaviour and pages live in `SPEC.md`. If this file
 conflicts with either, this file wins on visuals and those files win on content
@@ -34,14 +32,16 @@ Do not do any of these. If a component seems to need one, redesign the component
 - No meta strings joined with middle dots (A · B · C).
 - No single word in a headline highlighted, italicised or recoloured.
 - No numbered markers (01, 02, 03) unless the content is a real sequence. The
-  games top 5 is a real ranking, so numbers are allowed there only.
+  games top 5 inside the hobbies section is a real ranking, so numbers are
+  allowed there only.
 - No arrow glyph appended to button or link text.
 - No monospace font for small labels.
 - No fade-up-on-scroll on every section. No hover transition on everything.
 - No stock illustrations, stock photos, or emoji.
 - No lorem ipsum. If copy is missing, stop and ask for it.
-- No console logos or third-party artwork. Exception (Raj's explicit call):
-  game box-art thumbnails he supplies are allowed in the Games section only.
+- No game box art, console logos, or other copyrighted artwork. Use text only.
+- No chess, console or hardware clip art. Hobby stickers use Raj's own photos
+  or plain typography and CSS patterns.
 - No skill bars, percentages, star ratings, or technology logos in the skills
   section.
 
@@ -55,7 +55,7 @@ Six named colours. Nothing else.
 | `--card` | Card | `#FFFFFF` | Sticker faces, text panels |
 | `--ink` | Ink | `#1C1713` | All text, all outlines, all shadows |
 | `--tomato` | Tomato | `#FF5A36` | Primary buttons, one accent sticker per view |
-| `--marigold` | Marigold | `#FFC93C` | Highlight stickers, focus ring, games band |
+| `--marigold` | Marigold | `#FFC93C` | Highlight stickers, focus ring, hobbies band |
 | `--mint` | Mint | `#BFE3D0` | Secondary sticker fill, tags |
 | `--blush` | Blush | `#FFE1D6` | Tertiary sticker fill, how-I-build band |
 
@@ -68,7 +68,7 @@ Usage rules:
 - Marigold is never used for text.
 - At most one tomato element per screen section besides the primary button.
 - Page background is Paper. Full-bleed colour bands are limited to three on the
-  whole page: Blush (how I build), Marigold (games), Tomato (contact).
+  whole page: Blush (how I build), Marigold (when I'm not coding), Tomato (contact).
 - Verify every text and fill pair for WCAG AA contrast before finishing.
 
 ```css
@@ -151,21 +151,21 @@ What people said paper       (one or two real quotes, only if provided)
 Work            paper        (bento grid of project stickers)
 Skills          paper        (capability stickers, see section 7)
 How I build     blush band
-Games           marigold band
-Words           paper        (two novels)
-Contact         tomato band  (footer sign-off inside)
+Hobbies         marigold band (When I'm not coding; games, old PCs, chess,
+                              writing, reading, tinkering. Words is merged here)
+Contact         tomato band  (email, links, contact form, footer sign-off)
 ```
 
 Work and Skills are both on paper. Separate them with the dashed perforation
-divider. Section ids for anchors and scroll-spy: `work`, `skills`, `games`,
-`words`, `contact`.
+divider. Section ids for anchors and scroll-spy: `work`, `skills`, `hobbies`,
+`contact`.
 
 ### Hero wireframe
 
 Desktop (12 columns):
 
 ```
-[ raj g.   work  skills  games  words  resume  [say hi] ]
+[ raj g.   work  skills  hobbies  resume  [say hi] ]
 |                                |               |
 |  I build things people         |  [sticker]    |
 |  actually use.                 |     [sticker] |
@@ -215,18 +215,19 @@ Real facts only (see `CONTENT.md`). Fills rotate through marigold, card, mint.
   `--shadow-hard-lg`. No colour change.
 
 ### Nav
-- Desktop (1024+): sticky top bar. Logo "Raj G" in Display 800 (links to the
-  top of the home page), then pill links: Work, Skills, Games, Words, Resume. "Say hi"
+- Desktop (1024+): top bar. Logo "raj g." in Display 800 (links to the top of
+  the home page), then pill links: work, skills, hobbies, resume. "Say hi"
   is the tomato pill and jumps to contact. "Resume" opens the PDF in a new tab.
   The pill for the section currently in view gets marigold fill (scroll-spy
   state change, not an animation).
 - Mobile: floating bottom pill, ink fill, paper icons with visible text labels
   under each icon (labels at 14px). Exactly four items, in this order: Work,
-  Skills, Games, Contact. Icons from the single icon set: briefcase, wrench,
-  gamepad, mail. The current section's item gets a marigold circle behind its
+  Skills, Hobbies, Contact. Icons from the single icon set: briefcase, wrench,
+  coffee, mail. The current section's item gets a marigold circle behind its
   icon. Respect `env(safe-area-inset-bottom)`. Each target at least 44x44px.
-- Mobile also shows a non-sticky top bar: "Raj G" logo at the left (links to
-  the top) and a Resume pill at the right (opens the PDF in a new tab).
+- Mobile also shows the small "raj g." logo at the top-left of the page (not
+  sticky). It scrolls to the top. The resume link on mobile lives in the
+  contact section.
 - On case-study pages the nav is replaced by a "Back to work" pill at the top
   and bottom. The mobile bottom pill is not shown there.
 - Include a visible "skip to content" link as the first focusable element.
@@ -235,9 +236,10 @@ Real facts only (see `CONTENT.md`). Fills rotate through marigold, card, mint.
 Anatomy: tag chip (type of project), title (H3), one-line problem, optional
 screenshot, one CTA. Sizes:
 
-- Feature (PRIDE portal): spans 2 columns on desktop, shows screenshot + stats.
-- Standard (Kindled, Fresher's counter, Gexp, GST Reconciler, Fake Job Posting
-  Detector): 1 column. Screenshot above the stack chips where provided.
+- Feature (PRIDE portal): spans 2 columns on desktop, shows screenshot.
+- Standard (Kindled, Fresher's counter, Gexp, GST Reconciler): 1 column.
+- Small (Also built: Fake Job Posting Detector, Hand Gesture system): compact,
+  no screenshot, title and one line.
 
 Fills vary: card, blush, mint, marigold (feature uses card). The CTA verb
 matches the project type: "Visit site", "Get the APK", "Get the .exe",
@@ -245,7 +247,7 @@ matches the project type: "Visit site", "Get the APK", "Get the .exe",
 
 ### Tag chip
 Pill, `--line`, `--shadow-hard-sm`, 14px Body 500, lower-case text such as
-"college", "family business", "for learners", "for accountants".
+"college", "family business", "for learners", "tool for an accountant".
 
 ### Skills section: capability stickers
 The skills section answers "what can this person build?" Each sticker is one
@@ -298,10 +300,9 @@ Reconciler screenshots) must be blurred or replaced with fake data before use.
 For apps with no live link, show a short looping screen recording
 (muted, `playsinline`, poster frame, under 2MB) in the same frame.
 
-### Photo avatar
-Raj's photo as a 64px circle with a 2px ink outline in the hero, handwritten
-"Raj G" beside it. One photo only. Source compressed to 400x400 (~30KB) and
-served through `next/image`.
+### Die-cut photo
+Raj's photo with a thick white outline (8px) and an ink outer line, as a
+sticker on the About block. One photo only.
 
 ### Doodles
 A small set of hand-drawn SVG marks: arrow, star, squiggle, circle. Ink stroke,
@@ -312,37 +313,75 @@ traced from his sketches. No icon packs for decoration.
 Functional only (nav, external link, download). One outline icon set, 24px,
 2px stroke, ink colour.
 
-### Games section (marigold band)
-- Console strip as text chips from SNES to PS3 & PC. Text only, no logos.
-- Static "About 1,000" figure in Display, caption "games I play, SNES to PS3 &
-  PC". Deliberately not a count-up: an animated exact number would misrepresent
-  an estimate.
-- Top 5 as stickers, ranked 5 down to 1 with large Display numerals and a small
-  box-art thumbnail (Raj-supplied images, ink outline, rounded). The number 1
-  sticker is the largest and uses card fill with a tomato numeral. One short
-  line per game from `CONTENT.md`.
-- Mobile: console strip scrolls horizontally with scroll-snap; top 5 stack;
-  thumbnails shrink (56px) so the text keeps room.
+### Hobbies section: "When I'm not coding" (marigold band)
+Replaces the old Games and Words sections. Full-bleed marigold band. H2 "When I'm
+not coding" with one intro sentence from `CONTENT.md`. The section is a bento
+grid of six stickers with deliberately different sizes. Sticker fills use card,
+paper, mint and blush only (never marigold, which is the band). Tilt and shadow
+follow the normal sticker rules. Target length: about two phone screens in total.
 
-### Words section (novels)
-Two book-shaped stickers built in CSS: tall rectangle, a thicker spine edge on
-the left, title in Display 800, an "in progress" chip. No invented cover art.
-Hook paragraph below each, 62ch max.
+Stickers, largest first:
+
+1. Games (wide, spans the full grid width on desktop). Contents, in order:
+   - "About 1,000 games" in Display 800. Count-up on first view, with the final
+     value shown instantly under reduced motion.
+   - Console strip as text chips: SNES, GBA, PlayStation, PS2, NDS, 3DS, PS3,
+     PC. Text only, no logos. Scrolls horizontally inside its own container
+     with scroll-snap on mobile.
+   - Top 5 as small stickers, ranked 5 down to 1 with large Display numerals.
+     The number 1 sticker is the largest, card fill, tomato numeral. One short
+     line per game from `CONTENT.md`. No cover art or game images of any kind.
+2. Old PCs (medium). Two Display 800 numerals side by side, "5" with the label
+   "PCs" and "3" with the label "laptops", plus one sentence. Optional: Raj's
+   own before-and-after photo in a screenshot frame.
+3. Writing (medium). Contains the two book-shaped stickers moved from the old
+   Words section: tall rectangle, thicker spine edge on the left, title in
+   Display 800, an "in progress" chip. No invented cover art. One-line genre
+   under each, hook paragraph only when written (62ch max).
+4. Reading (medium). Two short lines of plain text: interactive fiction and
+   fantasy novels. Series names appear as plain text, never cover images.
+5. Chess (small). A CSS checkerboard pattern (two flat colours from the palette,
+   no piece artwork) plus one line of text.
+6. Tinkering (small, optional, render only if copy exists). One line of text.
+
+Desktop layout: Games on its own full-width row; below it, Old PCs and Writing
+as larger stickers with Reading, Chess and Tinkering stacked beside them. Mobile
+order: Games, Old PCs, Writing, Reading, Chess, Tinkering, all single column.
+Never render six equal cards.
 
 ### Contact (tomato band)
-Large email address in Display 800 as a mailto link, then LinkedIn, GitHub and
-Download resume as card-fill buttons. Below them, the Supabase contact form:
-card-fill inputs with 2px ink outlines, card-fill submit button (never
-tomato-on-tomato), success/error messages as card pills with ink text. No phone
-number on the site. Footer sign-off in Handwritten, centred.
+Large email address in Display 800 as a mailto link, then LinkedIn and GitHub
+as secondary buttons. No phone number on the site. Footer sign-off in
+Handwritten, centred.
+
+### Contact form
+Sits in the tomato band beside the email and link buttons (desktop, two columns)
+or below them (mobile). The form is one white card-fill sticker with `--line` and
+`--shadow-hard-lg`.
+
+- Fields, top to bottom: name (text), email (email), message (textarea, 1000
+  character limit). Labels sit above each field in Body 500, never as placeholders.
+  Field fill is card, `--line`, 10px radius, minimum 48px height, text at least
+  16px so iOS does not zoom.
+- A hidden honeypot field is moved off-screen, `aria-hidden`, `tabindex="-1"`,
+  and has no visible label.
+- Errors appear as plain text directly under the field, Body 400 in ink, with a
+  small icon. Never colour alone.
+- Submit button: primary tomato, label "Send message". While sending: disabled,
+  label "Sending". Success: the form is replaced by a card-fill sticker reading
+  "Got it. I'll reply soon." (`role="status"`). Failure: a message that says the
+  send did not go through and shows the email address as a mailto link.
+- A privacy line under the button in `--ink-soft`: "I'll only use your email to
+  reply to you."
+- Keep the email address and LinkedIn visible next to the form. The form never
+  replaces them.
 
 ### Case-study page
 Single column, 62ch reading width, no tilt on body content. Order: title and
-tag, intro, at-a-glance strip (role / stack / status / link as a dashed-border
-metadata row, not a fifth beat), the problem in one sentence, why Raj built it,
-what it does, how it went (real usage, what broke), screenshot above the stack,
-stack as solid tech chips (with a link to `/#skills` on the home page), links.
-"Back to work" link at the top and bottom.
+tag, the problem in one sentence, why Raj built it, what it does, how it went
+(real usage, what broke), stack as solid tech chips (with a link to `#skills`
+on the home page), links. Screenshots in frames between sections. "Back to
+work" link at the top and bottom.
 
 ## 8. Motion
 
@@ -350,18 +389,22 @@ Principle: one orchestrated moment, plus motion that responds to a person's
 action. Nothing else moves.
 
 1. Hero slap (page load, once): the hero stickers scale from 1.25 to 1 and
-   settle into their tilt, staggered 0/90/180ms, 450ms each, ease-out. CSS
-   keyframes only, no animation library. Headline and buttons are visible
-   immediately and do not animate.
-2. Press and hover on buttons and project chips as described above.
+   settle into their tilt, staggered 90ms, 450ms each, ease-out with a small
+   overshoot. Total under 1.1s. Headline and buttons are visible immediately
+   and do not animate.
+2. Press and hover on buttons and project stickers as described above.
    Duration 120ms.
-3. Smooth anchor scroll for nav jumps (auto under reduced motion).
+3. Sticker wiggle on hover (pointer devices only): rotate +/-2 degrees once,
+   200ms. Only on stat stickers and project stickers.
+4. Hobbies count-up (the "about 1,000 games" number): one time, 900ms.
+5. Project demo loops: muted, `playsinline`, looping recordings inside the
+   screenshot frame, each under 2MB with a poster image. They play only while in
+   view. Under reduced motion they show the poster and do not play.
+6. Optional easter egg (last build phase): typing the Konami code makes the
+   cursor a pixel arrow and drops a handful of pixel-art stickers once.
 
-Dropped from the shipped build: games count-up (static "About 1,000" instead),
-sticker wiggle, Konami easter egg.
-
-Under `prefers-reduced-motion: reduce`: no slap, no smooth scroll, no
-transitions. Everything renders in its final state.
+Under `prefers-reduced-motion: reduce`: no slap, no wiggle, no count-up, no
+demo loops, no easter egg animation. Everything renders in its final state.
 
 Never animate layout properties. Animate `transform` and `opacity` only.
 
@@ -381,8 +424,8 @@ Never animate layout properties. Animate `transform` and `opacity` only.
 ## 10. Performance and responsive quality floor
 
 - Mobile first. Verify at 360, 390, 768, 1280 and 1440px widths.
-- No horizontal page scroll at any width. Only the games timeline scrolls
-  sideways, inside its own container.
+- No horizontal page scroll at any width. Only the console strip in the
+  hobbies section scrolls sideways, inside its own container.
 - Images: WebP or AVIF, explicit width and height, lazy-load below the fold,
   `srcset` for screenshots.
 - Fonts: three families, Latin subset, `font-display: swap`, preload the display
@@ -392,15 +435,15 @@ Never animate layout properties. Animate `transform` and `opacity` only.
 - Targets on a mid-range Android phone over 4G: LCP under 2.5s, CLS under 0.1,
   Lighthouse performance 90+, accessibility 100.
 
-## 11. Assets (status)
+## 11. Assets Raj must provide
 
-- Photo: done (`images/raj.jpg`, compressed copy in `portfolio/public/raj.jpg`).
-- Screenshots: done for PRIDE, Kindled, GST Reconciler (fake data only for GST).
-  Pending: Fresher's counter, Gexp (blur or fake all private data).
-- Game box art: done (five thumbnails in `portfolio/public/images/`).
-- Resume PDF: done (`portfolio/public/raj-g-resume.pdf`).
-- Hand-drawn doodles: not provided; none rendered (the handwritten notes carry
-  the hand-made feel instead).
+- One photo of himself (clear, good light).
+- Screenshots or short screen recordings for: PRIDE portal, Kindled, Fresher's
+  counter, Gexp, GST Reconciler. Blur or fake all private data.
+- Optional photos for the hobbies section: the game shelf, and a before-and-after
+  of one old PC. Chess and the other hobbies need no photo.
+- 3 to 5 hand-drawn doodles or sketches to trace (arrow, star, squiggle).
+- Resume PDF.
 
 ## 12. Definition of done for visuals
 

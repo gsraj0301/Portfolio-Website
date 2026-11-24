@@ -14,9 +14,6 @@ type Capability = {
   wide?: boolean;
 };
 
-const FRESHER = "https://github.com/gsraj0301/fresher-day-registrations";
-const GEXP = "https://github.com/gsraj0301/GPexp";
-const GST = "https://github.com/gsraj0301/gst-reconciler";
 const FAKEJOB = "https://github.com/gsraj0301/Fake-Job-Posting-Detector";
 
 const capabilities: Capability[] = [
@@ -38,7 +35,7 @@ const capabilities: Capability[] = [
     seenIn: [
       { label: "PRIDE portal", href: "/work/pride" },
       { label: "Kindled", href: "/work/kindled" },
-      { label: "Fresher's counter", href: FRESHER, external: true },
+      { label: "Fresher's counter", href: "/work/fresher-counter" },
     ],
     fill: "var(--card)",
     tilt: "-1deg",
@@ -50,8 +47,8 @@ const capabilities: Capability[] = [
     builtWith: ["Python", "Flet", "Tkinter", "SQLite"],
     usedWith: ["React Native"],
     seenIn: [
-      { label: "Gexp", href: GEXP, external: true },
-      { label: "GST Reconciler", href: GST, external: true },
+      { label: "Gexp", href: "/work/gexp" },
+      { label: "GST Reconciler", href: "/work/gst-reconciler" },
     ],
     fill: "var(--mint)",
     tilt: "1deg",
@@ -93,9 +90,9 @@ const capabilities: Capability[] = [
     usedWith: ["Cloudflare Pages", "Streamlit Cloud"],
     seenIn: [
       { label: "PRIDE portal", href: "/work/pride" },
-      { label: "Fresher's counter", href: FRESHER, external: true },
+      { label: "Fresher's counter", href: "/work/fresher-counter" },
       { label: "Kindled", href: "/work/kindled" },
-      { label: "Gexp", href: GEXP, external: true },
+      { label: "Gexp", href: "/work/gexp" },
     ],
     fill: "var(--marigold)",
     tilt: "-1deg",
@@ -107,9 +104,9 @@ const capabilities: Capability[] = [
     builtWith: [],
     usedWith: [],
     seenIn: [
-      { label: "Fresher's counter", href: FRESHER, external: true },
-      { label: "GST Reconciler", href: GST, external: true },
-      { label: "Gexp", href: GEXP, external: true },
+      { label: "Fresher's counter", href: "/work/fresher-counter" },
+      { label: "GST Reconciler", href: "/work/gst-reconciler" },
+      { label: "Gexp", href: "/work/gexp" },
     ],
     fill: "var(--mint)",
     tilt: "1deg",
