@@ -57,8 +57,13 @@ export function useCountUp(
 ): { value: number; display: string } {
   const reduce = useReducedMotion();
   const [value, setValue] = useState(0);
+  const [isClient, setIsClient] = useState(false);
   const hasRun = useRef(false);
-  const isServer = typeof window === "undefined";
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- required to avoid hydration mismatch
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     if (reduce) return;
@@ -83,7 +88,7 @@ export function useCountUp(
     return () => clearTimeout(timer);
   }, [target, duration, reduce, options?.startDelay]);
 
-  const display = isServer || reduce
+  const display = !isClient || reduce
     ? (options?.prefix ?? "") + target.toLocaleString("en-US") + (options?.suffix ?? "")
     : (options?.prefix ?? "") + value.toLocaleString("en-US") + (options?.suffix ?? "");
 
