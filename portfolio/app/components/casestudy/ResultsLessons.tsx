@@ -5,9 +5,9 @@ interface ResultsLessonsProps {
 
 export function ResultsLessons({ results, lessons }: ResultsLessonsProps) {
   return (
-    <section className="section pt-28 pb-28">
+    <section className="section">
       <div className="shell">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {results && (
             <div className="sticker p-8 lg:p-10" style={{ "--tilt": "-1.5deg" } as React.CSSProperties}>
               <h2 className="text-h3 mb-4">Results</h2>

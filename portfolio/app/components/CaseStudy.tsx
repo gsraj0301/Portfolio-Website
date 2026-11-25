@@ -9,8 +9,8 @@ import { FeatureShowcase } from "./casestudy/FeatureShowcase";
 import { ArchitectureFlow } from "./casestudy/ArchitectureFlow";
 import { ChallengeCards } from "./casestudy/ChallengeCards";
 import { ResultsLessons } from "./casestudy/ResultsLessons";
-import { ProjectNav } from "./casestudy/ProjectNav";
 import { StackSection } from "./casestudy/StackSection";
+import { ProjectNav } from "./casestudy/ProjectNav";
 import { Signature } from "./casestudy/Signature";
 
 export type CaseStudyGlance = {
@@ -104,18 +104,18 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
         <CaseStudyHero data={data} />
 
         {data.metrics && data.metrics.length > 0 && (
-          <section className="section pt-20 pb-28">
+          <section className="section">
             <div className="shell">
-              <h2 className="text-h3 mt-12">Impact at a glance</h2>
               <MetricStickers metrics={data.metrics} />
             </div>
           </section>
         )}
 
         {data.personas && data.personas.length > 0 && (
-          <section className="section pt-28 pb-28">
+          <section className="section">
             <div className="shell">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+              <h2 className="text-h3 mb-4">Project shape</h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {data.personas.map((persona, i) => (
                   <Signature key={i} persona={persona} />
                 ))}
@@ -128,14 +128,12 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
           <ProblemStory data={data} />
         )}
 
-        {data.why && (
-          <section className="section pt-28 pb-28">
-            <div className="shell">
-              <h2 className="text-h3 mt-12">Why I built it</h2>
-              <p className="mt-4 max-w-[62ch] text-ink-soft">{data.why}</p>
-            </div>
-          </section>
-        )}
+        <section className="section">
+          <div className="shell">
+            <h2 className="text-h3 mb-4">Why I built it</h2>
+            <p className="max-w-[62ch] text-ink-soft">{data.why}</p>
+          </div>
+        </section>
 
         <FeatureShowcase data={data} />
 
@@ -144,10 +142,10 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
         )}
 
         {data.decisions && data.decisions.length > 0 && (
-          <section className="section pt-28 pb-28">
+          <section className="section">
             <div className="shell">
-              <h2 className="text-h3 mt-12">Engineering decisions</h2>
-              <div className="mt-6 flex flex-col gap-4">
+              <h2 className="text-h3 mb-4">Engineering decisions</h2>
+              <div className="mt-4 flex flex-col gap-4">
                 {data.decisions.map((d, i) => (
                   <div
                     key={i}
@@ -156,8 +154,8 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
                       "--tilt": ["-1.5deg", "1deg", "-0.5deg"][i % 3],
                     } as React.CSSProperties}
                   >
-                    <h3 className="text-h3">{d.title}</h3>
-                    <p className="mt-2 text-small text-ink-soft">{d.body}</p>
+                    <h3 className="text-h3 mb-2">{d.title}</h3>
+                    <p className="text-small text-ink-soft">{d.body}</p>
                   </div>
                 ))}
               </div>
@@ -176,7 +174,7 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
         <ProjectNav next={data.next} />
       </main>
 
-      <footer className="shell mt-14 border-t-2 border-dashed border-ink/40 pt-8 pb-28">
+      <footer className="shell border-t-2 border-dashed border-ink/40 pt-8 pb-28">
         <Link
           href="/#work"
           className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"

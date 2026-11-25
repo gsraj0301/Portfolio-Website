@@ -6,10 +6,10 @@ interface ChallengeCardsProps {
 
 export function ChallengeCards({ challenges }: ChallengeCardsProps) {
   return (
-    <section className="section pt-28 pb-28">
+    <section className="section">
       <div className="shell">
-        <h2 className="text-h3 mt-12">Challenges and lessons</h2>
-        <div className="mt-8 space-y-6">
+        <h2 className="text-h3 mb-4">Challenges and lessons</h2>
+        <div className="mt-4 space-y-6">
           {challenges.map((c, i) => {
             const fill = ["var(--card)", "var(--mint)", "var(--marigold)", "var(--blush)"][i % 4];
             return (

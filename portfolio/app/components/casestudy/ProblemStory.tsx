@@ -6,7 +6,7 @@ interface ProblemStoryProps {
 
 export function ProblemStory({ data }: ProblemStoryProps) {
   return (
-    <section className="section pt-28 pb-28 bg-blush">
+    <section className="section bg-blush">
       <div className="shell">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           <div>
@@ -14,7 +14,7 @@ export function ProblemStory({ data }: ProblemStoryProps) {
             <h2 className="text-h3 mt-4">{data.title} — what broke before it existed</h2>
             <p className="mt-4 max-w-[62ch] text-ink-soft">{data.problem}</p>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             {data.painPoints?.map((p, i) => (
               <div
                 key={p}

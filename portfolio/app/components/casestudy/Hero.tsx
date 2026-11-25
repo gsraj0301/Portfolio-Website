@@ -10,7 +10,7 @@ interface CaseStudyHeroProps {
 
 export function CaseStudyHero({ data }: CaseStudyHeroProps) {
   return (
-    <section className="section pt-14 pb-20 lg:pt-20 lg:pb-32">
+    <section className="section">
       <div className="shell">
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-12 items-start">
           <div>
@@ -22,7 +22,7 @@ export function CaseStudyHero({ data }: CaseStudyHeroProps) {
               <Hand size={16} strokeWidth={2} className="mr-1.5" />By Raj G
             </span>
 
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-12 flex flex-wrap gap-3">
               {data.live ? (
                 <a
                   href={data.live}
@@ -60,8 +60,8 @@ export function CaseStudyHero({ data }: CaseStudyHeroProps) {
                   loading="lazy"
                 />
               </div>
-              {data.screenshot?.width && data.screenshot?.height && data.screenshot.height / data.screenshot.width > 1.3 && (
-                <p className="mt-3 text-tag text-ink-soft text-center">
+              {data.screenshot.height / data.screenshot.width > 1.3 && (
+                <p className="mt-4 text-tag text-ink-soft text-center">
                   Portrait screenshot from a real device
                 </p>
               )}
@@ -69,7 +69,7 @@ export function CaseStudyHero({ data }: CaseStudyHeroProps) {
           )}
         </div>
 
-        <div className="mt-16 sticker p-8">
+        <div className="mt-12 sticker p-8">
           <h2 className="text-h3 mb-4">At a glance</h2>
           <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 border-y-2 border-dashed border-ink/40 py-4">
             <div>

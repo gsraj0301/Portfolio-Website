@@ -15,10 +15,10 @@ export function FeatureShowcase({ data }: FeatureShowcaseProps) {
   const images = galleryImages.length > 0 ? galleryImages : (screenshotImage ? [screenshotImage] : []);
 
   return (
-    <section className="section pt-28 pb-28">
+    <section className="section">
       <div className="shell">
-        <h2 className="text-h3 mt-12">What I built</h2>
-        <ul className="mt-6 space-y-4">
+        <h2 className="text-h3 mb-4">What I built</h2>
+        <ul className="mt-4 space-y-4">
           {data.features.map((feature, i) => {
             const leadEnd = feature.indexOf(". ");
             const lead =
@@ -39,7 +39,7 @@ export function FeatureShowcase({ data }: FeatureShowcaseProps) {
         </ul>
 
         {images.length > 0 && (
-          <div className="mt-16">
+          <div className="mt-12">
             <h2 className="text-h3 mb-4">In use</h2>
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-6">
               {images.map((img, i) => (
@@ -54,7 +54,7 @@ export function FeatureShowcase({ data }: FeatureShowcaseProps) {
                     loading="lazy"
                   />
                   {img.caption && (
-                    <p className="mt-2 text-tag text-ink-soft">{img.caption}</p>
+                    <p className="mt-4 text-tag text-ink-soft">{img.caption}</p>
                   )}
                 </div>
               ))}

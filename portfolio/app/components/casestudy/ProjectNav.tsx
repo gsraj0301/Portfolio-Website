@@ -7,11 +7,11 @@ interface ProjectNavProps {
 
 export function ProjectNav({ next }: ProjectNavProps) {
   return (
-    <section className="section pt-28 pb-28">
+    <section className="section">
       <div className="shell">
         {next ? (
           <div
-            className="sticker p-12 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6"
+            className="sticker p-8 lg:p-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6"
             style={{ "--tilt": "2deg", background: "var(--card)" } as React.CSSProperties}
           >
             <div>
@@ -24,7 +24,7 @@ export function ProjectNav({ next }: ProjectNavProps) {
             </a>
           </div>
         ) : null}
-        <p className="mt-8 text-center">
+        <p className="mt-4 text-center">
           <Link
             href="/#work"
             className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"
