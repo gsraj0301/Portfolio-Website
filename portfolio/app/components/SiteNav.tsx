@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Briefcase, Wrench, Coffee, Mail } from "lucide-react";
 import { ScrollProgress } from "./ScrollProgress";
@@ -46,9 +47,17 @@ export function SiteNav() {
       <div className="shell pb-1 pt-4 lg:hidden">
         <Link
           href="/"
-          className="bricolage inline-flex min-h-11 min-w-11 items-center justify-center text-lg font-extrabold tracking-tight text-ink"
+          className="bricolage inline-flex min-h-11 items-center gap-2 text-lg font-extrabold tracking-tight text-ink"
         >
-          raj g.
+          <Image
+            src="/raj.jpg"
+            alt=""
+            width={32}
+            height={32}
+            loading="eager"
+            className="h-8 w-8 rounded-full border-2 border-ink object-cover"
+          />
+          Raj G
         </Link>
       </div>
 
@@ -59,9 +68,17 @@ export function SiteNav() {
         >
           <Link
             href="/"
-            className="bricolage inline-flex min-h-11 items-center text-xl font-extrabold tracking-tight"
+            className="bricolage inline-flex min-h-11 items-center gap-2 text-xl font-extrabold tracking-tight"
           >
-            raj g.
+            <Image
+              src="/raj.jpg"
+              alt=""
+              width={32}
+              height={32}
+              loading="eager"
+              className="h-8 w-8 rounded-full border-2 border-ink object-cover"
+            />
+            Raj G
           </Link>
 
           <div className="flex items-center gap-1">

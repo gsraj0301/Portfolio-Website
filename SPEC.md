@@ -12,7 +12,7 @@ wins on visuals.
 - **Site title:** `Raj G | Apps people actually use`
 - **Meta description:** `Second-year AI and Data Science student in Chennai. I build full-stack apps for my college, for businesses and free learning.`
 - **Language:** English (India)
-- **Social preview image:** 1200×630 px sticker‑style card with "raj g." and the headline. Generated from the hero component at build time.
+- **Social preview image:** 1200×630 px sticker‑style card with "Raj G" and the headline. Generated from the hero component at build time.
 - **Language switch:** Not implemented – site is English only.
 
 ## 2. Page structure
@@ -59,9 +59,9 @@ Order:
 
 ### 2.4 Navigation
 
-**Desktop (1024+):** sticky top bar. Logo `raj g.` in Display 800 (links to the top of the home page), then pill links: `Work`, `Skills`, `Hobbies`, `Resume` (opens the PDF in a new tab). `Say hi` is the tomato pill and jumps to `#contact`. The pill for the section currently in view gets marigold fill (scroll‑spy state change, not an animation). Include a visible "skip to content" link as the first focusable element. Active pill starts empty (no section highlighted on load).
+**Desktop (1024+):** sticky top bar. Logo: small round photo first, then `Raj G` in Display 800 (links to the top of the home page), then pill links: `Work`, `Skills`, `Hobbies`, `Resume` (opens the PDF in a new tab). `Say hi` is the tomato pill and jumps to `#contact`. The pill for the section currently in view gets marigold fill (scroll‑spy state change, not an animation). Include a visible "skip to content" link as the first focusable element. Active pill starts empty (no section highlighted on load).
 
-**Mobile:** non-sticky top bar with the `raj g.` logo only (left, no Resume pill). Plus a fixed bottom pill, ink fill, paper icons with visible text labels (14px). Exactly four items, in this order: `Work`, `Skills`, `Hobbies`, `Contact` (icons: briefcase, wrench, coffee, mail). The current section's item gets a marigold circle behind its icon (scales/fades in over 200ms, transform/opacity only); items scale to 95% while pressed. Respect `env(safe-area-inset-bottom)`. Each target at least 44×44px.
+**Mobile:** non-sticky top bar with the photo-plus-`Raj G` logo only (left, no Resume pill). Plus a fixed bottom pill, ink fill, paper icons with visible text labels (14px). Exactly four items, in this order: `Work`, `Skills`, `Hobbies`, `Contact` (icons: briefcase, wrench, coffee, mail). The current section's item gets a marigold circle behind its icon (scales/fades in over 200ms, transform/opacity only); items scale to 95% while pressed. Respect `env(safe-area-inset-bottom)`. Each target at least 44×44px.
 
 **Anchor offsets:** `scroll-margin-top` 24px below 1024px, 88px at 1024+ (sticky header). Smooth scrolling, disabled under reduced motion.
 

@@ -74,6 +74,7 @@ export function ContactForm() {
     setState("sending");
 
     if (!supabaseConfigured()) {
+      console.error("Contact form: Supabase env vars are missing.");
       setState("error");
       return;
     }
@@ -83,6 +84,7 @@ export function ContactForm() {
     ]);
 
     if (error) {
+      console.error(`Contact insert failed (${error.code ?? "no code"}): ${error.message}`);
       setState("error");
       return;
     }

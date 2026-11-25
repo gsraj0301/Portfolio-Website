@@ -47,9 +47,17 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
         >
           <Link
             href="/"
-            className="bricolage text-xl font-extrabold tracking-tight"
+            className="bricolage inline-flex min-h-11 items-center gap-2 text-xl font-extrabold tracking-tight"
           >
-            raj g.
+            <Image
+              src="/raj.jpg"
+              alt=""
+              width={32}
+              height={32}
+              loading="eager"
+              className="h-8 w-8 rounded-full border-2 border-ink object-cover"
+            />
+            Raj G
           </Link>
           <Link
             href="/#work"

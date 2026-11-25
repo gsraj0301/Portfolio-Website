@@ -99,7 +99,7 @@ for (const width of [1280, 1440]) {
       return { w: Math.round(r.width), h: Math.round(r.height) };
     };
     const logo = [...document.querySelectorAll("a")].find(
-      (a) => a.textContent.trim() === "raj g." && a.getBoundingClientRect().width > 0
+      (a) => a.textContent.trim() === "Raj G" && a.getBoundingClientRect().width > 0
     );
     const mail = document.querySelector('#contact a[href^="mailto:"]');
     return {
@@ -305,7 +305,7 @@ for (const width of [1280, 1440]) {
     nav: Boolean(document.querySelector('nav[aria-label="Case study"]')),
     footer: Boolean(document.querySelector("footer")),
     h1: document.querySelectorAll("h1").length,
-    alt: document.querySelector("img")?.getAttribute("alt") ?? "",
+    alt: document.querySelector("main img")?.getAttribute("alt") ?? "",
   }));
   check(
     "case study has route-specific metadata",

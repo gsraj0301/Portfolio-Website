@@ -167,7 +167,7 @@ divider. Section ids for anchors and scroll-spy: `work`, `skills`, `hobbies`,
 Desktop (12 columns):
 
 ```
-[ raj g.   work  skills  hobbies  resume  [say hi] ]
+[ Raj G   work  skills  hobbies  resume  [say hi] ]
 |                                |               |
 |  I build things people         |  [sticker]    |
 |  actually use.                 |     [sticker] |
@@ -217,7 +217,8 @@ Real facts only (see `CONTENT.md`). Fills rotate through marigold, card, mint.
   `--shadow-hard-lg`. No colour change.
 
 ### Nav
-- Desktop (1024+): top bar. Logo "raj g." in Display 800 (links to the top of
+- Desktop (1024+): top bar. Logo: Raj's small round photo first, then "Raj G"
+  in Display 800 (links to the top of
   the home page), then pill links: work, skills, hobbies, resume. "Say hi"
   is the tomato pill and jumps to contact. "Resume" opens the PDF in a new tab.
   The pill for the section currently in view gets marigold fill (scroll-spy
@@ -229,9 +230,9 @@ Real facts only (see `CONTENT.md`). Fills rotate through marigold, card, mint.
    icon (the circle scales and fades in over 200ms, transform/opacity only;
    items scale to 95% while pressed). Respect `env(safe-area-inset-bottom)`.
    Each target at least 44x44px.
-- Mobile also shows the small "raj g." logo at the top-left of the page (not
-  sticky). It scrolls to the top. The resume link on mobile lives in the
-  contact section.
+- Mobile also shows the small photo-plus-"Raj G" logo at the top-left of the
+  page (not sticky). It scrolls to the top. The resume link on mobile lives in
+  the contact section.
 - On case-study pages the nav is replaced by a "Back to work" pill at the top
   and bottom. The mobile bottom pill is not shown there.
 - Include a visible "skip to content" link as the first focusable element.

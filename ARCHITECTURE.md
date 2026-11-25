@@ -110,7 +110,7 @@ Copy rules: no emoji, no em dashes, "God helped me" at most once per study
   use 112px bottom padding on mobile to clear the fixed nav. Hero and Contact
   live inside `<main>`.
   Section order: Hero, What people said (conditional), Work, Skills, How I build, Hobbies, Contact.
-- **Nav:** desktop sticky top bar (Work/Skills/Hobbies/Resume/Say hi; logo `raj g.`);
+- **Nav:** desktop sticky top bar (Work/Skills/Hobbies/Resume/Say hi; logo: photo + `Raj G`);
   mobile top bar with logo only (no Resume pill), plus fixed bottom pill
   (Work/Skills/Hobbies/Contact; icons: briefcase/wrench/coffee/mail) with safe-area inset.
 - **Anchors:** `scroll-margin-top` 24px mobile / 88px desktop; smooth scroll

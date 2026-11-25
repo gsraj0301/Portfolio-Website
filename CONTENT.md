@@ -289,8 +289,8 @@ CSS patterns.
 
 ## 8. Navigation labels
 
-- Desktop: Work, Skills, Hobbies, Resume, Say hi (logo: `raj g.`)
-- Mobile top bar: `raj g.` logo only (no Resume pill)
+- Desktop: Work, Skills, Hobbies, Resume, Say hi (logo: photo + `Raj G`)
+- Mobile top bar: photo + `Raj G` logo only (no Resume pill)
 - Mobile bottom pill: Work, Skills, Hobbies, Contact (icons: briefcase, wrench,
   coffee, mail)
 - Case-study pages: `Back to work` (top and bottom)
