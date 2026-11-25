@@ -14,7 +14,7 @@ const inputClass =
 
 function FieldError({ id, message }: { id: string; message: string }) {
   return (
-    <p id={id} className="mt-2 flex items-center gap-1.5 text-sm text-ink">
+    <p id={id} role="alert" className="mt-2 flex items-center gap-1.5 text-sm text-ink">
       <AlertCircle size={16} aria-hidden="true" />
       {message}
     </p>
@@ -60,7 +60,11 @@ export function ContactForm() {
 
     const nextErrors = validate();
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length > 0) return;
+    if (Object.keys(nextErrors).length > 0) {
+      const firstField = Object.keys(nextErrors)[0];
+      requestAnimationFrame(() => document.getElementById(`contact-${firstField}`)?.focus());
+      return;
+    }
 
     if (website.trim()) {
       setState("ok");
@@ -194,7 +198,7 @@ export function ContactForm() {
         type="submit"
         disabled={isSending}
         aria-busy={isSending}
-        className="btn btn-primary mt-5 min-h-[48px] w-full text-base sm:w-auto"
+        className="btn btn-on-fill mt-5 min-h-[48px] w-full text-base sm:w-auto"
       >
         {isSending ? "Sending" : "Send message"}
       </button>

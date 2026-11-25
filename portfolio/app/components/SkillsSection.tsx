@@ -113,9 +113,11 @@ const capabilities: Capability[] = [
   },
 ];
 
-function RowLabel({ children }: { children: ReactNode }) {
+function RowLabel({ children, strong = false }: { children: ReactNode; strong?: boolean }) {
   return (
-    <p className="text-tag mt-5 font-semibold text-ink">{children}</p>
+    <p className={["text-tag mt-6 text-ink", strong ? "font-bold" : "font-medium"].join(" ")}>
+      {children}
+    </p>
   );
 }
 
@@ -146,7 +148,7 @@ const SeenLink: FC<{ seen: Seen }> = ({ seen }) => {
 
 export const SkillsSection: FC = () => {
   return (
-    <section id="skills" aria-labelledby="skills-title" className="section">
+    <section id="skills" aria-labelledby="skills-title" className="section pb-28">
       <div className="shell">
         <div className="perforation mb-14" role="presentation" />
         <h2 id="skills-title" className="text-h2">
@@ -174,7 +176,7 @@ export const SkillsSection: FC = () => {
 
               {cap.builtWith.length > 0 ? (
                 <>
-                  <RowLabel>Built and shipped with</RowLabel>
+                  <RowLabel strong>Built and shipped with</RowLabel>
                   <ul className="mt-2 flex flex-wrap gap-1.5">
                     {cap.builtWith.map((tech) => (
                       <li key={tech} className="chip chip-solid">
@@ -187,7 +189,7 @@ export const SkillsSection: FC = () => {
 
               {cap.usedWith.length > 0 ? (
                 <>
-                  <RowLabel>Used or familiar with</RowLabel>
+                  <RowLabel strong>Used or familiar with</RowLabel>
                   <ul className="mt-2 flex flex-wrap gap-1.5">
                     {cap.usedWith.map((tech) => (
                       <li key={tech} className="chip chip-quiet">

@@ -1,5 +1,5 @@
 import type { CaseStudyData } from "../../components/CaseStudy";
-import { CaseStudy } from "../../components/CaseStudy";
+import { CaseStudy, caseStudyMetadata } from "../../components/CaseStudy";
 
 const prideData: CaseStudyData = {
   title: "PRIDE portal",
@@ -39,6 +39,8 @@ const prideData: CaseStudyData = {
   repo: "https://github.com/gsraj0301/pride",
   live: "https://agni-pride.onrender.com",
 };
+
+export const metadata = caseStudyMetadata(prideData);
 
 export default function PridePage() {
   return <CaseStudy data={prideData} />;

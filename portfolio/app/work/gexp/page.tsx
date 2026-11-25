@@ -1,5 +1,5 @@
 import type { CaseStudyData } from "../../components/CaseStudy";
-import { CaseStudy } from "../../components/CaseStudy";
+import { CaseStudy, caseStudyMetadata } from "../../components/CaseStudy";
 
 const gexpData: CaseStudyData = {
   title: "Gexp",
@@ -27,6 +27,8 @@ const gexpData: CaseStudyData = {
   stack: ["Python", "Flet", "SQLite"],
   repo: "https://github.com/gsraj0301/GPexp",
 };
+
+export const metadata = caseStudyMetadata(gexpData);
 
 export default function GexpPage() {
   return <CaseStudy data={gexpData} />;

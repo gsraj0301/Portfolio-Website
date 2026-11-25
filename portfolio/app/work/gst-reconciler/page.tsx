@@ -1,5 +1,5 @@
 import type { CaseStudyData } from "../../components/CaseStudy";
-import { CaseStudy } from "../../components/CaseStudy";
+import { CaseStudy, caseStudyMetadata } from "../../components/CaseStudy";
 
 const gstData: CaseStudyData = {
   title: "GST Reconciler",
@@ -28,6 +28,8 @@ const gstData: CaseStudyData = {
   stack: ["Python", "Tkinter", "pandas"],
   repo: "https://github.com/gsraj0301/gst-reconciler",
 };
+
+export const metadata = caseStudyMetadata(gstData);
 
 export default function GstReconcilerPage() {
   return <CaseStudy data={gstData} />;

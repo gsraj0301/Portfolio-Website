@@ -45,7 +45,6 @@ export const StatSticker: FC<StatStickerProps> = ({
 
   const { display } = useCountUp(countUpTarget ?? parseInt(number.replace(/[^\d]/g, ""), 10), 900, {
     startDelay: parseInt(delay, 10),
-    startFromZero: true,
     prefix: countUpPrefix,
     suffix: countUpSuffix,
     enabled: armed,
@@ -65,7 +64,7 @@ export const StatSticker: FC<StatStickerProps> = ({
         if (event.animationName === "slap") setSlapDone(true);
       }}
       className={[
-        "sticker",
+        "sticker flex flex-col p-4",
         slapDone ? "" : "slap",
         armed ? "is-armed" : "",
         "wiggle",
@@ -82,7 +81,7 @@ export const StatSticker: FC<StatStickerProps> = ({
         } as CSSProperties
       }
     >
-      <span className="bricolage text-3xl font-bold leading-none tabular-nums">
+      <span className="bricolage block text-3xl font-bold leading-none tabular-nums">
         {displayNumber}
       </span>
       <span className="mt-2 text-small text-ink-soft">{label}</span>

@@ -208,6 +208,10 @@
     box-shadow: var(--shadow-hard-sm);
   }
 
+  .btn:focus-visible {
+    box-shadow: 0 0 0 6px var(--marigold), var(--shadow-hard);
+  }
+
   .sticker {
     --tilt-effective: var(--tilt, 0deg);
     background: var(--card);
@@ -284,13 +288,13 @@
 
   .chip-solid {
     border: 2px solid var(--ink);
-    background: var(--card);
+    background: var(--paper);
     color: var(--ink);
   }
 
   .chip-quiet {
     border: 2px dashed var(--ink);
-    background: var(--paper);
+    background: transparent;
     color: var(--ink-soft);
   }
 
@@ -374,7 +378,7 @@
 
   .timeline-line {
     position: absolute;
-    top: 42px;
+    top: 24px;
     left: 12.5%;
     right: 12.5%;
     height: 2px;
@@ -405,12 +409,12 @@
     transform-origin: left;
     z-index: 9999;
     pointer-events: none;
-    aria-hidden: "true";
   }
 
   @media (min-width: 1024px) {
     .progress-bar {
       position: absolute;
+      top: auto;
       bottom: -3px;
       left: 0;
       right: 0;

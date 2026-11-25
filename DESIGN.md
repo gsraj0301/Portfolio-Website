@@ -136,7 +136,9 @@ Rules:
 - Grid: 4 columns on mobile, 8 on tablet, 12 on desktop. Gap 16, 24, 24.
 - Breakpoints: 360 (base), 640, 1024, 1280.
 - Spacing scale (px): 4, 8, 12, 16, 24, 32, 48, 72, 112. Use only these.
-- Section vertical padding: 72 on mobile, 112 on desktop.
+- Section vertical padding: 72 on mobile, 112 on desktop. Work, Skills, How I
+  build and Hobbies use 112px bottom padding on mobile too, so the fixed bottom
+  pill never covers content.
 - Section divider: a dashed 2px ink line like a sticker sheet perforation. Use
   it only between paper sections. Colour bands need no divider.
 
@@ -240,10 +242,12 @@ screenshot, one CTA. Sizes:
 
 - Feature (PRIDE portal): spans 2 columns on desktop, shows screenshot.
 - Standard (Kindled, Fresher's counter, Gexp, GST Reconciler): 1 column.
-- Small (Also built: Fake Job Posting Detector, Hand Gesture system): compact,
+- Small (Also built: Fake Job Posting Detector): compact full-width row,
   no screenshot, title and one line.
 
-Fills vary: card, blush, mint, marigold (feature uses card). The CTA verb
+The grid has two columns at desktop, not three. Fills vary: card, blush, mint,
+marigold (feature uses card). Only the feature CTA is tomato primary; the other
+five are paper secondary, so the grid keeps one clear focal point. The CTA verb
 matches the project type: "Visit site", "Get the APK", "Get the .exe",
 "Read the story". Every featured project also links to its case-study page.
 
@@ -265,11 +269,11 @@ Anatomy of a capability sticker, top to bottom:
 1. Title (H3): the capability in plain words, such as "Web apps with logins
    and databases".
 2. One sentence (Body) on what Raj can build with it.
-3. Row label in Body 500 sentence case: "Built and shipped with". Below it, tech
+3. Row label in Body 700 sentence case: "Built and shipped with". Below it, tech
    chips: solid chips, card fill, `--line`. Maximum 8 chips.
-4. Row label: "Used or familiar with". Below it, tech chips in a quieter style:
-   paper fill, 2px dashed ink outline, no shadow. Maximum 6 chips. This row is
-   optional per sticker.
+4. Row label in Body 700: "Used or familiar with". Below it, tech chips in a
+   quieter style: paper fill, 2px dashed ink outline, no shadow. Maximum 6
+   chips. This row is optional per sticker. "Seen in" stays Body 500.
 5. Row label: "Seen in". Below it, project chips: marigold fill, `--line`,
    `--shadow-hard-sm`. Each is a link. It goes to the project's case-study
    page if one exists, otherwise to its GitHub repo (opens in a new tab,
@@ -369,10 +373,12 @@ or below them (mobile). The form is one white card-fill sticker with `--line` an
   and has no visible label.
 - Errors appear as plain text directly under the field, Body 400 in ink, with a
   small icon. Never colour alone.
-- Submit button: primary tomato, label "Send message". While sending: disabled,
-  label "Sending". Success: the form is replaced by a card-fill sticker reading
-  "Got it. I'll reply soon." (`role="status"`). Failure: a message that says the
-  send did not go through and shows the email address as a mailto link.
+- Submit button: card-fill (`btn-on-fill`) with ink text and hard shadow, label
+  "Send message". While sending: disabled, label "Sending". Success: the form is
+  replaced by a card-fill sticker reading "Got it. I'll reply soon."
+  (`role="status"`). Failure: a message that says the send did not go through and
+  shows the email address as a mailto link. Field errors use `role="alert"` and
+  submit moves focus to the first invalid field.
 - A privacy line under the button in `--ink-soft`: "I'll only use your email to
   reply to you."
 - Keep the email address and LinkedIn visible next to the form. The form never
@@ -383,7 +389,9 @@ Single column, 62ch reading width, no tilt on body content. Order: title and
 tag, the problem in one sentence, why Raj built it, what it does, how it went
 (real usage, what broke), stack as solid tech chips (with a link to `#skills`
 on the home page), links. Screenshots in frames between sections. "Back to
-work" link at the top and bottom.
+work" link at the top and bottom. Each route supplies its own title and
+description metadata, a nav landmark around the top links, a footer landmark at
+the bottom, and descriptive screenshot alt text.
 
 ## 8. Motion
 
@@ -401,7 +409,9 @@ action. Nothing else moves.
  2. Hero statistics count-up (first view, once): the "2,000+" and "2 novels"
     stat stickers count up from 0 over 900ms with ease-out-cubic, matching the
     hobbies count-up. The "About 1,000 games" figure already counts up.
-    Staggered with the slap at 0/90/180ms.
+    Staggered with the slap at 0/90/180ms. SSR renders the final figure; the
+    first animation frame resets to 0, so there is no hydration flash or
+    negative intermediate value.
  3. Press and hover on buttons and stat/project stickers as described above.
     Duration 120ms. Stat and project stickers grow shadow on hover (no
     transform conflict with wiggle) and press down on click. Press is driven by
@@ -413,18 +423,19 @@ action. Nothing else moves.
     Only on stat stickers and project stickers.
 5. Hobbies count-up (the "about 1,000 games" number): one time, 900ms on first
    intersection.
-6. How I build timeline connector (first intersection, once): a dashed
-   perforation line draws left-to-right across the four step cards at desktop
-   (≥1024px), with step numbers popping in sequence. Mobile shows no connector
-   (numbers alone convey sequence).
+ 6. How I build timeline connector (first intersection, once): a dashed
+    perforation line draws left-to-right above the four step cards at desktop
+    (≥1024px), with a small gap so rotation never hides it, and step numbers
+    popping in sequence. Mobile shows no connector (numbers alone convey
+    sequence).
 7. Contact form micro-interactions: invalid fields shake (200ms, transform
    only); success card scales in (200ms); submit button shows `aria-busy`
    while sending.
 8. Route crossfade (180ms): opacity crossfade between home and case-study
    pages on navigation.
-9. Scroll progress bar: 3px marigold bar under the sticky desktop header
-   (viewport-top on mobile), scaling with scroll position. Updates under
-   reduced motion as state indicator.
+ 9. Scroll progress bar: one 3px marigold bar, fixed at viewport top on mobile
+    and absolute under the sticky desktop header, scaling with scroll position.
+    Updates under reduced motion as state indicator.
 10. Project demo loops: muted, `playsinline`, looping recordings inside the
     screenshot frame, each under 2MB with a poster image. They play only while in
     view. Under reduced motion they show the poster and do not play.
@@ -448,6 +459,7 @@ Never animate layout properties. Animate `transform` and `opacity` only.
 - Tilt is decorative. Screen reader order follows DOM order, which must be the
   reading order.
 - Meaningful alt text on every screenshot. Decorative doodles are `aria-hidden`.
+- Form errors use `role="alert"`, and submit focuses the first invalid field.
 - Never use colour alone to carry meaning.
 
 ## 10. Performance and responsive quality floor

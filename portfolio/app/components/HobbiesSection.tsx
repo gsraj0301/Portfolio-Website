@@ -95,7 +95,7 @@ export const HobbiesSection: FC = () => {
     <section
       id="hobbies"
       aria-labelledby="hobbies-title"
-      className="section bg-marigold"
+      className="section bg-marigold pb-28"
     >
       <div className="shell">
         <h2 id="hobbies-title" className="text-h2">
@@ -157,9 +157,9 @@ export const HobbiesSection: FC = () => {
                     >
                       {game.rank}
                     </span>
-                    <h4 className={isTop ? "text-h2" : "text-h3"}>
+                    <h3 className={isTop ? "text-h2" : "text-h3"}>
                       {game.title}
-                    </h4>
+                    </h3>
                   </div>
                   <p className="text-small mt-2 text-ink-soft">{game.line}</p>
                 </li>

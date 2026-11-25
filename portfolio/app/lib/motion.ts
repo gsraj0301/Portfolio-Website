@@ -52,19 +52,14 @@ export function useInView(threshold = 0.15, rootMargin = "0px") {
 export function useCountUp(
   target: number,
   duration = 900,
-  options?: { startDelay?: number; startFromZero?: boolean; prefix?: string; suffix?: string; enabled?: boolean }
+  options?: { startDelay?: number; prefix?: string; suffix?: string; enabled?: boolean }
 ): { value: number; display: string } {
   const reduce = useReducedMotion();
   const [value, setValue] = useState(0);
-  const [isClient, setIsClient] = useState(false);
+  const [started, setStarted] = useState(false);
   const hasRun = useRef(false);
   const startDelay = options?.startDelay ?? 0;
   const enabled = options?.enabled ?? true;
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- required to avoid hydration mismatch
-    setIsClient(true);
-  }, []);
 
   useEffect(() => {
     if (reduce || !enabled || hasRun.current) return;
@@ -72,8 +67,13 @@ export function useCountUp(
 
     const timer = setTimeout(() => {
       const start = performance.now();
+      let firstFrame = true;
       const tick = (now: number) => {
-        const progress = Math.min((now - start) / duration, 1);
+        const progress = Math.max(0, Math.min((now - start) / duration, 1));
+        if (firstFrame) {
+          firstFrame = false;
+          setStarted(true);
+        }
         const eased = 1 - Math.pow(1 - progress, 3);
         setValue(Math.round(target * eased));
         if (progress < 1) {
@@ -86,7 +86,7 @@ export function useCountUp(
     return () => clearTimeout(timer);
   }, [target, duration, reduce, enabled, startDelay]);
 
-  const display = !isClient || reduce
+  const display = reduce || !started
     ? (options?.prefix ?? "") + target.toLocaleString("en-US") + (options?.suffix ?? "")
     : (options?.prefix ?? "") + value.toLocaleString("en-US") + (options?.suffix ?? "");
 

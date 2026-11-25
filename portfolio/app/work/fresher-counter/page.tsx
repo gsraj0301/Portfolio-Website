@@ -1,5 +1,5 @@
 import type { CaseStudyData } from "../../components/CaseStudy";
-import { CaseStudy } from "../../components/CaseStudy";
+import { CaseStudy, caseStudyMetadata } from "../../components/CaseStudy";
 
 const fresherData: CaseStudyData = {
   title: "Fresher's counter",
@@ -28,6 +28,8 @@ const fresherData: CaseStudyData = {
   repo: "https://github.com/gsraj0301/fresher-day-registrations",
   live: "https://fresher-day-registrations.vercel.app/",
 };
+
+export const metadata = caseStudyMetadata(fresherData);
 
 export default function FresherCounterPage() {
   return <CaseStudy data={fresherData} />;

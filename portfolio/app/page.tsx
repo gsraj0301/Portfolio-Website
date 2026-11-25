@@ -13,14 +13,14 @@ export default function Home() {
         Skip to content
       </a>
       <SiteNav />
-      <Header />
       <main id="main">
+        <Header />
         <WorkSection />
         <SkillsSection />
         <HowIBuildSection />
         <HobbiesSection />
+        <ContactSection />
       </main>
-      <ContactSection />
     </>
   );
 }

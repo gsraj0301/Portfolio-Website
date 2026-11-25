@@ -44,12 +44,12 @@ export function SiteNav() {
   return (
     <>
       <div className="shell pb-1 pt-4 lg:hidden">
-<Link
-            href="/"
-            className="bricolage inline-flex min-h-11 items-center text-lg font-extrabold tracking-tight text-ink"
-          >
-            Raj G
-          </Link>
+        <Link
+          href="/"
+          className="bricolage inline-flex min-h-11 min-w-11 items-center justify-center text-lg font-extrabold tracking-tight text-ink"
+        >
+          raj g.
+        </Link>
       </div>
 
       <header className="hidden lg:block sticky top-0 z-40 border-b-2 border-ink bg-paper">
@@ -61,7 +61,7 @@ export function SiteNav() {
             href="/"
             className="bricolage inline-flex min-h-11 items-center text-xl font-extrabold tracking-tight"
           >
-            Raj G
+            raj g.
           </Link>
 
           <div className="flex items-center gap-1">
@@ -103,10 +103,9 @@ export function SiteNav() {
         </nav>
       </header>
 
-      <ScrollProgress />
       <nav
         aria-label="Sections"
-        className="lg:hidden fixed inset-x-0 bottom-0 z-50 mx-auto mb-3 w-[calc(100%-24px)] max-w-md rounded-full border-2 border-ink bg-ink px-2 py-2 shadow-[0_6px_0_rgba(28,23,19,0.25)]"
+        className="lg:hidden fixed inset-x-0 bottom-0 z-50 mx-auto mb-3 w-[calc(100%-24px)] max-w-md rounded-full border-2 border-ink bg-ink px-2 py-2 shadow-[0_6px_0_0_var(--ink)]"
         style={{ marginBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
       >
         <ul className="grid grid-cols-4">

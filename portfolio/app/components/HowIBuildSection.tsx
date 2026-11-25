@@ -7,18 +7,26 @@ const steps = [
   {
     title: "Start with a real person.",
     body: "Every project here began with someone who had a problem: my dad, a faculty member, my classmates.",
+    fill: "var(--marigold)",
+    tilt: "-3deg",
   },
   {
     title: "Ship the smallest useful version.",
     body: "A working page this week beats a perfect one next month.",
+    fill: "var(--card)",
+    tilt: "2deg",
   },
   {
     title: "Put it in front of real users.",
     body: "Real users find what testing never does.",
+    fill: "var(--mint)",
+    tilt: "-1.5deg",
   },
   {
     title: "Fix what breaks.",
     body: "Then fix the next thing.",
+    fill: "var(--card)",
+    tilt: "1.5deg",
   },
 ];
 
@@ -29,22 +37,28 @@ export const HowIBuildSection: FC = () => {
     <section
       id="how-i-build"
       aria-labelledby="how-title"
-      className="section bg-blush"
+      className="section bg-blush pb-28"
     >
       <div className="shell">
         <h2 id="how-title" className="text-h2">
           How I build
         </h2>
 
-        <div ref={ref} className="relative">
+        <div ref={ref} className="relative pt-10">
           <div
             className="timeline-line hidden lg:block"
             aria-hidden="true"
             style={{ animationPlayState: inView ? "running" : "paused" } as CSSProperties}
           />
-          <ol className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, i) => (
-              <li key={step.title} className="sticker flex flex-col p-6">
+              <li
+                key={step.title}
+                className="sticker flex flex-col p-6"
+                style={
+                  { "--tilt": step.tilt, background: step.fill } as CSSProperties
+                }
+              >
                 <span
                   className="bricolage text-4xl font-extrabold leading-none text-ink timeline-num"
                   aria-hidden="true"

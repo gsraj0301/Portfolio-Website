@@ -1,6 +1,6 @@
 # ARCHITECTURE.md: Raj G portfolio, technical overview
 
-> Last updated: 2026-11-24
+> Last updated: 2026-11-25
 
 High-level overview of the portfolio's architecture, data model and deployment.
 Lives alongside CONTENT.md (copy), DESIGN.md (visuals), SPEC.md (behaviour) and
@@ -20,13 +20,16 @@ CASE_STUDY.md (case-study source copy).
 - **Motion:** plain CSS keyframes plus small React hooks — hero "slap" keyframes
   (overshoot, reduced to 1.12 and view-gated under 640px), button and sticker
   press (pointer-driven, 120ms), sticker wiggle (hover on pointer devices,
-  release on touch), hero and Games count-up (900ms, first intersection),
-  timeline draw (first intersection), nav circle scale/fade, route crossfade.
-  No animation library. Everything disabled under `prefers-reduced-motion: reduce`;
-  figures and the scroll progress bar remain in their final/updated state.
+  release on touch), hero and Games count-up (900ms, first intersection, clamped,
+  final SSR value with no negative flash), timeline draw above the step cards
+  (first intersection), nav circle scale/fade, route crossfade. No animation
+  library. Everything disabled under `prefers-reduced-motion: reduce`; figures
+  and the single scroll progress bar remain in their final/updated state.
 - **Icons:** `lucide-react`, outline set, 2px stroke (nav + external-link).
 - **Images:** `next/image` with explicit width/height, `sizes`, lazy loading
   below the fold; sources in `portfolio/public/` and `portfolio/public/images/`.
+  `next.config.js` pins `imageSizes` without `256`, because the two repair JPEGs
+  time out through the optimizer at that width.
 - **Contact form:** `@supabase/supabase-js` v2, browser client, anon insert
   into a `contacts` table (see §5). No other backend; no database for content.
 - **Content:** typed data inline in components/pages (no MDX, no CMS).
@@ -55,7 +58,9 @@ type Project = {
 ```
 
 Six cards: PRIDE (feature), Kindled, Fresher's counter, Gexp, GST Reconciler,
-Fake Job Posting Detector (repo-only, no case-study page; small, no stack chips).
+Fake Job Posting Detector (repo-only, no case-study page; compact full-width
+row, no stack chips). Two desktop columns; PRIDE is the only tomato primary CTA,
+the rest use paper secondary.
 
 ### 2.2 Case studies — `app/components/CaseStudy.tsx`
 
@@ -70,8 +75,10 @@ type CaseStudyData = {
 };
 ```
 
-Each route is a thin `page.tsx` holding one `CaseStudyData` object:
-`app/work/{pride,kindled,fresher-counter,gexp,gst-reconciler}/page.tsx`.
+Each route is a thin `page.tsx` holding one `CaseStudyData` object and exporting
+`metadata` from `caseStudyMetadata(data)`:
+`app/work/{pride,kindled,fresher-counter,gexp,gst-reconciler}/page.tsx`. The shared
+component adds nav and footer landmarks and descriptive screenshot alt text.
 Copy rules: no emoji, no em dashes, "God helped me" at most once per study
 (PRIDE and Gexp only), no unconfirmed `[CHECK]`/`[REPLACE]` markers.
 
@@ -83,9 +90,11 @@ Copy rules: no emoji, no em dashes, "God helped me" at most once per study
    `[REPLACE` appears anywhere. Unconfirmed copy can never ship.
 3. All pages are statically prerendered (no dynamic routes, no server actions).
    Header, WorkSection and the interactive stickers are client components, but
-   still prerender at build time. `node scripts/motion-check.mjs` (playwright-core)
-   verifies motion at 360/390/768/1280px, touch press/wiggle, view gating and
-   reduced motion against a running production server.
+  still prerender at build time. `node scripts/motion-check.mjs` (playwright-core)
+  verifies motion at 360/390/768/1280/1440px, touch press/wiggle, view gating,
+  reduced motion, stat layout, clamped count-ups, mobile tap targets, timeline
+  placement, work CTA hierarchy, single progress bar, form error a11y, image
+  loading and case-study metadata against a running production server.
 4. **Dist-dir split:** `next.config.js` sets `distDir` to `.next-dev` under
    `next dev` and `.next` for build/start, so a running dev server can never
    corrupt a production build (this previously caused
@@ -94,17 +103,21 @@ Copy rules: no emoji, no em dashes, "God helped me" at most once per study
 ## 4. Page-level behaviour
 
 - **Home:** hero sticker cluster slaps in once (CSS, staggered 0/90/180ms,
-  view-gated under 640px); stat count-ups and the timeline draw on first view;
-  IntersectionObserver scroll-spy drives nav active states (active starts empty);
-  dashed perforation dividers between paper sections; colour bands (blush/marigold/tomato) need none.
+  view-gated under 640px); stat count-ups and the timeline draw above the step
+  cards on first view; IntersectionObserver scroll-spy drives nav active states
+  (active starts empty); dashed perforation dividers between paper sections;
+  colour bands (blush/marigold/tomato) need none. Work/Skills/How I build/Hobbies
+  use 112px bottom padding on mobile to clear the fixed nav. Hero and Contact
+  live inside `<main>`.
   Section order: Hero, What people said (conditional), Work, Skills, How I build, Hobbies, Contact.
 - **Nav:** desktop sticky top bar (Work/Skills/Hobbies/Resume/Say hi; logo `raj g.`);
   mobile top bar with logo only (no Resume pill), plus fixed bottom pill
   (Work/Skills/Hobbies/Contact; icons: briefcase/wrench/coffee/mail) with safe-area inset.
 - **Anchors:** `scroll-margin-top` 24px mobile / 88px desktop; smooth scroll
   (auto under reduced motion).
-- **Case studies:** "Back to work" top and bottom; at-a-glance metadata strip;
-  stack chips link to `/#skills`.
+- **Case studies:** "Back to work" top and bottom in nav/footer landmarks;
+  at-a-glance metadata strip; route-specific title/description metadata;
+  descriptive screenshot alt text; stack chips link to `/#skills`.
 - **404:** styled static `not-found.tsx`.
 
 ## 5. Contact form (Supabase)
@@ -115,6 +128,8 @@ Copy rules: no emoji, no em dashes, "God helped me" at most once per study
   `public.contacts`; success/error render as readable card pills; mailto is
   the fallback.
 - Fields: name, email, message (labels above, no placeholders, honeypot, 1000 char max).
+- Field errors have `role="alert"` and submit focuses the first invalid field;
+  submit uses the card-fill `btn-on-fill` style on the tomato band.
 - Success: `Got it. I'll reply soon.` (replaces form); Error: mailto fallback with privacy line.
 - Required SQL (run once in the Supabase SQL editor):
 
@@ -157,7 +172,8 @@ Portfolio Website/
     │   ├── not-found.tsx
     │   ├── lib/supabase.ts / motion.ts / useStickerPress.ts
     │   ├── components/      # SiteNav, Header, WorkSection, PressableSticker,
-    │   │                    # SkillsSection, HowIBuildSection, HobbiesSection,
+    │   │                    # ScrollProgress (rendered once), SkillsSection,
+    │   │                    # HowIBuildSection, HobbiesSection,
     │   │                    # HobbiesCountUp, ContactSection, ContactForm, CaseStudy
     │   └── work/*/page.tsx  # five case studies
     ├── public/              # served assets (raj.jpg, images/, resume PDF)

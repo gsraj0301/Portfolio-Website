@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -25,6 +26,13 @@ export type CaseStudyData = {
   live?: string;
 };
 
+export function caseStudyMetadata(data: CaseStudyData): Metadata {
+  return {
+    title: `${data.title} | Raj G`,
+    description: data.intro,
+  };
+}
+
 export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
   return (
     <>
@@ -33,7 +41,10 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
       </a>
 
       <header className="border-b-2 border-dashed border-ink">
-        <div className="shell flex h-16 items-center justify-between gap-4">
+        <nav
+          aria-label="Case study"
+          className="shell flex h-16 items-center justify-between gap-4"
+        >
           <Link
             href="/"
             className="bricolage text-xl font-extrabold tracking-tight"
@@ -46,7 +57,7 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
           >
             Back to work
           </Link>
-        </div>
+        </nav>
       </header>
 
       <main id="main" className="shell py-14 lg:py-20">
@@ -106,7 +117,7 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
           {data.screenshot ? (
             <Image
               src={data.screenshot.src}
-              alt={data.title}
+              alt={`${data.title} app screenshot`}
               width={data.screenshot.width}
               height={data.screenshot.height}
               className="frame mt-10 h-auto w-full"
@@ -153,16 +164,17 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
             </a>
           </div>
 
-          <div className="mt-14 border-t-2 border-dashed border-ink/40 pt-8">
-            <Link
-              href="/#work"
-              className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"
-            >
-              Back to work
-            </Link>
-          </div>
         </article>
       </main>
+
+      <footer className="shell mt-14 border-t-2 border-dashed border-ink/40 pt-8">
+        <Link
+          href="/#work"
+          className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"
+        >
+          Back to work
+        </Link>
+      </footer>
     </>
   );
 };

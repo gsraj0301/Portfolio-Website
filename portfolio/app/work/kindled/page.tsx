@@ -1,5 +1,5 @@
 import type { CaseStudyData } from "../../components/CaseStudy";
-import { CaseStudy } from "../../components/CaseStudy";
+import { CaseStudy, caseStudyMetadata } from "../../components/CaseStudy";
 
 const kindledData: CaseStudyData = {
   title: "Kindled",
@@ -29,6 +29,8 @@ const kindledData: CaseStudyData = {
   repo: "https://github.com/gsraj0301/kindled",
   live: "https://kindled.pythonanywhere.com",
 };
+
+export const metadata = caseStudyMetadata(kindledData);
 
 export default function KindledPage() {
   return <CaseStudy data={kindledData} />;

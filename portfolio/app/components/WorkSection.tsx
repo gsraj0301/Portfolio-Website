@@ -100,7 +100,7 @@ const projects: Project[] = [
 
 export const WorkSection: FC = () => {
   return (
-    <section id="work" aria-labelledby="work-title" className="section">
+    <section id="work" aria-labelledby="work-title" className="section pb-28">
       <div className="shell">
         <h2 id="work-title" className="text-h2">
           Things I&rsquo;ve built for real people
@@ -110,20 +110,27 @@ export const WorkSection: FC = () => {
           the full story.
         </p>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
           {projects.map((project) => {
             const isFeature = Boolean(project.feature);
             const isSmall = Boolean(project.small);
 
             const body = (
-              <div className="flex flex-1 flex-col">
+              <div
+                className={[
+                  "flex flex-1",
+                  isSmall
+                    ? "lg:flex-row lg:items-center lg:justify-between lg:gap-8"
+                    : "flex-col",
+                ].join(" ")}
+              >
                 {project.tag ? (
                   <span className="tag self-start">{project.tag}</span>
                 ) : null}
 
                 <h3 className={project.tag ? "text-h3 mt-4" : "text-h3"}>
                   {project.story ? (
-                    <a href={project.story} className="[@media(hover:hover)]:hover:underline">
+                    <a href={project.story} className="inline-flex min-h-11 items-center [@media(hover:hover)]:hover:underline">
                       {project.title}
                     </a>
                   ) : (
@@ -142,7 +149,7 @@ export const WorkSection: FC = () => {
                     width={project.screenshot.width}
                     height={project.screenshot.height}
                     className="frame mt-4 h-auto w-full"
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 768px) 45vw, 100vw"
                     loading="lazy"
                   />
                 ) : null}
@@ -162,7 +169,10 @@ export const WorkSection: FC = () => {
                     href={project.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn-primary px-4 py-2.5 text-base min-h-12"
+                    className={[
+                      "btn px-4 py-2.5 text-base min-h-12",
+                      isFeature ? "btn-primary" : "btn-secondary",
+                    ].join(" ")}
                   >
                     {project.ctaLabel}
                   </a>
@@ -183,8 +193,8 @@ export const WorkSection: FC = () => {
                 key={project.title}
                 className={[
                   "sticker wiggle sticker-work flex flex-col",
-                  isSmall ? "p-5" : "p-6 sm:p-7",
-                  isFeature ? "md:col-span-2" : "",
+                   isSmall ? "p-5 md:col-span-2" : "p-6 sm:p-7",
+                   isFeature ? "md:col-span-2" : "",
                 ].join(" ")}
                 style={
                   {
@@ -194,7 +204,7 @@ export const WorkSection: FC = () => {
                 }
               >
                 {isFeature ? (
-                  <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-start">
+                  <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-start">
                     {body}
                     {project.screenshot ? (
                       <Image
@@ -203,7 +213,7 @@ export const WorkSection: FC = () => {
                         width={project.screenshot.width}
                         height={project.screenshot.height}
                         className="frame h-auto w-full"
-                        sizes="(min-width: 1024px) 45vw, 100vw"
+                        sizes="(min-width: 768px) 45vw, 100vw"
                         loading="lazy"
                       />
                     ) : null}
