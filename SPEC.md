@@ -61,7 +61,7 @@ Order:
 
 **Desktop (1024+):** sticky top bar. Logo `raj g.` in Display 800 (links to the top of the home page), then pill links: `Work`, `Skills`, `Hobbies`, `Resume` (opens the PDF in a new tab). `Say hi` is the tomato pill and jumps to `#contact`. The pill for the section currently in view gets marigold fill (scroll‑spy state change, not an animation). Include a visible "skip to content" link as the first focusable element. Active pill starts empty (no section highlighted on load).
 
-**Mobile:** non-sticky top bar with the `raj g.` logo only (left, no Resume pill). Plus a fixed bottom pill, ink fill, paper icons with visible text labels (14px). Exactly four items, in this order: `Work`, `Skills`, `Hobbies`, `Contact` (icons: briefcase, wrench, coffee, mail). The current section's item gets a marigold circle behind its icon. Respect `env(safe-area-inset-bottom)`. Each target at least 44×44px.
+**Mobile:** non-sticky top bar with the `raj g.` logo only (left, no Resume pill). Plus a fixed bottom pill, ink fill, paper icons with visible text labels (14px). Exactly four items, in this order: `Work`, `Skills`, `Hobbies`, `Contact` (icons: briefcase, wrench, coffee, mail). The current section's item gets a marigold circle behind its icon (scales/fades in over 200ms, transform/opacity only); items scale to 95% while pressed. Respect `env(safe-area-inset-bottom)`. Each target at least 44×44px.
 
 **Anchor offsets:** `scroll-margin-top` 24px below 1024px, 88px at 1024+ (sticky header). Smooth scrolling, disabled under reduced motion.
 
@@ -99,14 +99,14 @@ Appears only if real quotes exist. Never write or polish a quote on someone's be
 
 ### 2.8 Motion (principle: one orchestrated moment, plus motion that responds to a person's action. Nothing else moves.)
 
-1. **Hero slap** (page load, once): the hero stickers scale from 1.25 to 1 and settle into their tilt, staggered 0/90/180ms, 450ms each, ease‑out with a small overshoot. Total under 1.1s. Headline and buttons are visible immediately and do not animate. Implemented as CSS keyframes, no library.
+1. **Hero slap** (first load on desktop, first view under 640px, once): the hero stickers scale from 1.25 to 1 and settle into their tilt, staggered 0/90/180ms, 450ms each, ease‑out with a small overshoot. Total under 1.1s. Under 640px the overshoot is 1.12 and the animation stays paused until the cluster scrolls into view; desktop is unchanged. Headline and buttons are visible immediately and do not animate. Implemented as CSS keyframes, no library.
    - Hero photo sticker slaps in at 270ms delay.
    - Handwritten "(yes, really)" note fades and rises at 360ms delay.
-2. **Hero statistics count-up** (page load, once): the "2,000+" and "2 novels" stat stickers count up from 0 over 900ms with ease-out-cubic; SSR renders final value. Staggered 0/90/180ms with the slap.
+2. **Hero statistics count-up** (first view, once): the "2,000+" and "2 novels" stat stickers count up from 0 over 900ms with ease-out-cubic; SSR renders final value, so no-JS and reduced-motion show the final figure. Staggered 0/90/180ms with the slap.
 3. **Games count-up** (first intersection, once): "About 1,000" animates from 0 to 1,000 over 900ms using `requestAnimationFrame`; SSR renders final value; under `prefers-reduced-motion` stays at 1,000.
 4. **How I build timeline** (first intersection, once): dashed perforation line draws left-to-right across the four step cards at desktop (≥1024px) over 700ms expo-out; step numbers pop in sequence (100ms + i×160ms). Mobile: no connector (numbers convey sequence).
-5. **Sticker wiggle** (hover/tap): stat stickers and project cards wiggle on pointer interaction (CSS keyframes, `--tilt-effective`); disabled under reduced motion.
-6. **Press and hover on buttons and project stickers:** Duration 120ms. Hover: shadow grows to `--shadow-hard-lg` (box-shadow only, no transform conflict with wiggle). Press: translate 2px 2px, shadow shrinks to `--shadow-hard-sm`.
+5. **Sticker wiggle** (hover/tap): stat stickers and project cards wiggle once, 200ms, preserving `--tilt-effective`. Pointer devices wiggle on hover; touch wiggle fires on pointer release; disabled under reduced motion.
+6. **Press and hover on buttons and stat/project stickers:** Duration 120ms. Hover: shadow grows to `--shadow-hard-lg` (box-shadow only, no transform conflict with wiggle). Press: translate 2px 2px, shadow shrinks to `--shadow-hard-sm`. Press is pointer-driven so it works on touch devices; touches starting on a card's links or buttons do not press the card, and `pointercancel` clears the press when scrolling takes over.
 7. **Contact form micro-interactions:** Invalid fields shake 200ms (transform only); success card scales in 200ms (pop-in); submit button shows `aria-busy` while sending.
 8. **Route crossfade** (180ms): opacity crossfade between home and case-study pages via `app/template.tsx`. Disabled under reduced motion.
 9. **Scroll progress bar:** 3px marigold bar under sticky desktop header (viewport-top on mobile), scales with scroll. Updates under reduced motion as state indicator.

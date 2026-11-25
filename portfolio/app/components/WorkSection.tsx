@@ -1,5 +1,8 @@
+"use client";
+
 import type { CSSProperties, FC } from "react";
 import Image from "next/image";
+import { PressableSticker } from "./PressableSticker";
 
 type Project = {
   title: string;
@@ -120,7 +123,7 @@ export const WorkSection: FC = () => {
 
                 <h3 className={project.tag ? "text-h3 mt-4" : "text-h3"}>
                   {project.story ? (
-                    <a href={project.story} className="hover:underline">
+                    <a href={project.story} className="[@media(hover:hover)]:hover:underline">
                       {project.title}
                     </a>
                   ) : (
@@ -176,7 +179,7 @@ export const WorkSection: FC = () => {
             );
 
             return (
-              <article
+              <PressableSticker
                 key={project.title}
                 className={[
                   "sticker wiggle sticker-work flex flex-col",
@@ -208,7 +211,7 @@ export const WorkSection: FC = () => {
                 ) : (
                   body
                 )}
-              </article>
+              </PressableSticker>
             );
           })}
         </div>

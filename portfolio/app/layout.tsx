@@ -17,6 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="antialiased">
       <body className="min-h-full font-figtree antialiased">
         {children}
+        <noscript>
+          <style dangerouslySetInnerHTML={{ __html: ".slap,.note-in{animation-play-state:running!important}.timeline-line{transform:scaleX(1)!important}" }} />
+        </noscript>
       </body>
     </html>
   );

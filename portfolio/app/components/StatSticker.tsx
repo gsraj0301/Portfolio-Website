@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import type { CSSProperties, FC } from "react";
 import { useCountUp } from "@/app/lib/motion";
+import { useStickerPress } from "@/app/lib/useStickerPress";
 
 interface StatStickerProps {
   number: string;
@@ -15,6 +17,7 @@ interface StatStickerProps {
   countUpTarget?: number;
   countUpPrefix?: string;
   countUpSuffix?: string;
+  armed?: boolean;
 }
 
 export const StatSticker: FC<StatStickerProps> = ({
@@ -29,22 +32,47 @@ export const StatSticker: FC<StatStickerProps> = ({
   countUpTarget,
   countUpPrefix,
   countUpSuffix,
+  armed = true,
 }) => {
+  const [slapDone, setSlapDone] = useState(false);
+  const { pressed, wiggle, handlers } = useStickerPress<HTMLDivElement>();
+
+  useEffect(() => {
+    if (!armed) return;
+    const timer = setTimeout(() => setSlapDone(true), 900);
+    return () => clearTimeout(timer);
+  }, [armed]);
+
   const { display } = useCountUp(countUpTarget ?? parseInt(number.replace(/[^\d]/g, ""), 10), 900, {
     startDelay: parseInt(delay, 10),
     startFromZero: true,
     prefix: countUpPrefix,
     suffix: countUpSuffix,
+    enabled: armed,
   });
 
   const displayNumber = countUp ? display : number;
 
   return (
     <div
+      {...handlers}
+      onPointerDown={(event) => {
+        setSlapDone(true);
+        handlers.onPointerDown(event);
+      }}
+      onAnimationEnd={(event) => {
+        handlers.onAnimationEnd(event);
+        if (event.animationName === "slap") setSlapDone(true);
+      }}
       className={[
-        "sticker slap wiggle relative flex flex-col p-5",
+        "sticker",
+        slapDone ? "" : "slap",
+        armed ? "is-armed" : "",
+        "wiggle",
+        pressed ? "is-pressed" : "",
+        wiggle ? "is-wiggle" : "",
         align,
-      ].join(" ")}
+      ].filter(Boolean).join(" ")}
       style={
         {
           "--tilt": tilt,

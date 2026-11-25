@@ -1,5 +1,8 @@
+"use client";
+
 import type { CSSProperties, FC } from "react";
 import Image from "next/image";
+import { useInView } from "@/app/lib/motion";
 import { StatSticker } from "./StatSticker";
 
 const stats = [
@@ -41,6 +44,8 @@ const stats = [
 ];
 
 export const Header: FC = () => {
+  const { ref: clusterRef, inView: armed } = useInView(0.2);
+
   return (
     <section aria-labelledby="hero-title" className="pb-14 pt-10 lg:pb-24 lg:pt-16">
       <div className="shell grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -63,7 +68,7 @@ export const Header: FC = () => {
           </div>
           <div className="mt-6 flex items-center gap-3">
             <div
-              className="photo-sticker tilt slap p-2"
+              className={`photo-sticker tilt slap p-2${armed ? " is-armed" : ""}`}
               style={{ "--tilt": "-2deg", "--slap-delay": "270ms" } as CSSProperties}
             >
               <Image
@@ -75,13 +80,13 @@ export const Header: FC = () => {
                 className="h-16 w-16 rounded-full border-[6px] border-card object-cover"
               />
             </div>
-            <span className="hand text-2xl text-ink slap" style={{ "--slap-delay": "360ms" } as CSSProperties}>
+            <span className={`hand text-2xl text-ink note-in${armed ? " is-armed" : ""}`} style={{ "--slap-delay": "360ms" } as CSSProperties}>
               Raj G
             </span>
           </div>
         </div>
 
-        <div className="relative mx-auto flex w-full max-w-sm flex-col">
+        <div ref={clusterRef} className="relative mx-auto flex w-full max-w-sm flex-col">
           {stats.map((stat) => (
             <StatSticker
               key={stat.number}
@@ -96,9 +101,10 @@ export const Header: FC = () => {
               countUpTarget={stat.countUpTarget}
               countUpPrefix={stat.countUpPrefix}
               countUpSuffix={stat.countUpSuffix}
+              armed={armed}
             />
           ))}
-          <p className="hand mt-4 self-end text-2xl text-ink slap" style={{ "--slap-delay": "360ms" } as CSSProperties}>
+          <p className={`hand mt-4 self-end text-2xl text-ink note-in${armed ? " is-armed" : ""}`} style={{ "--slap-delay": "360ms" } as CSSProperties}>
             (yes, really)
           </p>
         </div>

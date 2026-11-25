@@ -117,15 +117,22 @@ export function SiteNav() {
                 <a
                   href={`#${id}`}
                   aria-current={isActive ? "true" : undefined}
-                  className="flex min-h-[52px] flex-col items-center justify-center gap-1 rounded-full py-1"
+                  className="nav-item flex min-h-[52px] flex-col items-center justify-center gap-1 rounded-full py-1 transition-transform duration-100 active:scale-95"
                 >
-                  <span
-                    className={[
-                      "grid h-7 w-7 place-items-center rounded-full",
-                      isActive ? "bg-marigold text-ink" : "bg-transparent text-paper",
-                    ].join(" ")}
-                  >
-                    <Icon size={20} strokeWidth={2} aria-hidden="true" />
+                  <span className="relative grid h-7 w-7 place-items-center">
+                    <span
+                      aria-hidden="true"
+                      className={[
+                        "absolute inset-0 rounded-full bg-marigold transition-[transform,opacity] duration-200 ease-out",
+                        isActive ? "scale-100 opacity-100" : "scale-[0.6] opacity-0",
+                      ].join(" ")}
+                    />
+                    <Icon
+                      size={20}
+                      strokeWidth={2}
+                      aria-hidden="true"
+                      className={isActive ? "relative text-ink" : "relative text-paper"}
+                    />
                   </span>
                   <span
                     className={[

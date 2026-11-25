@@ -23,7 +23,7 @@ const steps = [
 ];
 
 export const HowIBuildSection: FC = () => {
-  const ref = useInView(0.15);
+  const { ref, inView } = useInView(0.15);
 
   return (
     <section
@@ -36,11 +36,11 @@ export const HowIBuildSection: FC = () => {
           How I build
         </h2>
 
-        <div className="relative">
+        <div ref={ref} className="relative">
           <div
             className="timeline-line hidden lg:block"
             aria-hidden="true"
-            style={{ animationPlayState: ref ? "running" : "paused" } as CSSProperties}
+            style={{ animationPlayState: inView ? "running" : "paused" } as CSSProperties}
           />
           <ol className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, i) => (
@@ -50,7 +50,7 @@ export const HowIBuildSection: FC = () => {
                   aria-hidden="true"
                   style={{
                     "--pop-delay": `${100 + i * 160}ms`,
-                    animationPlayState: ref ? "running" : "paused",
+                    animationPlayState: inView ? "running" : "paused",
                   } as CSSProperties}
                 >
                   {i + 1}

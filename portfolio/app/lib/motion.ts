@@ -19,20 +19,20 @@ export function useReducedMotion(): boolean {
   return reduce;
 }
 
-export function useInView(threshold = 0.15, rootMargin = "0px"): boolean {
+export function useInView(threshold = 0.15, rootMargin = "0px") {
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const hasArmed = useRef(false);
 
   useEffect(() => {
-    if (hasArmed.current) return;
     const el = ref.current;
-    if (!el) return;
+    if (!el || hasArmed.current) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting && !inView) {
+          if (entry.isIntersecting) {
+            hasArmed.current = true;
             setInView(true);
             observer.disconnect();
           }
@@ -42,23 +42,24 @@ export function useInView(threshold = 0.15, rootMargin = "0px"): boolean {
     );
 
     observer.observe(el);
-    hasArmed.current = true;
 
     return () => observer.disconnect();
-  }, [inView, threshold, rootMargin]);
+  }, [threshold, rootMargin]);
 
-  return inView;
+  return { ref, inView };
 }
 
 export function useCountUp(
   target: number,
   duration = 900,
-  options?: { startDelay?: number; startFromZero?: boolean; prefix?: string; suffix?: string }
+  options?: { startDelay?: number; startFromZero?: boolean; prefix?: string; suffix?: string; enabled?: boolean }
 ): { value: number; display: string } {
   const reduce = useReducedMotion();
   const [value, setValue] = useState(0);
   const [isClient, setIsClient] = useState(false);
   const hasRun = useRef(false);
+  const startDelay = options?.startDelay ?? 0;
+  const enabled = options?.enabled ?? true;
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- required to avoid hydration mismatch
@@ -66,11 +67,8 @@ export function useCountUp(
   }, []);
 
   useEffect(() => {
-    if (reduce) return;
-    if (hasRun.current) return;
+    if (reduce || !enabled || hasRun.current) return;
     hasRun.current = true;
-
-    const startDelay = options?.startDelay ?? 0;
 
     const timer = setTimeout(() => {
       const start = performance.now();
@@ -86,7 +84,7 @@ export function useCountUp(
     }, startDelay);
 
     return () => clearTimeout(timer);
-  }, [target, duration, reduce, options?.startDelay]);
+  }, [target, duration, reduce, enabled, startDelay]);
 
   const display = !isClient || reduce
     ? (options?.prefix ?? "") + target.toLocaleString("en-US") + (options?.suffix ?? "")

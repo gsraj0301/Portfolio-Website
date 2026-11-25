@@ -223,8 +223,10 @@ Real facts only (see `CONTENT.md`). Fills rotate through marigold, card, mint.
 - Mobile: floating bottom pill, ink fill, paper icons with visible text labels
   under each icon (labels at 14px). Exactly four items, in this order: Work,
   Skills, Hobbies, Contact. Icons from the single icon set: briefcase, wrench,
-  coffee, mail. The current section's item gets a marigold circle behind its
-  icon. Respect `env(safe-area-inset-bottom)`. Each target at least 44x44px.
+   coffee, mail. The current section's item gets a marigold circle behind its
+   icon (the circle scales and fades in over 200ms, transform/opacity only;
+   items scale to 95% while pressed). Respect `env(safe-area-inset-bottom)`.
+   Each target at least 44x44px.
 - Mobile also shows the small "raj g." logo at the top-left of the page (not
   sticky). It scrolls to the top. The resume link on mobile lives in the
   contact section.
@@ -388,21 +390,27 @@ work" link at the top and bottom.
 Principle: one orchestrated moment, plus motion that responds to a person's
 action. Nothing else moves.
 
-1. Hero slap (page load, once): the hero stickers scale from 1.25 to 1 and
-   settle into their tilt, staggered 90ms, 450ms each, ease-out with a small
-   overshoot. Total under 1.1s. Headline and buttons are visible immediately
-   and do not animate.
-   - The hero photo sticker now also slaps in at 270ms delay.
-   - The handwritten "(yes, really)" note fades and rises at 360ms delay.
-2. Hero statistics count-up (page load, once): the "2,000+" and "2 novels"
-   stat stickers count up from 0 over 900ms with ease-out-cubic, matching the
-   hobbies count-up. The "About 1,000 games" figure already counts up.
-   Staggered with the slap at 0/90/180ms.
-3. Press and hover on buttons and project stickers as described above.
-   Duration 120ms. Project stickers now grow shadow on hover (no transform
-   conflict with wiggle) and press down on click.
-4. Sticker wiggle on hover (pointer devices only): rotate +/-2 degrees once,
-   200ms. Only on stat stickers and project stickers.
+ 1. Hero slap (first load on desktop, first view under 640px, once): the hero
+    stickers scale from 1.25 to 1 and settle into their tilt, staggered 90ms,
+    450ms each, ease-out with a small overshoot. Total under 1.1s. Under
+    640px the overshoot is reduced to 1.12 and the cluster waits until it
+    scrolls into view, so the moment is never missed below the fold. Headline
+    and buttons are visible immediately and do not animate.
+    - The hero photo sticker now also slaps in at 270ms delay.
+    - The handwritten "(yes, really)" note fades and rises at 360ms delay.
+ 2. Hero statistics count-up (first view, once): the "2,000+" and "2 novels"
+    stat stickers count up from 0 over 900ms with ease-out-cubic, matching the
+    hobbies count-up. The "About 1,000 games" figure already counts up.
+    Staggered with the slap at 0/90/180ms.
+ 3. Press and hover on buttons and stat/project stickers as described above.
+    Duration 120ms. Stat and project stickers grow shadow on hover (no
+    transform conflict with wiggle) and press down on click. Press is driven by
+    pointer events so it works on touch, and never fires when the touch starts
+    on a link inside a card.
+ 4. Sticker wiggle: rotate +/-2 degrees once, 200ms, preserving the sticker's
+    tilt. On pointer devices it fires on hover; on touch it fires on pointer
+    release (not on mouse release, which keeps the hover-only behaviour).
+    Only on stat stickers and project stickers.
 5. Hobbies count-up (the "about 1,000 games" number): one time, 900ms on first
    intersection.
 6. How I build timeline connector (first intersection, once): a dashed

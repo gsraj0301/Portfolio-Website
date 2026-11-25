@@ -17,10 +17,13 @@ CASE_STUDY.md (case-study source copy).
 - **Fonts:** `@fontsource` packages (Bricolage Grotesque, Figtree, Caveat),
   imported as CSS in `app/layout.tsx`; woff2 emitted at build. (`next/font`
   does not resolve these families on Next 14.)
-- **Motion:** plain CSS only — hero "slap" keyframes (overshoot), button hover/press,
-  smooth anchor scroll, Games count-up (900ms on first intersection), sticker wiggle
-  (hover/tap on stat/project stickers). No animation library. Everything disabled under
-  `prefers-reduced-motion: reduce`. The Games figure animates once; static under reduced motion.
+- **Motion:** plain CSS keyframes plus small React hooks — hero "slap" keyframes
+  (overshoot, reduced to 1.12 and view-gated under 640px), button and sticker
+  press (pointer-driven, 120ms), sticker wiggle (hover on pointer devices,
+  release on touch), hero and Games count-up (900ms, first intersection),
+  timeline draw (first intersection), nav circle scale/fade, route crossfade.
+  No animation library. Everything disabled under `prefers-reduced-motion: reduce`;
+  figures and the scroll progress bar remain in their final/updated state.
 - **Icons:** `lucide-react`, outline set, 2px stroke (nav + external-link).
 - **Images:** `next/image` with explicit width/height, `sizes`, lazy loading
   below the fold; sources in `portfolio/public/` and `portfolio/public/images/`.
@@ -79,6 +82,10 @@ Copy rules: no emoji, no em dashes, "God helped me" at most once per study
    `.next/static` text output and **fails the build** if `[CHECK` or
    `[REPLACE` appears anywhere. Unconfirmed copy can never ship.
 3. All pages are statically prerendered (no dynamic routes, no server actions).
+   Header, WorkSection and the interactive stickers are client components, but
+   still prerender at build time. `node scripts/motion-check.mjs` (playwright-core)
+   verifies motion at 360/390/768/1280px, touch press/wiggle, view gating and
+   reduced motion against a running production server.
 4. **Dist-dir split:** `next.config.js` sets `distDir` to `.next-dev` under
    `next dev` and `.next` for build/start, so a running dev server can never
    corrupt a production build (this previously caused
@@ -86,7 +93,8 @@ Copy rules: no emoji, no em dashes, "God helped me" at most once per study
 
 ## 4. Page-level behaviour
 
-- **Home:** hero sticker cluster slaps in once (CSS, staggered 0/90/180ms);
+- **Home:** hero sticker cluster slaps in once (CSS, staggered 0/90/180ms,
+  view-gated under 640px); stat count-ups and the timeline draw on first view;
   IntersectionObserver scroll-spy drives nav active states (active starts empty);
   dashed perforation dividers between paper sections; colour bands (blush/marigold/tomato) need none.
   Section order: Hero, What people said (conditional), Work, Skills, How I build, Hobbies, Contact.
@@ -147,13 +155,13 @@ Portfolio Website/
     │   ├── page.tsx         # home composition
     │   ├── globals.css      # design system layer
     │   ├── not-found.tsx
-    │   ├── lib/supabase.ts
-    │   ├── components/      # SiteNav, Header, WorkSection, SkillsSection,
-    │   │                    # HowIBuildSection, HobbiesSection, HobbiesCountUp,
-    │   │                    # ContactSection, ContactForm, CaseStudy
+    │   ├── lib/supabase.ts / motion.ts / useStickerPress.ts
+    │   ├── components/      # SiteNav, Header, WorkSection, PressableSticker,
+    │   │                    # SkillsSection, HowIBuildSection, HobbiesSection,
+    │   │                    # HobbiesCountUp, ContactSection, ContactForm, CaseStudy
     │   └── work/*/page.tsx  # five case studies
     ├── public/              # served assets (raj.jpg, images/, resume PDF)
-    ├── scripts/check-markers.mjs
+    ├── scripts/check-markers.mjs / motion-check.mjs
     ├── tailwind.config.js / postcss.config.js / next.config.js
     └── .env                 # gitignored
 ```
