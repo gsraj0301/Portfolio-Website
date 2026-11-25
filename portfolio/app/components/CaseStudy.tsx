@@ -3,12 +3,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CaseStudyHero } from "./casestudy/Hero";
+import { MetricStickers } from "./casestudy/MetricStickers";
 import { ProblemStory } from "./casestudy/ProblemStory";
 import { FeatureShowcase } from "./casestudy/FeatureShowcase";
 import { ArchitectureFlow } from "./casestudy/ArchitectureFlow";
 import { ChallengeCards } from "./casestudy/ChallengeCards";
 import { ResultsLessons } from "./casestudy/ResultsLessons";
 import { ProjectNav } from "./casestudy/ProjectNav";
+import { StackSection } from "./casestudy/StackSection";
+import { Signature } from "./casestudy/Signature";
 
 export type CaseStudyGlance = {
   role: string;
@@ -17,6 +20,14 @@ export type CaseStudyGlance = {
   linkLabel: string;
   linkHref: string;
 };
+
+export type CaseStudyPersona =
+  | { kind: "wall"; title: string; note?: string; cells: { value: string; label: string }[] }
+  | { kind: "matrix"; title: string; note?: string; rows: { role: string; action: string; access: string }[] }
+  | { kind: "compare"; title: string; note?: string; left: { label: string; lines: string[] }; right: { label: string; lines: string[] } }
+  | { kind: "ladder"; title: string; note?: string; steps: { label: string; body: string }[] }
+  | { kind: "legend"; title: string; note?: string; legend: { label: string; tone: string }[] }
+  | { kind: "curation"; title: string; note?: string; kept: string[]; dropped: string[] };
 
 export type CaseStudyData = {
   title: string;
@@ -37,6 +48,7 @@ export type CaseStudyData = {
   challenges?: { title: string; body: string; fix: string }[];
   results?: string;
   lessons?: string;
+  personas?: CaseStudyPersona[];
   next?: { title: string; href: string; tag: string };
   repo: string;
   live?: string;
@@ -75,6 +87,10 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
             />
             Raj G
           </Link>
+          <div className="flex flex-col items-start gap-1 text-[0.9375rem] font-semibold">
+            <span className="text-ink-soft">{data.tag}</span>
+            <span className="text-ink">{data.title}</span>
+          </div>
           <Link
             href="/#work"
             className="btn btn-secondary min-h-12 px-4 py-2 text-base"
@@ -84,92 +100,83 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
         </nav>
       </header>
 
-      <main id="main" className="shell py-14 lg:py-20">
-        <article className="mx-auto max-w-[68ch]">
-          <CaseStudyHero data={data} />
+      <main id="main">
+        <CaseStudyHero data={data} />
 
-          {data.painPoints && data.painPoints.length > 0 && (
-            <ProblemStory data={data} />
-          )}
+        {data.metrics && data.metrics.length > 0 && (
+          <section className="section pt-20 pb-28">
+            <div className="shell">
+              <h2 className="text-h3 mt-12">Impact at a glance</h2>
+              <MetricStickers metrics={data.metrics} />
+            </div>
+          </section>
+        )}
 
-          <FeatureShowcase data={data} />
-
-          {data.flow && (
-            <ArchitectureFlow flow={data.flow} />
-          )}
-
-          {data.decisions && data.decisions.length > 0 && (
-            <section className="section pt-28 pb-28">
-              <div className="shell">
-                <h2 className="text-h3 mt-12">Engineering decisions</h2>
-                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {data.decisions.map((d, i) => (
-                    <div
-                      key={i}
-                      className="sticker p-6"
-                      style={{
-                        "--tilt": ["-2deg", "1.5deg", "-1deg", "2deg"][i % 4],
-                        background: "var(--card)",
-                      } as React.CSSProperties}
-                    >
-                      <h3 className="text-h3">{d.title}</h3>
-                      <p className="mt-2 text-small text-ink-soft">{d.body}</p>
-                    </div>
-                  ))}
-                </div>
+        {data.personas && data.personas.length > 0 && (
+          <section className="section pt-28 pb-28">
+            <div className="shell">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                {data.personas.map((persona, i) => (
+                  <Signature key={i} persona={persona} />
+                ))}
               </div>
-            </section>
-          )}
+            </div>
+          </section>
+        )}
 
-          {data.challenges && data.challenges.length > 0 && (
-            <ChallengeCards challenges={data.challenges} />
-          )}
+        {data.painPoints && data.painPoints.length > 0 && (
+          <ProblemStory data={data} />
+        )}
 
-          <ResultsLessons results={data.results} lessons={data.lessons} />
+        {data.why && (
+          <section className="section pt-28 pb-28">
+            <div className="shell">
+              <h2 className="text-h3 mt-12">Why I built it</h2>
+              <p className="mt-4 max-w-[62ch] text-ink-soft">{data.why}</p>
+            </div>
+          </section>
+        )}
 
-          <h2 className="text-h3 mt-12">Stack</h2>
-          <ul className="mt-3 flex flex-wrap gap-1.5">
-            {data.stack.map((tech) => (
-              <li key={tech} className="chip chip-solid">
-                {tech}
-              </li>
-            ))}
-          </ul>
-          <p className="text-small mt-3 text-ink-soft">
-            <Link
-              href="/#skills"
-              className="inline-flex min-h-11 items-center font-semibold underline decoration-2 underline-offset-4"
-            >
-              See how I use this stack
-            </Link>
-          </p>
+        <FeatureShowcase data={data} />
 
-          <div className="mt-10 flex flex-wrap gap-3">
-            {data.live ? (
-              <a
-                href={data.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-              >
-                Visit site
-              </a>
-            ) : null}
-            <a
-              href={data.repo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-secondary"
-            >
-              GitHub repo
-            </a>
-          </div>
+        {data.flow && (
+          <ArchitectureFlow flow={data.flow} />
+        )}
 
-          <ProjectNav next={data.next} />
-        </article>
+        {data.decisions && data.decisions.length > 0 && (
+          <section className="section pt-28 pb-28">
+            <div className="shell">
+              <h2 className="text-h3 mt-12">Engineering decisions</h2>
+              <div className="mt-6 flex flex-col gap-4">
+                {data.decisions.map((d, i) => (
+                  <div
+                    key={i}
+                    className="sticker p-6"
+                    style={{
+                      "--tilt": ["-1.5deg", "1deg", "-0.5deg"][i % 3],
+                    } as React.CSSProperties}
+                  >
+                    <h3 className="text-h3">{d.title}</h3>
+                    <p className="mt-2 text-small text-ink-soft">{d.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {data.challenges && data.challenges.length > 0 && (
+          <ChallengeCards challenges={data.challenges} />
+        )}
+
+        <ResultsLessons results={data.results} lessons={data.lessons} />
+
+        <StackSection stack={data.stack} />
+
+        <ProjectNav next={data.next} />
       </main>
 
-      <footer className="shell mt-14 border-t-2 border-dashed border-ink/40 pt-8">
+      <footer className="shell mt-14 border-t-2 border-dashed border-ink/40 pt-8 pb-28">
         <Link
           href="/#work"
           className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"
@@ -179,4 +186,4 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
       </footer>
     </>
   );
-}
+};

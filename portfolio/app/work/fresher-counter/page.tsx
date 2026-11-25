@@ -61,12 +61,12 @@ const fresherData: CaseStudyData = {
   challenges: [
     {
       title: "Login bounced",
-      body: "Forgot to await Next.js's async cookies() call, so every login bounced back to the login page.",
+      body: "I had forgotten to await Next.js's async cookies() call, so every login bounced back to the login page.",
       fix: "Got unblocked by reading the raw Cookie header, then fixed the await properly.",
     },
   ],
   results:
-    "I built it, demoed it to my class in-charge, took his input, changed the site and deployed it. Then came a sudden request: the principal needed a page to see the count too. I added a read-only overview and coordinated it with the first-year HOD. On the day, I waited for news, and in the evening my class in-charge told me the site was very helpful.",
+    "I built it, demoed it to my class in-charge, took his input, changed the site and deployed it. Then came a sudden request: the principal needed a page to see the count too. I added a read-only overview and coordinated it with the first-year HOD. The real bug was the login. On the day, I waited for news, and in the evening my class in-charge told me the site was very helpful.",
   lessons:
     "I'm grateful for the chance to build to faculty requirements and actually be useful.",
   screenshot: { src: "/images/fresher.png", width: 1660, height: 907 },
@@ -74,6 +74,29 @@ const fresherData: CaseStudyData = {
   repo: "https://github.com/gsraj0301/fresher-day-registrations",
   live: "https://fresher-day-registrations.vercel.app/",
   next: { title: "Gexp", href: "/work/gexp", tag: "family business" },
+  personas: [
+    {
+      kind: "matrix",
+      title: "Who could see what",
+      rows: [
+        {
+          role: "Admin",
+          action: "Manage counts and faculty accounts.",
+          access: "Full",
+        },
+        {
+          role: "Faculty",
+          action: "Update own department and section count.",
+          access: "Own section",
+        },
+        {
+          role: "Principal, HOD and deans",
+          action: "Read-only overview of the live total.",
+          access: "Read-only",
+        },
+      ],
+    },
+  ],
 };
 
 export const metadata = caseStudyMetadata(fresherData);

@@ -20,7 +20,7 @@ export function ArchitectureFlow({ flow }: ArchitectureFlowProps) {
         <div className="mt-8 flex flex-col sm:flex-row items-start gap-3">
           {flow.nodes.map((node, i) => (
             <React.Fragment key={i}>
-              <span className="chip chip-solid whitespace-nowrap">{node}</span>
+              <span className="chip chip-solid whitespace-normal">{node}</span>
               {i < flow.nodes.length - 1 && (
                 <>
                   <div

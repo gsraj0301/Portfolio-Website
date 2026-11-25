@@ -111,13 +111,13 @@ export function ContactForm() {
         className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
         aria-hidden="true"
       >
-        <label htmlFor="contact-website">Website</label>
         <input
           id="contact-website"
           name="website"
           type="text"
           tabIndex={-1}
           autoComplete="off"
+          aria-hidden="true"
           value={website}
           onChange={(e) => setWebsite(e.target.value)}
         />

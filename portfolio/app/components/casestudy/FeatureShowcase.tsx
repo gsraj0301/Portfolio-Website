@@ -5,8 +5,6 @@ interface FeatureShowcaseProps {
   data: CaseStudyData;
 }
 
-const FEATURE_TILTS = ["-1.5deg", "1.5deg", "-3deg", "2deg"];
-
 type GalleryImage = { src: string; width: number; height: number; caption?: string };
 
 export function FeatureShowcase({ data }: FeatureShowcaseProps) {
@@ -19,26 +17,30 @@ export function FeatureShowcase({ data }: FeatureShowcaseProps) {
   return (
     <section className="section pt-28 pb-28">
       <div className="shell">
-        <h2 className="text-h3 mt-12">What it does</h2>
-        <ul className="mt-4 space-y-6">
-          {data.features.map((feature, i) => (
-            <li
-              key={i}
-              className="sticker p-6 flex flex-col gap-3"
-              style={{
-                "--tilt": FEATURE_TILTS[i % FEATURE_TILTS.length],
-                background: "var(--card)",
-              } as React.CSSProperties}
-            >
-              <div className="bricolage text-h3 leading-none">{i + 1}</div>
-              <p className="text-small text-ink-soft">{feature}</p>
-            </li>
-          ))}
+        <h2 className="text-h3 mt-12">What I built</h2>
+        <ul className="mt-6 space-y-4">
+          {data.features.map((feature, i) => {
+            const leadEnd = feature.indexOf(". ");
+            const lead =
+              leadEnd > 0 && leadEnd < 40 ? feature.slice(0, leadEnd + 1) : null;
+            const rest = lead ? feature.slice(leadEnd + 2) : feature;
+            return (
+              <li key={i} className="sticker p-6">
+                <div className="flex gap-3 items-start">
+                  <span className="shrink-0 mt-1 text-small font-semibold text-ink">•</span>
+                  <div>
+                    {lead ? <span className="bricolage text-tag text-ink font-bold">{lead}</span> : null}
+                    <span className="mt-1 block text-small text-ink-soft">{rest}</span>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
         </ul>
 
         {images.length > 0 && (
-          <>
-            <h2 className="text-h3 mt-12">In use</h2>
+          <div className="mt-16">
+            <h2 className="text-h3 mb-4">In use</h2>
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-6">
               {images.map((img, i) => (
                 <div key={i}>
@@ -57,7 +59,7 @@ export function FeatureShowcase({ data }: FeatureShowcaseProps) {
                 </div>
               ))}
             </div>
-          </>
+          </div>
         )}
       </div>
     </section>

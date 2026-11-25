@@ -1,65 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import { MetricStickers } from "./MetricStickers";
+import { Hand } from "lucide-react";
 import type { CaseStudyData } from "@/app/components/CaseStudy";
 
 interface CaseStudyHeroProps {
   data: CaseStudyData;
 }
 
-type GalleryImage = { src: string; width: number; height: number; caption?: string };
-
 export function CaseStudyHero({ data }: CaseStudyHeroProps) {
-  const glanceItems = [
-    { label: "Role", value: data.glance.role },
-    { label: "Stack", value: data.glance.stack },
-    { label: "Status", value: data.glance.status },
-    { label: "Link", value: data.glance.linkLabel, link: data.glance.linkHref },
-  ];
-
-  const galleryImage = data.gallery?.[0];
-  const screenshotImage = data.screenshot
-    ? { src: data.screenshot.src, width: data.screenshot.width, height: data.screenshot.height, caption: undefined }
-    : undefined;
-  const screenshot = galleryImage ?? screenshotImage;
-
   return (
-    <section className="pt-28 pb-28">
+    <section className="section pt-14 pb-20 lg:pt-20 lg:pb-32">
       <div className="shell">
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-12 items-start">
           <div>
             <span className="tag">{data.tag}</span>
-            <h1 className="text-display mt-4 max-w-[46ch]">{data.title}</h1>
+            <h1 className="text-display mt-4 max-w-[16ch]">{data.title}</h1>
             <p className="mt-6 max-w-[62ch] text-ink-soft">{data.intro}</p>
 
-            <h2 className="text-h3 mt-10">At a glance</h2>
-            <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {glanceItems.map((item, i) => (
-                <div
-                  key={i}
-                  className="sticker p-6"
-                  style={{
-                    "--tilt": ["-3deg", "2deg", "-1.5deg", "1.5deg"][i % 4],
-                    background: "var(--card)",
-                  } as React.CSSProperties}
-                >
-                  <span className="block text-tag text-ink-soft">{item.label}</span>
-                  {item.link ? (
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-small font-semibold underline decoration-2 underline-offset-4"
-                    >
-                      {item.value}
-                    </a>
-                  ) : (
-                    <span className="block text-small font-semibold">{item.value}</span>
-                  )}
-                </div>
-              ))}
-            </div>
+            <span className="mt-8 inline-block bricolage text-tag text-ink-soft rotate-[-3deg]">
+              <Hand size={16} strokeWidth={2} className="mr-1.5" />By Raj G
+            </span>
 
             <div className="mt-10 flex flex-wrap gap-3">
               {data.live ? (
@@ -67,7 +28,7 @@ export function CaseStudyHero({ data }: CaseStudyHeroProps) {
                   href={data.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-primary"
+                  className="btn btn-primary min-h-12"
                 >
                   Visit site
                 </a>
@@ -76,34 +37,68 @@ export function CaseStudyHero({ data }: CaseStudyHeroProps) {
                 href={data.repo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-secondary"
+                className="btn btn-secondary min-h-12"
               >
                 GitHub repo
               </a>
             </div>
           </div>
 
-          {screenshot && (
-            <div>
-              <Image
-                src={screenshot.src}
-                alt={`${data.title} app screenshot`}
-                width={screenshot.width}
-                height={screenshot.height}
-                className="frame w-full h-auto"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                loading="lazy"
-              />
-              {screenshot.caption && (
-                <p className="mt-2 text-tag text-ink-soft">{screenshot.caption}</p>
+          {data.screenshot && (
+            <div className="flex justify-center">
+              <div
+                className="relative inline-block"
+                style={{ "--tilt": "2deg" } as React.CSSProperties}
+              >
+                <Image
+                  src={data.screenshot.src}
+                  alt={`${data.title} app screenshot`}
+                  width={data.screenshot.width}
+                  height={data.screenshot.height}
+                  className="frame w-full max-w-[340px] h-auto"
+                  sizes="(min-width: 1024px) 25vw, 100vw"
+                  loading="lazy"
+                />
+              </div>
+              {data.screenshot?.width && data.screenshot?.height && data.screenshot.height / data.screenshot.width > 1.3 && (
+                <p className="mt-3 text-tag text-ink-soft text-center">
+                  Portrait screenshot from a real device
+                </p>
               )}
             </div>
           )}
         </div>
 
-        {data.metrics && data.metrics.length > 0 && (
-          <MetricStickers metrics={data.metrics} />
-        )}
+        <div className="mt-16 sticker p-8">
+          <h2 className="text-h3 mb-4">At a glance</h2>
+          <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 border-y-2 border-dashed border-ink/40 py-4">
+            <div>
+              <dt className="text-tag text-ink-soft">Role</dt>
+              <dd className="mt-1 text-small font-semibold">{data.glance.role}</dd>
+            </div>
+            <div>
+              <dt className="text-tag text-ink-soft">Stack</dt>
+              <dd className="mt-1 text-small font-semibold">{data.glance.stack}</dd>
+            </div>
+            <div>
+              <dt className="text-tag text-ink-soft">Status</dt>
+              <dd className="mt-1 text-small font-semibold">{data.glance.status}</dd>
+            </div>
+            <div>
+              <dt className="text-tag text-ink-soft">Link</dt>
+              <dd className="mt-1 text-small font-semibold underline decoration-2 underline-offset-4">
+                <a
+                  href={data.glance.linkHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-ink font-semibold"
+                >
+                  {data.glance.linkLabel}
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </div>
       </div>
     </section>
   );

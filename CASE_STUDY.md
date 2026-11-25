@@ -78,7 +78,7 @@ Next up: the new first-years, more Tamil content, and being there at the exact m
 
 ## RULES (how to write a case study)
 
-1. **Extended structure** – Problem, Why I built it, What it does, Architecture (optional), Results, Challenges, Lessons. Every sentence from the original `howWent` must appear in Results/Challenges/Lessons; nothing deleted. Pain points, metrics, flow, decisions, challenges, results, lessons, next are optional fields.
+1. **Extended structure** – Problem, Why I built it, What it does, Architecture (optional), Results, Challenges, Lessons. Every sentence from the original `howWent` must appear in Results/Challenges/Lessons; nothing deleted. Pain points, metrics, flow, decisions, challenges, results, lessons, next and personas are optional fields.
 2. **First person, plain words** – Sounds like Raj explaining his work to a friend.
 3. **Sentence case everywhere** – Headlines, buttons, tags, nav. No ALL CAPS.
 4. **Specific beats clever** – Use real numbers, real names of things. No percentage bars, no star ratings.

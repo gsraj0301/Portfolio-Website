@@ -329,7 +329,9 @@ for (const route of ["pride", "kindled", "fresher-counter", "gexp", "gst-reconci
   const checks = await page.evaluate(() => {
     const h1 = document.querySelectorAll("h1").length;
     const h2 = document.querySelectorAll("h2").length;
-    const hero = Boolean(document.querySelector('main section.pt-28'));
+    const hero = Boolean(document.querySelector("main section"));
+    const text = document.body.innerText;
+    const noArrows = !text.includes("→");
     const metrics = document.querySelectorAll('.section .sticker').length;
     const problem = Boolean([...document.querySelectorAll("h2")].find(h => /broke|problem/i.test(h.textContent)));
     const features = document.querySelectorAll('ul li.sticker').length;
@@ -345,12 +347,13 @@ for (const route of ["pride", "kindled", "fresher-counter", "gexp", "gst-reconci
     const allProjects = Boolean([...document.querySelectorAll('a[href="/#work"]')].find(a => a.textContent.includes("All projects")));
     const screenshot = document.querySelector("main img")?.getAttribute("alt") ?? "";
     const title = document.title;
-    return { h1, h2, hero, metrics, problem, features, flow, challenges, results, lessons, stack, cta, nav, footer, nextNav, allProjects, screenshot, title };
+    return { h1, h2, hero, noArrows, metrics, problem, features, flow, challenges, results, lessons, stack, cta, nav, footer, nextNav, allProjects, screenshot, title };
   });
   check(
     `${route} has proper structure`,
     checks.h1 === 1 &&
       checks.hero &&
+      checks.noArrows &&
       checks.metrics >= 3 &&
       checks.problem &&
       checks.features >= 3 &&

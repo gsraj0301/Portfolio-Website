@@ -7,18 +7,20 @@ export function ResultsLessons({ results, lessons }: ResultsLessonsProps) {
   return (
     <section className="section pt-28 pb-28">
       <div className="shell">
-        {results && (
-          <>
-            <h2 className="text-h3 mt-12">Results</h2>
-            <p className="mt-4 max-w-[62ch] text-ink-soft">{results}</p>
-          </>
-        )}
-        {lessons && (
-          <>
-            <h2 className="text-h3 mt-12">What I learned</h2>
-            <p className="mt-4 max-w-[62ch] text-ink-soft">{lessons}</p>
-          </>
-        )}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {results && (
+            <div className="sticker p-8 lg:p-10" style={{ "--tilt": "-1.5deg" } as React.CSSProperties}>
+              <h2 className="text-h3 mb-4">Results</h2>
+              <p className="text-ink-soft">{results}</p>
+            </div>
+          )}
+          {lessons && (
+            <div className="sticker p-8 lg:p-10" style={{ "--tilt": "1deg", background: "var(--mint)" } as React.CSSProperties}>
+              <h2 className="text-h3 mb-4">What I learned</h2>
+              <p className="mt-4 text-small text-ink-soft">{lessons}</p>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

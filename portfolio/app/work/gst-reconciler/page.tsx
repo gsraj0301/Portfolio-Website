@@ -28,7 +28,7 @@ const gstData: CaseStudyData = {
     { src: "/images/gst.jpeg", width: 1600, height: 640, caption: "GST Reconciler colour-coded mismatch report" },
   ],
   metrics: [
-    { value: "Most of a day", label: "→ 2 minutes" },
+    { value: "2 min", label: "reconciliation, down from most of a day" },
     { value: "₹10", label: "tolerance" },
     { value: "3", label: "match priority keys" },
     { value: "3", label: "report colours" },
@@ -40,12 +40,12 @@ const gstData: CaseStudyData = {
   ],
   flow: {
     title: "Match pipeline",
-    nodes: [
-      "Drop in two Excel files",
-      "Match by GSTIN → invoice → party",
-      "Flag mismatches and duplicates",
-      "Export colour-coded report",
-    ],
+      nodes: [
+        "Drop in two Excel files",
+        "Match by GSTIN, then invoice, then party",
+        "Flag mismatches and duplicates",
+        "Export colour-coded report",
+      ],
     note: "Ten-rupee tolerance for rounding differences. Original file untouched.",
   },
   decisions: [
@@ -61,23 +61,58 @@ const gstData: CaseStudyData = {
   challenges: [
     {
       title: "False mismatches",
-      body: "GSTIN, party name or invoice number differed by one or two characters — strangers to a computer, obvious to a human.",
-      fix: "Fuzzy matching with manners: near-identical text counts as a match, fields get a priority order (GSTIN → invoice → party).",
+      body: "The first successful run was full of mismatches that weren't real, because the GSTIN, party name or invoice number would differ by one or two characters between the files.",
+      fix: "The fix was fuzzy matching with manners: near-identical text counts as a match, and fields get a priority order: GSTIN first, then invoice number, then party name, because names are the messiest.",
     },
     {
       title: "First run was empty",
-      body: "Nothing worked. No buttons, nothing. Just a window that looked at me like I'd made a mistake.",
+      body: "First run: nothing worked. No buttons, nothing. Just a window that looked at me like I'd made a mistake.",
       fix: "Built it, then it worked — and was wrong. Fixed the matching, and Dad started using it.",
     },
   ],
   results:
-    "Then my dad tried it. It worked, and he started using it. What took most of a day now takes minutes. I promised one minute and delivered two minutes at most, but I'll take that against a full day. Thank you, Dad, for trusting me with real business work even after saying no way, and for being the best first tester a developer could ask for.",
+    "Then my dad tried it. It worked, and he started using it. What took most of a day now takes minutes. I promised one minute and delivered two minutes at most, but I'll take that against a full day.",
   lessons:
-    "Then my dad tried it. It worked, and he started using it. What took most of a day now takes minutes. I promised one minute and delivered two minutes at most, but I'll take that against a full day. Thank you, Dad, for trusting me with real business work even after saying no way, and for being the best first tester a developer could ask for.",
+    "Then it worked, and it was wrong. To a human, obviously the same invoice. To a computer, strangers. And you can't hand an accountant mostly right. Thank you, Dad, for trusting me with real business work even after saying no way, and for being the best first tester a developer could ask for.",
   screenshot: { src: "/images/gst.jpeg", width: 1600, height: 640 },
   stack: ["Python", "Tkinter", "pandas"],
   repo: "https://github.com/gsraj0301/gst-reconciler",
   next: { title: "PRIDE portal", href: "/work/pride", tag: "college" },
+  personas: [
+    {
+      kind: "compare",
+      title: "Tally register vs GSTR-2B",
+      left: {
+        label: "Tally voucher register",
+        lines: ["Purchase records entered by hand.", "One row per voucher, firm by firm."],
+      },
+      right: {
+        label: "GSTR-2B",
+        lines: ["Government's GST portal view.", "Auto-populated from supplier uploads."],
+      },
+      note: "Both claim to be the truth, and they tell it differently.",
+    },
+    {
+      kind: "ladder",
+      title: "Match priority order",
+      steps: [
+        { label: "GSTIN", body: "Taxpayer ID — the most reliable key." },
+        { label: "Invoice number", body: "Second priority, where GSTIN matches." },
+        { label: "Party name", body: "Last, because names are the messiest." },
+      ],
+      note: "Fields get a priority order so near-identical text counts as a match.",
+    },
+    {
+      kind: "legend",
+      title: "Report colours",
+      legend: [
+        { label: "Matched", tone: "match" },
+        { label: "Mismatch", tone: "mismatch" },
+        { label: "Duplicate", tone: "duplicate" },
+      ],
+      note: "Original file left untouched.",
+    },
+  ],
 };
 
 export const metadata = caseStudyMetadata(gstData);

@@ -78,6 +78,7 @@ type CaseStudyData = {
   decisions?: { title: string; body: string }[];
   challenges?: { title: string; body: string; fix: string }[];
   results?: string; lessons?: string;
+  personas?: { kind; title; note?; ... }[];
   next?: { title: string; href: string; tag: string };
   repo: string; live?: string;
 };

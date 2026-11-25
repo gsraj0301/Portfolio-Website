@@ -17,15 +17,13 @@ export function ProblemStory({ data }: ProblemStoryProps) {
           <div className="flex flex-col gap-3">
             {data.painPoints?.map((p, i) => (
               <div
-                key={i}
+                key={p}
                 className="sticker p-6"
                 style={{
-                  "--tilt": ["-3deg", "2deg", "-1.5deg", "1.5deg"][i % 4],
-                  background: "var(--card)",
+                  "--tilt": ["-2deg", "1.5deg", "-1deg", "2deg"][i % 4],
                 } as React.CSSProperties}
               >
-                <span className="bricolage text-h3 leading-none">{i + 1}</span>
-                <span className="mt-2 block text-small text-ink-soft">{p}</span>
+                <span className="block text-small text-ink-soft">{p}</span>
               </div>
             ))}
           </div>
