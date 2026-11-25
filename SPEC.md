@@ -33,23 +33,25 @@ Section order (from top to bottom):
 
 ### 2.2 Case‑study pages (`/work/pride`, `/work/kindled`, `/work/fresher-counter`, `/work/gexp`, `/work/gst-reconciler`)
 
-All five routes are live. Reusable design system with per-project personality. Max width 68ch, no tilt on body content.
+All five routes are live. Reusable design system with per-project personality. Full-bleed sections with `.shell` containers; prose inside sections constrained to 62ch for readability. No tilt on body copy. No arrow glyphs in text.
 
 Order:
 
-1. **Project hero** – tag chip, H1, one-line intro, role/stack/status chips, Live/GitHub CTAs, screenshot or typographic composition, caption.
-3. **Impact at a glance** – metric stickers (count-up, staggered 90ms, one tomato element per section max).
-3. **The problem** – pain-point chips + original prose (visualised pain points).
-4. **Why I built it** – one paragraph.
-4. **What it does** – numbered feature stickers + screenshot gallery with captions.
-5. **Technical architecture** – text-only chip chain with draw animation (view-gated, reduced-motion static).
-6. **Challenges & lessons** – problem → fix cards; honest failures verbatim.
-7. **Results** / **What I learned** – outcome metrics + closing prose.
-8. **Stack** – solid tech chips linking to `/#skills`.
-9. **CTAs** (Live site / GitHub) + **ProjectNav** (next project in WorkSection order + "All projects").
-10. "Back to work" in nav + footer landmarks. Route-specific title/description metadata, descriptive screenshot alt text.
+1. **Project hero** – tag chip, H1 (text‑display), one‑line intro, role/stack/status chips as a `<dl>` strip, Live/GitHub CTAs, screenshot or typographic composition, caption.
+2. **Impact at a glance** – metric stickers (count‑up, staggered 90ms, varied fills/tilts).
+3. **Project shape** – per‑project personality section: role matrix (PRIDE, Fresher's), curation chips + "what I said no to" (Kindled), three‑moment ladder (Gexp), Tally vs GSTR‑2B compare + match‑priority ladder + report‑colour legend (GST).
+4. **The problem** – pain‑point chips + original prose (visualised pain points), blush band.
+5. **Why I built it** – one paragraph.
+6. **What it does** – feature stickers (dot bullets, no numbered markers) + screenshot gallery with captions.
+7. **Technical architecture** – text‑only chip chain with draw animation (view‑gated, reduced‑motion static).
+8. **Engineering decisions** – sticker cards.
+9. **Challenges & lessons** – problem → fix cards; honest failures verbatim.
+10. **Results** / **What I learned** – outcome metrics + closing prose.
+11. **Stack** – solid tech chips linking to `/#skills`.
+12. **CTAs** (Live site / GitHub) + **ProjectNav** (next project in WorkSection order + "All projects").
+13. "Back to work" in nav + footer landmarks. Route‑specific title/description metadata, descriptive screenshot alt text.
 
-**Copy rules:** no emoji, no em dashes, "God helped me" at most once per study (PRIDE, Gexp only). No `[CHECK]`/`[REPLACE]` markers in build output.
+**Copy rules:** no emoji, no em dashes, "God helped me" at most once per study (PRIDE, Gexp only). Every sentence from the original `howWent` must appear in Results/Challenges/Lessons; nothing deleted. No `[CHECK]`/`[REPLACE]` markers in build output.
 
 **Screenshots** – must blur/fake private data. All five now have screenshots: PRIDE, Kindled, GST, Fresher's counter, Gexp.
 
@@ -155,8 +157,8 @@ Never animate layout properties. Animate `transform` and `opacity` only.
 | 3 | What people said | Pending: exact quote, name, role, permission. Section not rendered until provided |
 | 4 | PRIDE | Done: copy + screenshot (`images/pride.png`) |
 | 5 | Kindled | Done: live URL, stack, GA4 timeline, screenshot (`images/kindled.png`) |
-| 6 | Fresher's counter | Copy + live URL done; screenshot pending |
-| 7 | Gexp | Copy done (in daily use, two taps); screenshot + APK release link pending (CTA points at repo) |
+| 6 | Fresher's counter | Done: copy + live URL + screenshot (`images/fresher.png`) |
+| 7 | Gexp | Done: copy + screenshot (`images/gpexp.jpeg`); APK release link pending (CTA points at repo) |
 | 8 | GST Reconciler | Copy + screenshot done (fake data only); .exe release link pending (CTA points at repo) |
 | 9 | Fake Job Posting Detector | Done: small Work card, no stack chips |
 | 10 | Skills | Done: tiers reconciled with projects (Django/Supabase/PythonAnywhere/GitHub Actions/bcrypt) |

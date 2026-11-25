@@ -89,8 +89,9 @@ Each route is a thin `page.tsx` holding one `CaseStudyData` object and exporting
 `app/work/{pride,kindled,fresher-counter,gexp,gst-reconciler}/page.tsx`. The shared
 component renders: Hero (tag, H1, intro, glance chips, CTAs, screenshot),
 Impact strip (metric stickers with count-up), ProblemStory (pain-point chips),
-FeatureShowcase (feature list + gallery), ArchitectureFlow (chip chain + draw),
-ChallengeCards, Results/Lessons, Stack chips + #skills link, CTAs, ProjectNav.
+FeatureShowcase (feature list + gallery), Signature (per-project personality sections),
+ArchitectureFlow (chip chain + draw), ChallengeCards, Results/Lessons, Stack chips + #skills link,
+CTAs, ProjectNav.
 Each route exports `metadata` from `caseStudyMetadata(data)`. Nav + footer
 landmarks, descriptive screenshot alt text. Copy rules unchanged.
 

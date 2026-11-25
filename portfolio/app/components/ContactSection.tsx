@@ -20,7 +20,8 @@ export const ContactSection: FC = () => {
 
             <a
               href="mailto:gsraj.developer@gmail.com"
-              className="bricolage mt-6 inline-flex min-h-11 break-words text-[clamp(1.25rem,6vw,3rem)] font-extrabold leading-tight underline decoration-[3px] underline-offset-[6px]"
+              className="min-w-0 bricolage mt-6 inline-flex min-h-11 break-words text-[clamp(1.25rem,6vw,3rem)] font-extrabold leading-tight underline decoration-[3px] underline-offset-[6px]"
+              style={{ overflowWrap: "anywhere" }}
             >
               gsraj.developer@gmail.com
             </a>
