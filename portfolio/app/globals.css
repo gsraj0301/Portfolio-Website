@@ -561,7 +561,8 @@ footer[id] {
   .pop-in,
   .timeline-line,
   .timeline-num,
-  .crossfade-enter {
+  .crossfade-enter,
+  .flow-connector {
     animation: none;
   }
 
@@ -570,7 +571,8 @@ footer[id] {
     transform: rotate(var(--tilt-effective, 0deg));
   }
 
-  .timeline-line {
+  .timeline-line,
+  .flow-connector {
     transform: scaleX(1);
   }
 

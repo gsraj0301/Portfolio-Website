@@ -386,13 +386,22 @@ or below them (mobile). The form is one white card-fill sticker with `--line` an
   replaces them.
 
 ### Case-study page
-Single column, 62ch reading width, no tilt on body content. Order: title and
-tag, the problem in one sentence, why Raj built it, what it does, how it went
-(real usage, what broke), stack as solid tech chips (with a link to `#skills`
-on the home page), links. Screenshots in frames between sections. "Back to
-work" link at the top and bottom. Each route supplies its own title and
-description metadata, a nav landmark around the top links, a footer landmark at
-the bottom, and descriptive screenshot alt text.
+Reusable design system with per-project personality. Order: project hero (name,
+one-liner, role/stack/status chips, primary links, screenshot or typographic
+composition), Impact at a glance (metric stickers with count-up), The problem
+(pain-point chips + prose), What I built (feature list + screenshot gallery
+with captions), Technical architecture (text-only chip flow with draw animation),
+Challenges & lessons (problem → fix cards, honest failures intact), Results &
+lessons, Stack chips + #skills link, CTAs. Screenshots in frames with captions.
+"Back to work" top and bottom, plus next-project navigation. Each route
+supplies its own title/description metadata, nav + footer landmarks,
+descriptive screenshot alt text.
+
+Each project uses the same kit but adapts composition: PRIDE = team-count wall
++ registration/evaluator flow; Kindled = curation chips + "what I said no to"
+sticker; Fresher's = live-count composition + role matrix; Gexp = offline log
+→ WhatsApp → month-close flow; GST = Tally vs GSTR-2B side-by-side + match-priority
+ladder + report legend (swatches + ink text).
 
 ## 8. Motion
 

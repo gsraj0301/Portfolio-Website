@@ -24,9 +24,56 @@ const fresherData: CaseStudyData = {
   ],
   howWent:
     "I built it, demoed it to my class in-charge, took his input, changed the site and deployed it. Then came a sudden request: the principal needed a page to see the count too. I added a read-only overview and coordinated it with the first-year HOD. The real bug was the login. I had forgotten to await Next.js's async cookies() call, so every login bounced back to the login page. I got unblocked by reading the raw Cookie header, then fixed the await properly. On the day, I waited for news, and in the evening my class in-charge told me the site was very helpful. I'm grateful for the chance to build to faculty requirements and actually be useful.",
+  gallery: [
+    { src: "/images/fresher.png", width: 1660, height: 907, caption: "Fresher's Day headcount tracker live on the day" },
+  ],
+  metrics: [
+    { value: "14", label: "sections" },
+    { value: "10", label: "departments" },
+    { value: "30s", label: "table refresh" },
+    { value: "2", label: "day cookie expiry" },
+  ],
+  painPoints: [
+    "Counts sat in different WhatsApp chats",
+    "Nobody could add them up cleanly",
+    "The day needed a real number",
+  ],
+  flow: {
+    title: "How counts move",
+    nodes: [
+      "Faculty signs in",
+      "Updates own department & section",
+      "Totals add up live",
+      "Principal reads the overview",
+    ],
+    note: "Inline editing with relative last-updated times. Read-only overview for principal, HOD and deans.",
+  },
+  decisions: [
+    {
+      title: "30-second refresh",
+      body: "Next.js + Supabase Realtime keeps the table fresh without manual reloads.",
+    },
+    {
+      title: "Role-based views",
+      body: "Admins manage counts and faculty accounts; principal, HOD and deans get read-only overview.",
+    },
+  ],
+  challenges: [
+    {
+      title: "Login bounced",
+      body: "Forgot to await Next.js's async cookies() call, so every login bounced back to the login page.",
+      fix: "Got unblocked by reading the raw Cookie header, then fixed the await properly.",
+    },
+  ],
+  results:
+    "I built it, demoed it to my class in-charge, took his input, changed the site and deployed it. Then came a sudden request: the principal needed a page to see the count too. I added a read-only overview and coordinated it with the first-year HOD. On the day, I waited for news, and in the evening my class in-charge told me the site was very helpful.",
+  lessons:
+    "I'm grateful for the chance to build to faculty requirements and actually be useful.",
+  screenshot: { src: "/images/fresher.png", width: 1660, height: 907 },
   stack: ["Next.js", "Supabase", "Vercel", "JWT auth", "bcrypt"],
   repo: "https://github.com/gsraj0301/fresher-day-registrations",
   live: "https://fresher-day-registrations.vercel.app/",
+  next: { title: "Gexp", href: "/work/gexp", tag: "family business" },
 };
 
 export const metadata = caseStudyMetadata(fresherData);

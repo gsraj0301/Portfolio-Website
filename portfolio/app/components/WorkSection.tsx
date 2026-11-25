@@ -47,7 +47,7 @@ const projects: Project[] = [
     tilt: "1.5deg",
     story: "/work/kindled",
   },
-  {
+{
     title: "Fresher's counter",
     tag: "college",
     cardLine:
@@ -55,11 +55,12 @@ const projects: Project[] = [
     href: "https://fresher-day-registrations.vercel.app",
     ctaLabel: "Visit site",
     stack: ["Next.js", "Supabase", "Vercel"],
+    screenshot: { src: "/images/fresher.png", width: 1660, height: 907 },
     fill: "var(--mint)",
     tilt: "-1deg",
     story: "/work/fresher-counter",
   },
-  {
+{
     title: "Gexp",
     tag: "family business",
     cardLine:
@@ -67,6 +68,7 @@ const projects: Project[] = [
     href: "https://github.com/gsraj0301/GPexp",
     ctaLabel: "Get the APK",
     stack: ["Python", "Flet", "SQLite"],
+    screenshot: { src: "/images/gpexp.jpeg", width: 720, height: 1499 },
     fill: "var(--card)",
     tilt: "1deg",
     story: "/work/gexp",

@@ -33,23 +33,25 @@ Section order (from top to bottom):
 
 ### 2.2 Case‑study pages (`/work/pride`, `/work/kindled`, `/work/fresher-counter`, `/work/gexp`, `/work/gst-reconciler`)
 
-All five routes are live. Single column, 62ch reading width, no tilt on body content.
+All five routes are live. Reusable design system with per-project personality. Max width 68ch, no tilt on body content.
 
 Order:
 
-1. Title and tag (H1 + tag chip), intro line.
-2. **At-a-glance strip** – role, stack, status, link. Metadata, not a fifth beat.
-3. Problem in one sentence.
-4. Why I built it.
-5. What it does (features).
-6. How it went (real usage, what broke).
-7. Screenshot (where provided), above the Stack section.
-8. Stack as solid tech chips (with a link to `/#skills` on the home page).
-9. CTA links (live site / repo) and "Back to work" at the top and bottom, wrapped in nav and footer landmarks. Each route supplies its own title and description metadata and descriptive screenshot alt text.
+1. **Project hero** – tag chip, H1, one-line intro, role/stack/status chips, Live/GitHub CTAs, screenshot or typographic composition, caption.
+3. **Impact at a glance** – metric stickers (count-up, staggered 90ms, one tomato element per section max).
+3. **The problem** – pain-point chips + original prose (visualised pain points).
+4. **Why I built it** – one paragraph.
+4. **What it does** – numbered feature stickers + screenshot gallery with captions.
+5. **Technical architecture** – text-only chip chain with draw animation (view-gated, reduced-motion static).
+6. **Challenges & lessons** – problem → fix cards; honest failures verbatim.
+7. **Results** / **What I learned** – outcome metrics + closing prose.
+8. **Stack** – solid tech chips linking to `/#skills`.
+9. **CTAs** (Live site / GitHub) + **ProjectNav** (next project in WorkSection order + "All projects").
+10. "Back to work" in nav + footer landmarks. Route-specific title/description metadata, descriptive screenshot alt text.
 
-**Copy rules:** no emoji, no em dashes (commas/full stops instead), "God helped me" at most once per study and only where it genuinely happened (PRIDE, Gexp). No `[CHECK]`/`[REPLACE]` markers may reach the build output (enforced by `scripts/check-markers.mjs`).
+**Copy rules:** no emoji, no em dashes, "God helped me" at most once per study (PRIDE, Gexp only). No `[CHECK]`/`[REPLACE]` markers in build output.
 
-**Screenshots** – must blur or fake all private data (GST handles other firms' financial data: fake data only). Provided for PRIDE, Kindled, GST; pending for Fresher's counter and Gexp.
+**Screenshots** – must blur/fake private data. All five now have screenshots: PRIDE, Kindled, GST, Fresher's counter, Gexp.
 
 ### 2.3 404 page (`/404`)
 

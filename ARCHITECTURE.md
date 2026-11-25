@@ -67,10 +67,18 @@ the rest use paper secondary.
 ```ts
 type CaseStudyData = {
   title: string; tag: string; intro: string;
-  glance: { role; stack; status; linkLabel; linkHref };  // metadata strip, not a beat
+  glance: { role; stack; status; linkLabel; linkHref };
   problem: string; why: string; features: string[]; howWent: string;
   stack: string[];
-  screenshot?: { src; width; height };   // rendered above the Stack section
+  screenshot?: { src; width; height };
+  gallery?: { src; width; height; caption?: string }[];
+  metrics?: { value: string; label: string; note?: string }[];
+  painPoints?: string[];
+  flow?: { title: string; nodes: string[]; note?: string };
+  decisions?: { title: string; body: string }[];
+  challenges?: { title: string; body: string; fix: string }[];
+  results?: string; lessons?: string;
+  next?: { title: string; href: string; tag: string };
   repo: string; live?: string;
 };
 ```
@@ -78,9 +86,12 @@ type CaseStudyData = {
 Each route is a thin `page.tsx` holding one `CaseStudyData` object and exporting
 `metadata` from `caseStudyMetadata(data)`:
 `app/work/{pride,kindled,fresher-counter,gexp,gst-reconciler}/page.tsx`. The shared
-component adds nav and footer landmarks and descriptive screenshot alt text.
-Copy rules: no emoji, no em dashes, "God helped me" at most once per study
-(PRIDE and Gexp only), no unconfirmed `[CHECK]`/`[REPLACE]` markers.
+component renders: Hero (tag, H1, intro, glance chips, CTAs, screenshot),
+Impact strip (metric stickers with count-up), ProblemStory (pain-point chips),
+FeatureShowcase (feature list + gallery), ArchitectureFlow (chip chain + draw),
+ChallengeCards, Results/Lessons, Stack chips + #skills link, CTAs, ProjectNav.
+Each route exports `metadata` from `caseStudyMetadata(data)`. Nav + footer
+landmarks, descriptive screenshot alt text. Copy rules unchanged.
 
 ## 3. Build pipeline
 

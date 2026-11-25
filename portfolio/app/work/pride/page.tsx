@@ -24,6 +24,61 @@ const prideData: CaseStudyData = {
   ],
   howWent:
     "It ran a whole semester: 231 teams, 2,000 users, 14 competitions and a letter of appreciation from the college. It also broke. The free MySQL database kept dropping connections, Render wiped uploaded posters until Cloudinary took over, and a live scoring bug keyed evaluations to the team instead of the Smart India Hackathon (SIH) statement. I found six dual-SIH teams, told the in-charge honestly, and fixed it so nobody lost a mark. God helped me stay calm there. I also learned to rotate secrets and read every line my tools write. What worked was the boring stuff: clear roles, a short edit window, and telling people the truth when a number was wrong. What I would change is the testing. I tested features, not the messy overlap between two competitions on the same day. The biggest lesson: you don't need to know everything to start. You need someone to trust you, and the will to build, break, fix and repeat. I'm grateful to my faculty mentors for the trust, and to the in-charge who answered every late question.",
+  gallery: [
+    { src: "/images/pride.png", width: 1660, height: 907, caption: "PRIDE portal dashboard during a live competition" },
+  ],
+  metrics: [
+    { value: "2,000+", label: "students used it" },
+    { value: "231", label: "teams across a semester" },
+    { value: "14", label: "competitions" },
+  ],
+  painPoints: [
+    "WhatsApp threads",
+    "paper forms",
+    "one person's head",
+    "five copies of the truth",
+  ],
+  flow: {
+    title: "Architecture",
+    nodes: [
+      "Excel seeder → MySQL",
+      "Node.js + Express + JWT",
+      "Cloudinary + Backblaze B2",
+      "Brevo emails",
+    ],
+    note: "Every student account seeded from one spreadsheet; two scorers per team, short edit window.",
+  },
+  decisions: [
+    {
+      title: "JWT over sessions",
+      body: "Stateless auth scales to 2,000+ users without server affinity; short-lived tokens with refresh.",
+    },
+    {
+      title: "Cloudinary + Backblaze B2 over Render disks",
+      body: "Render ephemeral disks wiped uploads; Cloudinary handles poster transformations, B2 stores slide decks cheaply.",
+    },
+  ],
+  challenges: [
+    {
+      title: "Database kept dropping connections",
+      body: "The free MySQL database kept dropping connections.",
+      fix: "Learned to rotate secrets and read every line my tools write.",
+    },
+    {
+      title: "Render wiped uploaded posters",
+      body: "Render wiped uploaded posters until Cloudinary took over.",
+      fix: "Posters and certificates moved to Cloudinary; slide decks on Backblaze B2 with signed links.",
+    },
+    {
+      title: "Scoring bug keyed to team instead of SIH statement",
+      body: "A live scoring bug keyed evaluations to the team instead of the Smart India Hackathon (SIH) statement.",
+      fix: "Found six dual-SIH teams, told the in-charge honestly, and fixed it so nobody lost a mark.",
+    },
+  ],
+  results:
+    "It ran a whole semester: 231 teams, 2,000 users, 14 competitions and a letter of appreciation from the college. What worked was the boring stuff: clear roles, a short edit window, and telling people the truth when a number was wrong.",
+  lessons:
+    "I also learned to rotate secrets and read every line my tools write. What I would change is the testing. I tested features, not the messy overlap between two competitions on the same day. The biggest lesson: you don't need to know everything to start. You need someone to trust you, and the will to build, break, fix and repeat. I'm grateful to my faculty mentors for the trust, and to the in-charge who answered every late question.",
   screenshot: { src: "/images/pride.png", width: 1660, height: 907 },
   stack: [
     "Node.js",
@@ -38,6 +93,7 @@ const prideData: CaseStudyData = {
   ],
   repo: "https://github.com/gsraj0301/pride",
   live: "https://agni-pride.onrender.com",
+  next: { title: "Kindled", href: "/work/kindled", tag: "for learners" },
 };
 
 export const metadata = caseStudyMetadata(prideData);

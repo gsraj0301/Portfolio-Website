@@ -322,6 +322,53 @@ for (const width of [1280, 1440]) {
   await context.close();
 }
 
+for (const route of ["pride", "kindled", "fresher-counter", "gexp", "gst-reconciler"]) {
+  const { page, context } = await newPage(1280, 800);
+  await page.goto(`${BASE}/work/${route}`, { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(500);
+  const checks = await page.evaluate(() => {
+    const h1 = document.querySelectorAll("h1").length;
+    const h2 = document.querySelectorAll("h2").length;
+    const hero = Boolean(document.querySelector('main section.pt-28'));
+    const metrics = document.querySelectorAll('.section .sticker').length;
+    const problem = Boolean([...document.querySelectorAll("h2")].find(h => /broke|problem/i.test(h.textContent)));
+    const features = document.querySelectorAll('ul li.sticker').length;
+    const flow = Boolean([...document.querySelectorAll("h2")].find(h => /architecture|pipeline|flow|match|pipeline|how counts move|curation|curation pipeline|match pipeline|daily flow/i.test(h.textContent)));
+    const challenges = [...document.querySelectorAll("p")].filter(h => h.textContent.includes("Fix:")).length;
+    const results = Boolean([...document.querySelectorAll("h2")].find(h => /results/i.test(h.textContent)));
+    const lessons = Boolean([...document.querySelectorAll("h2")].find(h => /learned/i.test(h.textContent)));
+    const stack = document.querySelectorAll('.chip-solid').length;
+    const cta = document.querySelectorAll('.btn').length;
+    const nav = Boolean(document.querySelector('nav[aria-label="Case study"]'));
+    const footer = Boolean(document.querySelector("footer"));
+    const nextNav = Boolean([...document.querySelectorAll('a[href^="/work/"]')].find(a => a.textContent.includes("Read the story")));
+    const allProjects = Boolean([...document.querySelectorAll('a[href="/#work"]')].find(a => a.textContent.includes("All projects")));
+    const screenshot = document.querySelector("main img")?.getAttribute("alt") ?? "";
+    const title = document.title;
+    return { h1, h2, hero, metrics, problem, features, flow, challenges, results, lessons, stack, cta, nav, footer, nextNav, allProjects, screenshot, title };
+  });
+  check(
+    `${route} has proper structure`,
+    checks.h1 === 1 &&
+      checks.hero &&
+      checks.metrics >= 3 &&
+      checks.problem &&
+      checks.features >= 3 &&
+      checks.challenges >= 1 &&
+      checks.results &&
+      checks.lessons &&
+      checks.stack >= 3 &&
+      checks.cta >= 2 &&
+      checks.nav &&
+      checks.footer &&
+      checks.nextNav &&
+      checks.allProjects &&
+      checks.screenshot.includes("screenshot"),
+    JSON.stringify(checks)
+  );
+  await context.close();
+}
+
 await browser.close();
 
 const failed = results.filter((r) => !r.ok);

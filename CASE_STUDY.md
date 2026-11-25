@@ -9,10 +9,11 @@ All case studies follow the same four‑beat structure. Copy the template, fill 
 
 ---
 
-## Template: Four‑beat case study
+## Template: Extended case study structure
 
 ### Problem
 One sentence: what the real person did before you built the thing. No invented problems.
+**Pain points** (optional): short phrases for visual chips.
 
 ### Why I built it
 Two to three sentences: who asked, what you wanted to fix, and why you said yes. Grateful, energetic tone. Mention gratitude when it's real, not formulaic: "God helped me" at most once per study, only for a genuine moment, and never in every study.
@@ -20,12 +21,16 @@ Two to three sentences: who asked, what you wanted to fix, and why you said yes.
 ### What it does
 - Bullet list (3‑4 items). Real features. Facts on file.
 - Use real numbers, real names of things.
-- Facts on file: login with JWT, image uploads through Cloudinary, file storage on Backblaze B2, status emails through Nodemailer and Brevo. [CHECK]
+- **Screenshots/gallery** (optional): captions for each image.
 
-### How it went (broke)
-- Real usage numbers, who used it, what broke, what you fixed.
-- One honest thing that broke. [CHECK]
-- Gratitude line: who you’re grateful for. [OPTIONAL]
+### Technical architecture (optional)
+- **Flow**: ordered nodes for text-only chip chain + draw animation.
+- **Decisions** (optional): engineering choices with rationale.
+
+### How it went (broke) — split into three sections
+**Results** — Real usage numbers, outcomes, what worked.
+**Challenges** — One honest thing that broke + fix per challenge.
+**Lessons** — What you learned, what you'd change, gratitude line.
 
 ---
 
@@ -73,7 +78,7 @@ Next up: the new first-years, more Tamil content, and being there at the exact m
 
 ## RULES (how to write a case study)
 
-1. **Four beats only** – Problem, Why I built it, What it does, How it went (broke). No extra sections.
+1. **Extended structure** – Problem, Why I built it, What it does, Architecture (optional), Results, Challenges, Lessons. Every sentence from the original `howWent` must appear in Results/Challenges/Lessons; nothing deleted. Pain points, metrics, flow, decisions, challenges, results, lessons, next are optional fields.
 2. **First person, plain words** – Sounds like Raj explaining his work to a friend.
 3. **Sentence case everywhere** – Headlines, buttons, tags, nav. No ALL CAPS.
 4. **Specific beats clever** – Use real numbers, real names of things. No percentage bars, no star ratings.

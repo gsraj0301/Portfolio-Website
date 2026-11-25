@@ -24,10 +24,65 @@ const kindledData: CaseStudyData = {
   ],
   howWent:
     "Deployment day gave me ModuleNotFoundError: No module named django even though Django was installed. A nested folder had made my virtualenv path wrong. One corrected path in the Web tab and the WSGI file, and Kindled went live. Then the logo showed a glowing white box because I'd used a JPEG instead of a transparent PNG, and the mobile search bar sat in the middle of the screen like it was paying rent. Both fixed. The traffic numbers were lying at first. PythonAnywhere was counting every CSS, JS and image request plus bots. After I connected Google Analytics, the honest timeline looked like this. First week: 27 real users, with over two minutes of average engagement. After the class demo: the batch ahead started using it. Now: four-plus months live, 100 students have used it. There are returning users. What worked best was the simplest thing: standing in front of my class and showing it live. Students still forget. I'd show Kindled one-on-one, they'd say this is awesome, and a week later it had vanished from memory. Building a product and building a habit are two different projects. I also said no on purpose: no Shorts, because one tap puts you back in the scroll hole, no chess video, because that was scope creep, and no cartoon-wisdom compilation, because copyright. Curation is as much about what you leave out. Next up: the new first-years, more Tamil content, and being there at the exact moment a student thinks, okay, I need to learn this now. Not a certificate. Not a grade. Just, I understood it.",
+  gallery: [
+    { src: "/images/kindled.png", width: 1660, height: 907, caption: "Kindled video page with curator notes and learning paths" },
+  ],
+  metrics: [
+    { value: "67+", label: "curated videos" },
+    { value: "12", label: "categories" },
+    { value: "100", label: "students" },
+    { value: "27", label: "first-week users" },
+  ],
+  painPoints: [
+    "YouTube rabbit holes",
+    "algorithmic recommendations",
+    "scattered Tamil tutorials",
+  ],
+  flow: {
+    title: "Curation pipeline",
+    nodes: [
+      "AI-drafted notes → human edit",
+      "add_video.py CLI → SQLite",
+      "PythonAnywhere → live",
+    ],
+    note: "Zero budget, maximum stubbornness. Curator notes + learning paths keep beginners on track.",
+  },
+  decisions: [
+    {
+      title: "No algorithm, human curation",
+      body: "Students don't need more recommendations; they need someone saying 'start here, this one is actually good'.",
+    },
+    {
+      title: "No Shorts, no ads, no login",
+      body: "One tap puts you back in the scroll hole. Distraction-free by design.",
+    },
+  ],
+  challenges: [
+    {
+      title: "Django path on deploy",
+      body: "ModuleNotFoundError: No module named django even though Django was installed — a nested folder had made my virtualenv path wrong.",
+      fix: "One corrected path in the Web tab and the WSGI file, and Kindled went live.",
+    },
+    {
+      title: "Logo and search bar issues",
+      body: "The logo showed a glowing white box because I'd used a JPEG instead of a transparent PNG, and the mobile search bar sat in the middle of the screen like it was paying rent.",
+      fix: "Both fixed: switched to transparent PNG, repositioned search bar.",
+    },
+    {
+      title: "Bot-inflated traffic",
+      body: "PythonAnywhere was counting every CSS, JS and image request plus bots.",
+      fix: "Connected Google Analytics; the honest timeline showed 27 real users in the first week.",
+    },
+  ],
+  results:
+    "First week: 27 real users, with over two minutes of average engagement. After the class demo: the batch ahead started using it. Now: four-plus months live, 100 students have used it. There are returning users. What worked best was the simplest thing: standing in front of my class and showing it live.",
+  lessons:
+    "Students still forget. I'd show Kindled one-on-one, they'd say this is awesome, and a week later it had vanished from memory. Building a product and building a habit are two different projects. I also said no on purpose: no Shorts, because one tap puts you back in the scroll hole, no chess video, because that was scope creep, and no cartoon-wisdom compilation, because copyright. Curation is as much about what you leave out. Next up: the new first-years, more Tamil content, and being there at the exact moment a student thinks, okay, I need to learn this now. Not a certificate. Not a grade. Just, I understood it.",
   screenshot: { src: "/images/kindled.png", width: 1660, height: 907 },
   stack: ["Django", "SQLite", "PythonAnywhere"],
   repo: "https://github.com/gsraj0301/kindled",
   live: "https://kindled.pythonanywhere.com",
+  next: { title: "Fresher's counter", href: "/work/fresher-counter", tag: "college" },
 };
 
 export const metadata = caseStudyMetadata(kindledData);

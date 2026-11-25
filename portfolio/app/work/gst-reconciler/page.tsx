@@ -24,9 +24,60 @@ const gstData: CaseStudyData = {
   ],
   howWent:
     "First run: nothing worked. No buttons, nothing. Just a window that looked at me like I'd made a mistake. Then it worked, and it was wrong. The first successful run was full of mismatches that weren't real, because the GSTIN, party name or invoice number would differ by one or two characters between the files. To a human, obviously the same invoice. To a computer, strangers. And you can't hand an accountant mostly right. The fix was fuzzy matching with manners: near-identical text counts as a match, and fields get a priority order, GSTIN first, then invoice number, then party name, because names are the messiest. Then my dad tried it. It worked, and he started using it. What took most of a day now takes minutes. I promised one minute and delivered two minutes at most, but I'll take that against a full day. Thank you, Dad, for trusting me with real business work even after saying no way, and for being the best first tester a developer could ask for.",
+  gallery: [
+    { src: "/images/gst.jpeg", width: 1600, height: 640, caption: "GST Reconciler colour-coded mismatch report" },
+  ],
+  metrics: [
+    { value: "Most of a day", label: "→ 2 minutes" },
+    { value: "₹10", label: "tolerance" },
+    { value: "3", label: "match priority keys" },
+    { value: "3", label: "report colours" },
+  ],
+  painPoints: [
+    "Tally register vs GSTR-2B",
+    "Row-by-row hunting in Excel",
+    "Missing invoice or a rupee off",
+  ],
+  flow: {
+    title: "Match pipeline",
+    nodes: [
+      "Drop in two Excel files",
+      "Match by GSTIN → invoice → party",
+      "Flag mismatches and duplicates",
+      "Export colour-coded report",
+    ],
+    note: "Ten-rupee tolerance for rounding differences. Original file untouched.",
+  },
+  decisions: [
+    {
+      title: "Fuzzy matching with manners",
+      body: "Near-identical text counts as a match; fields get a priority order: GSTIN first, then invoice number, then party name, because names are the messiest.",
+    },
+    {
+      title: "Colour-coded report",
+      body: "Green for matched, red for mismatch, orange for duplicate — leaves the original file untouched.",
+    },
+  ],
+  challenges: [
+    {
+      title: "False mismatches",
+      body: "GSTIN, party name or invoice number differed by one or two characters — strangers to a computer, obvious to a human.",
+      fix: "Fuzzy matching with manners: near-identical text counts as a match, fields get a priority order (GSTIN → invoice → party).",
+    },
+    {
+      title: "First run was empty",
+      body: "Nothing worked. No buttons, nothing. Just a window that looked at me like I'd made a mistake.",
+      fix: "Built it, then it worked — and was wrong. Fixed the matching, and Dad started using it.",
+    },
+  ],
+  results:
+    "Then my dad tried it. It worked, and he started using it. What took most of a day now takes minutes. I promised one minute and delivered two minutes at most, but I'll take that against a full day. Thank you, Dad, for trusting me with real business work even after saying no way, and for being the best first tester a developer could ask for.",
+  lessons:
+    "Then my dad tried it. It worked, and he started using it. What took most of a day now takes minutes. I promised one minute and delivered two minutes at most, but I'll take that against a full day. Thank you, Dad, for trusting me with real business work even after saying no way, and for being the best first tester a developer could ask for.",
   screenshot: { src: "/images/gst.jpeg", width: 1600, height: 640 },
   stack: ["Python", "Tkinter", "pandas"],
   repo: "https://github.com/gsraj0301/gst-reconciler",
+  next: { title: "PRIDE portal", href: "/work/pride", tag: "college" },
 };
 
 export const metadata = caseStudyMetadata(gstData);
