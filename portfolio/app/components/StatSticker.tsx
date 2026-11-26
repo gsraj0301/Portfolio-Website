@@ -18,6 +18,7 @@ interface StatStickerProps {
   countUpPrefix?: string;
   countUpSuffix?: string;
   armed?: boolean;
+  big?: boolean;
 }
 
 export const StatSticker: FC<StatStickerProps> = ({
@@ -33,6 +34,7 @@ export const StatSticker: FC<StatStickerProps> = ({
   countUpPrefix,
   countUpSuffix,
   armed = true,
+  big = false,
 }) => {
   const [slapDone, setSlapDone] = useState(false);
   const { pressed, wiggle, handlers } = useStickerPress<HTMLDivElement>();
@@ -64,7 +66,8 @@ export const StatSticker: FC<StatStickerProps> = ({
         if (event.animationName === "slap") setSlapDone(true);
       }}
       className={[
-        "sticker flex flex-col p-4",
+        "sticker flex flex-col",
+        big ? "p-5 lg:p-6" : "p-4",
         slapDone ? "" : "slap",
         armed ? "is-armed" : "",
         "wiggle",
@@ -81,7 +84,12 @@ export const StatSticker: FC<StatStickerProps> = ({
         } as CSSProperties
       }
     >
-      <span className="bricolage block text-3xl font-bold leading-none tabular-nums">
+      <span
+        className={[
+          "bricolage block font-bold leading-none tabular-nums",
+          big ? "text-4xl lg:text-5xl" : "text-3xl",
+        ].join(" ")}
+      >
         {displayNumber}
       </span>
       <span className="mt-2 text-small text-ink-soft">{label}</span>

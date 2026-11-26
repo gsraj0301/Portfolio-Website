@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { CSSProperties, FC } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +12,7 @@ import { ResultsLessons } from "./casestudy/ResultsLessons";
 import { StackSection } from "./casestudy/StackSection";
 import { ProjectNav } from "./casestudy/ProjectNav";
 import { Signature } from "./casestudy/Signature";
+import { SectionFrame } from "./casestudy/SectionFrame";
 
 export type CaseStudyGlance = {
   role: string;
@@ -104,7 +105,7 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
         <CaseStudyHero data={data} />
 
         {data.metrics && data.metrics.length > 0 && (
-          <section className="section">
+          <section className="section !pb-16 !pt-4 lg:!pb-20 lg:!pt-8">
             <div className="shell">
               <MetricStickers metrics={data.metrics} />
             </div>
@@ -112,28 +113,39 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
         )}
 
         {data.personas && data.personas.length > 0 && (
-          <section className="section">
-            <div className="shell">
-              <h2 className="text-h3 mb-4">Project shape</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {data.personas.map((persona, i) => (
-                  <Signature key={i} persona={persona} />
-                ))}
-              </div>
+          <SectionFrame title="Project shape">
+            <div className="grid gap-5 lg:grid-cols-8">
+              {data.personas.map((persona, i) => {
+                const span =
+                  data.personas!.length === 1
+                    ? "lg:col-span-8"
+                    : data.personas!.length === 3 && i === 0
+                      ? "lg:col-span-8"
+                      : "lg:col-span-4";
+                return (
+                  <div key={i} className={span}>
+                    <Signature persona={persona} />
+                  </div>
+                );
+              })}
             </div>
-          </section>
+          </SectionFrame>
         )}
 
         {data.painPoints && data.painPoints.length > 0 && (
           <ProblemStory data={data} />
         )}
 
-        <section className="section">
-          <div className="shell">
-            <h2 className="text-h3 mb-4">Why I built it</h2>
-            <p className="max-w-[62ch] text-ink-soft">{data.why}</p>
+        <SectionFrame title="Why I built it">
+          <div
+            className="sticker p-6 sm:p-8 lg:p-10"
+            style={{ "--tilt": "-0.5deg" } as CSSProperties}
+          >
+            <p className="max-w-[60ch] text-lg leading-relaxed text-ink-soft sm:text-xl">
+              {data.why}
+            </p>
           </div>
-        </section>
+        </SectionFrame>
 
         <FeatureShowcase data={data} />
 
@@ -142,25 +154,29 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
         )}
 
         {data.decisions && data.decisions.length > 0 && (
-          <section className="section">
-            <div className="shell">
-              <h2 className="text-h3 mb-4">Engineering decisions</h2>
-              <div className="mt-4 flex flex-col gap-4">
-                {data.decisions.map((d, i) => (
-                  <div
-                    key={i}
-                    className="sticker p-6"
-                    style={{
+          <SectionFrame title="Engineering decisions">
+            <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+              {data.decisions.map((decision, i) => (
+                <div
+                  key={i}
+                  className={["sticker p-6 lg:p-7", i === 1 ? "lg:mt-10" : ""]
+                    .filter(Boolean)
+                    .join(" ")}
+                  style={
+                    {
                       "--tilt": ["-1.5deg", "1deg", "-0.5deg"][i % 3],
-                    } as React.CSSProperties}
-                  >
-                    <h3 className="text-h3 mb-2">{d.title}</h3>
-                    <p className="text-small text-ink-soft">{d.body}</p>
-                  </div>
-                ))}
-              </div>
+                      background: i === 1 ? "var(--mint)" : "var(--card)",
+                    } as CSSProperties
+                  }
+                >
+                  <h3 className="text-h3">{decision.title}</h3>
+                  <p className="mt-3 text-small leading-relaxed text-ink-soft">
+                    {decision.body}
+                  </p>
+                </div>
+              ))}
             </div>
-          </section>
+          </SectionFrame>
         )}
 
         {data.challenges && data.challenges.length > 0 && (
@@ -174,7 +190,7 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
         <ProjectNav next={data.next} />
       </main>
 
-      <footer className="shell border-t-2 border-dashed border-ink/40 pt-8 pb-28">
+      <footer className="shell border-t-2 border-dashed border-ink/40 pb-16 pt-8 lg:pb-20">
         <Link
           href="/#work"
           className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"

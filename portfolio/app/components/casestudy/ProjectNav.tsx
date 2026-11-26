@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import type { CaseStudyData } from "@/app/components/CaseStudy";
 
 interface ProjectNavProps {
@@ -7,24 +8,28 @@ interface ProjectNavProps {
 
 export function ProjectNav({ next }: ProjectNavProps) {
   return (
-    <section className="section">
+    <section className="section !pb-20 !pt-10 lg:!pb-28 lg:!pt-14">
       <div className="shell">
         {next ? (
-          <div
-            className="sticker p-8 lg:p-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6"
-            style={{ "--tilt": "2deg", background: "var(--card)" } as React.CSSProperties}
+          <Link
+            href={next.href}
+            aria-label={`Read the ${next.title} story`}
+            className="sticker block overflow-hidden p-0"
+            style={{ "--tilt": "1.2deg", background: "var(--marigold)" } as CSSProperties}
           >
-            <div>
-              <span className="text-tag text-ink-soft">Next project</span>
-              <h2 className="text-h3 mt-2">{next.title}</h2>
-              <p className="text-tag mt-2 text-ink-soft">{next.tag}</p>
+            <div className="grid gap-8 p-7 sm:p-9 lg:grid-cols-[1fr_auto] lg:items-end lg:p-12">
+              <div>
+                <span className="text-tag text-ink-soft">Next project</span>
+                <h2 className="text-h2 mt-3 max-w-[14ch]">{next.title}</h2>
+                <span className="tag mt-5">{next.tag}</span>
+              </div>
+              <span className="btn btn-on-fill min-h-12 justify-self-start lg:justify-self-end">
+                Read the story
+              </span>
             </div>
-            <a href={next.href} className="btn btn-primary min-h-12">
-              Read the story
-            </a>
-          </div>
+          </Link>
         ) : null}
-        <p className="mt-4 text-center">
+        <p className="mt-6 text-center">
           <Link
             href="/#work"
             className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"

@@ -392,6 +392,12 @@
     animation: wiggle 200ms var(--ease-out);
   }
 
+  .flow-line {
+    transform: scaleY(0);
+    transform-origin: top;
+    animation: draw-y 900ms var(--ease-out-expo) forwards;
+  }
+
   .timeline-line {
     position: absolute;
     top: 24px;
@@ -508,6 +514,11 @@
   100% { transform: scaleX(1); }
 }
 
+@keyframes draw-y {
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+
 @keyframes crossfade {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -577,8 +588,9 @@ footer[id] {
   .pop-in,
   .timeline-line,
   .timeline-num,
-  .crossfade-enter,
-  .flow-connector {
+    .crossfade-enter,
+    .flow-connector,
+    .flow-line {
     animation: none;
   }
 
@@ -590,6 +602,10 @@ footer[id] {
   .timeline-line,
   .flow-connector {
     transform: scaleX(1);
+  }
+
+  .flow-line {
+    transform: scaleY(1);
   }
 
   .timeline-num {
