@@ -71,11 +71,11 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
       <header className="border-b-2 border-dashed border-ink">
         <nav
           aria-label="Case study"
-          className="shell flex h-16 items-center justify-between gap-4"
+          className="shell flex min-h-16 items-center justify-between gap-3 py-2"
         >
           <Link
             href="/"
-            className="bricolage inline-flex min-h-11 items-center gap-2 text-xl font-extrabold tracking-tight"
+            className="bricolage inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-xl font-extrabold tracking-tight"
           >
             <Image
               src="/raj.jpg"
@@ -87,13 +87,13 @@ export const CaseStudy: FC<{ data: CaseStudyData }> = ({ data }) => {
             />
             Raj G
           </Link>
-          <div className="flex flex-col items-start gap-1 text-[0.9375rem] font-semibold">
+          <div className="hidden flex-col items-start gap-0.5 text-[0.9375rem] font-semibold sm:flex">
             <span className="text-ink-soft">{data.tag}</span>
             <span className="text-ink">{data.title}</span>
           </div>
           <Link
             href="/#work"
-            className="btn btn-secondary min-h-12 px-4 py-2 text-base"
+            className="btn btn-secondary min-h-11 shrink-0 whitespace-nowrap px-4 py-2 text-[0.9375rem] sm:min-h-12 sm:text-base"
           >
             Back to work
           </Link>

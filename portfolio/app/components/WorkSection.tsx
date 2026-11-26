@@ -17,6 +17,7 @@ type Project = {
   small?: boolean;
   story?: string;
   screenshot?: { src: string; width: number; height: number };
+  imagePosition?: string;
 };
 
 const projects: Project[] = [
@@ -47,7 +48,7 @@ const projects: Project[] = [
     tilt: "1.5deg",
     story: "/work/kindled",
   },
-{
+  {
     title: "Fresher's counter",
     tag: "college",
     cardLine:
@@ -60,7 +61,7 @@ const projects: Project[] = [
     tilt: "-1deg",
     story: "/work/fresher-counter",
   },
-{
+  {
     title: "Gexp",
     tag: "family business",
     cardLine:
@@ -69,6 +70,7 @@ const projects: Project[] = [
     ctaLabel: "Get the APK",
     stack: ["Python", "Flet", "SQLite"],
     screenshot: { src: "/images/gpexp.jpeg", width: 720, height: 1499 },
+    imagePosition: "center top",
     fill: "var(--card)",
     tilt: "1deg",
     story: "/work/gexp",
@@ -82,6 +84,7 @@ const projects: Project[] = [
     ctaLabel: "Get the .exe",
     stack: ["Python", "Tkinter", "Excel reports"],
     screenshot: { src: "/images/gst.jpeg", width: 1600, height: 640 },
+    imagePosition: "left top",
     fill: "var(--marigold)",
     tilt: "-2deg",
     story: "/work/gst-reconciler",
@@ -100,6 +103,33 @@ const projects: Project[] = [
   },
 ];
 
+const ProjectCta: FC<{ project: Project; primary: boolean }> = ({
+  project,
+  primary,
+}) => (
+  <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+    <a
+      href={project.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={[
+        "btn px-4 py-2.5 text-base min-h-12",
+        primary ? "btn-primary" : "btn-secondary",
+      ].join(" ")}
+    >
+      {project.ctaLabel}
+    </a>
+    {project.story ? (
+      <a
+        href={project.story}
+        className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"
+      >
+        Read the story
+      </a>
+    ) : null}
+  </div>
+);
+
 export const WorkSection: FC = () => {
   return (
     <section id="work" aria-labelledby="work-title" className="section pb-28">
@@ -117,22 +147,45 @@ export const WorkSection: FC = () => {
             const isFeature = Boolean(project.feature);
             const isSmall = Boolean(project.small);
 
+            if (isSmall) {
+              return (
+                <PressableSticker
+                  key={project.title}
+                  className="sticker wiggle sticker-work flex flex-col p-5 md:col-span-2"
+                  style={
+                    {
+                      "--tilt": project.tilt,
+                      background: project.fill,
+                    } as CSSProperties
+                  }
+                >
+                  <div className="flex flex-1 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+                    <div className="min-w-0">
+                      <h3 className="text-h3">{project.title}</h3>
+                      <p className="text-small prose-measure mt-2 text-ink-soft">
+                        {project.cardLine}
+                      </p>
+                    </div>
+                    <div className="shrink-0">
+                      <ProjectCta project={project} primary={false} />
+                    </div>
+                  </div>
+                </PressableSticker>
+              );
+            }
+
             const body = (
-              <div
-                className={[
-                  "flex flex-1",
-                  isSmall
-                    ? "lg:flex-row lg:items-center lg:justify-between lg:gap-8"
-                    : "flex-col",
-                ].join(" ")}
-              >
+              <div className="flex flex-1 flex-col">
                 {project.tag ? (
                   <span className="tag self-start">{project.tag}</span>
                 ) : null}
 
                 <h3 className={project.tag ? "text-h3 mt-4" : "text-h3"}>
                   {project.story ? (
-                    <a href={project.story} className="inline-flex min-h-11 items-center [@media(hover:hover)]:hover:underline">
+                    <a
+                      href={project.story}
+                      className="inline-flex min-h-11 items-center [@media(hover:hover)]:hover:underline"
+                    >
                       {project.title}
                     </a>
                   ) : (
@@ -145,47 +198,32 @@ export const WorkSection: FC = () => {
                 </p>
 
                 {!isFeature && project.screenshot ? (
-                  <Image
-                    src={project.screenshot.src}
-                    alt={`${project.title} screenshot`}
-                    width={project.screenshot.width}
-                    height={project.screenshot.height}
-                    className="frame mt-4 h-auto w-full"
-                    sizes="(min-width: 768px) 45vw, 100vw"
-                    loading="lazy"
-                  />
+                  <div className="frame relative mt-4 aspect-[3/2] overflow-hidden">
+                    <Image
+                      src={project.screenshot.src}
+                      alt={`${project.title} screenshot`}
+                      width={project.screenshot.width}
+                      height={project.screenshot.height}
+                      className="h-full w-full object-cover"
+                      style={{
+                        objectPosition: project.imagePosition ?? "center top",
+                      }}
+                      sizes="(min-width: 768px) 45vw, 100vw"
+                      loading="lazy"
+                    />
+                  </div>
                 ) : null}
 
-                {!isSmall ? (
-                  <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Stack">
-                    {project.stack.map((tech) => (
-                      <li key={tech} className="chip chip-solid">
-                        {tech}
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
+                <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Stack">
+                  {project.stack.map((tech) => (
+                    <li key={tech} className="chip chip-solid">
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
 
-                <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-6">
-                  <a
-                    href={project.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={[
-                      "btn px-4 py-2.5 text-base min-h-12",
-                      isFeature ? "btn-primary" : "btn-secondary",
-                    ].join(" ")}
-                  >
-                    {project.ctaLabel}
-                  </a>
-                  {project.story ? (
-                    <a
-                      href={project.story}
-                      className="inline-flex min-h-11 items-center text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4"
-                    >
-                      Read the story
-                    </a>
-                  ) : null}
+                <div className="mt-auto pt-6">
+                  <ProjectCta project={project} primary={isFeature} />
                 </div>
               </div>
             );
@@ -194,9 +232,8 @@ export const WorkSection: FC = () => {
               <PressableSticker
                 key={project.title}
                 className={[
-                  "sticker wiggle sticker-work flex flex-col",
-                   isSmall ? "p-5 md:col-span-2" : "p-6 sm:p-7",
-                   isFeature ? "md:col-span-2" : "",
+                  "sticker wiggle sticker-work flex flex-col p-6 sm:p-7",
+                  isFeature ? "md:col-span-2" : "",
                 ].join(" ")}
                 style={
                   {

@@ -16,7 +16,7 @@ export function MetricStickers({ metrics }: { metrics: Metric[] }) {
   const { ref, inView: armed } = useInView(0.15);
 
   return (
-    <div ref={ref} className="mt-4 flex flex-wrap gap-6 lg:flex-nowrap">
+    <div ref={ref} className="mt-4 flex flex-wrap gap-6 px-0.5 lg:flex-nowrap">
       {metrics.map((m, i) => {
         const { target, numeric } = parseMetric(m.value);
         const suffix = numeric && m.value.includes("+") ? "+" : "";

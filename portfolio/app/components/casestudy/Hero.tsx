@@ -45,7 +45,7 @@ export function CaseStudyHero({ data }: CaseStudyHeroProps) {
           </div>
 
           {data.screenshot && (
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center">
               <div
                 className="relative inline-block"
                 style={{ "--tilt": "2deg" } as React.CSSProperties}
@@ -61,7 +61,7 @@ export function CaseStudyHero({ data }: CaseStudyHeroProps) {
                 />
               </div>
               {data.screenshot.height / data.screenshot.width > 1.3 && (
-                <p className="mt-4 text-tag text-ink-soft text-center">
+                <p className="mt-4 max-w-[30ch] text-center text-tag text-ink-soft">
                   Portrait screenshot from a real device
                 </p>
               )}
