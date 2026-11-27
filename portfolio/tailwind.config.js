@@ -13,6 +13,7 @@ module.exports = {
         ink: "#1C1713",
         "ink-soft": "#5A4E44",
         tomato: "#FF5A36",
+        "tomato-light": "#F47C61",
         marigold: "#FFC93C",
         mint: "#BFE3D0",
         blush: "#FFE1D6",

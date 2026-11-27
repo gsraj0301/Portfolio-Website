@@ -6,7 +6,7 @@ export const ContactSection: FC = () => {
     <footer
       id="contact"
       aria-labelledby="contact-title"
-      className="section bg-tomato pb-32 text-ink lg:pb-28"
+      className="section bg-tomato-light pb-32 text-ink lg:pb-28"
     >
       <div className="shell">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
