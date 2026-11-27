@@ -6,7 +6,7 @@ export const ContactSection: FC = () => {
     <footer
       id="contact"
       aria-labelledby="contact-title"
-      className="section bg-tomato-light pb-32 text-ink lg:pb-28"
+      className="section bg-mint pb-32 text-ink lg:pb-28"
     >
       <div className="shell">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
@@ -56,8 +56,8 @@ export const ContactSection: FC = () => {
           <ContactForm />
         </div>
 
-        <p className="hand mt-14 text-center text-2xl">
-          Built by Raj G in Chennai.
+        <p className="hand mt-14 text-center text-2xl" style={{ paddingTop: "2rem" }}>
+          Built by Raj G in Chennai
         </p>
       </div>
     </footer>

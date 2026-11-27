@@ -9,28 +9,28 @@ const games = [
     rank: 5,
     title: "Growlanser series (PS2)",
     line: "Combat that never gets boring, choices that actually matter, multiple endings, and a story that's crazy good. This is why I still love JRPGs.",
-    fill: "var(--mint)",
+    fill: "var(--marigold)",
     tilt: "-1.5deg",
   },
   {
     rank: 4,
     title: "Mass Effect trilogy",
     line: "Three games with a great story, characters you really grow with, and combat that stays fun.",
-    fill: "var(--paper)",
+    fill: "var(--book)",
     tilt: "1.5deg",
   },
   {
     rank: 3,
     title: "Dragon Age: Origins",
     line: "Fantasy is my favourite genre, and this one nails it: a story that pulls you in and combat that never gets boring.",
-    fill: "var(--blush)",
+    fill: "var(--mint)",
     tilt: "-2deg",
   },
   {
     rank: 2,
     title: "Sleeping Dogs",
     line: "Crazy martial-arts fights in an open-world Hong Kong. What else do you need?",
-    fill: "var(--card)",
+    fill: "var(--blush)",
     tilt: "3deg",
   },
   {
@@ -53,7 +53,7 @@ const books = [
     title: "Sword That Talks",
     genre: "Fantasy with a talking sword named Ozarion.",
     tilt: "1.5deg",
-    fill: "var(--blush)",
+    fill: "var(--marigold)",
   },
 ];
 
@@ -95,7 +95,7 @@ export const HobbiesSection: FC = () => {
     <section
       id="hobbies"
       aria-labelledby="hobbies-title"
-      className="section bg-marigold pb-28"
+      className="section bg-skill pb-28"
     >
       <div className="shell">
         <h2 id="hobbies-title" className="text-h2">
@@ -172,7 +172,7 @@ export const HobbiesSection: FC = () => {
           <article
             className="sticker flex flex-col p-6 lg:col-span-4"
             style={
-              { "--tilt": "1.5deg", background: "var(--mint)" } as CSSProperties
+              { "--tilt": "1.5deg", background: "var(--paper)" } as CSSProperties
             }
           >
             <h3 className="text-h3">Old PCs</h3>
@@ -222,7 +222,7 @@ export const HobbiesSection: FC = () => {
             style={
               {
                 "--tilt": "-2deg",
-                background: "var(--paper)",
+                background: "var(--mint)",
               } as CSSProperties
             }
           >
@@ -257,7 +257,7 @@ export const HobbiesSection: FC = () => {
               style={
                 {
                   "--tilt": "1deg",
-                  background: "var(--card)",
+                  background: "var(--book)",
                 } as CSSProperties
               }
             >

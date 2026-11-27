@@ -63,7 +63,7 @@ const capabilities: Capability[] = [
     seenIn: [
       { label: "Fake Job Posting Detector", href: FAKEJOB, external: true },
     ],
-    fill: "var(--blush)",
+    fill: "var(--book)",
     tilt: "-1.5deg",
   },
   {
@@ -80,7 +80,7 @@ const capabilities: Capability[] = [
     ],
     usedWith: [],
     seenIn: [{ label: "PRIDE portal", href: "/work/pride" }],
-    fill: "var(--card)",
+    fill: "var(--blush)",
     tilt: "1.5deg",
   },
   {
@@ -94,7 +94,7 @@ const capabilities: Capability[] = [
       { label: "Kindled", href: "/work/kindled" },
       { label: "Gexp", href: "/work/gexp" },
     ],
-    fill: "var(--marigold)",
+    fill: "var(--skill)",
     tilt: "-1deg",
   },
   {
@@ -108,7 +108,7 @@ const capabilities: Capability[] = [
       { label: "GST Reconciler", href: "/work/gst-reconciler" },
       { label: "Gexp", href: "/work/gexp" },
     ],
-    fill: "var(--mint)",
+    fill: "var(--card)",
     tilt: "1deg",
   },
 ];

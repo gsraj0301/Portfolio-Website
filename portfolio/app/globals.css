@@ -9,10 +9,13 @@
   --ink: #1c1713;
   --ink-soft: #5a4e44;
   --tomato: #ff5a36;
-  --tomato-light: #f47c61;
+  --tomato-light: #ee907b;
+  --book: #fbaf74;
   --marigold: #ffc93c;
   --mint: #bfe3d0;
   --blush: #ffe1d6;
+  --teal: #DCEBDD;
+  --skill: #faf884;
 
   --line: 2px solid var(--ink);
   --line-heavy: 3px solid var(--ink);

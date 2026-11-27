@@ -13,7 +13,7 @@ const steps = [
   {
     title: "Ship the smallest useful version.",
     body: "A working page this week beats a perfect one next month.",
-    fill: "var(--card)",
+    fill: "var(--book)",
     tilt: "2deg",
   },
   {
@@ -25,7 +25,7 @@ const steps = [
   {
     title: "Fix what breaks.",
     body: "Then fix the next thing.",
-    fill: "var(--card)",
+    fill: "var(--paper)",
     tilt: "1.5deg",
   },
 ];

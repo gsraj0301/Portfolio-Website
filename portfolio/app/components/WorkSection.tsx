@@ -40,7 +40,7 @@ const projects: Project[] = [
     tag: "for learners",
     cardLine:
       "Hand-picked learning videos for college students. No algorithm, no noise.",
-    href: "https://kindled-pythonanywhere.com",
+    href: "https://kindled.pythonanywhere.com",
     ctaLabel: "Visit site",
     stack: ["Django", "SQLite", "PythonAnywhere"],
     screenshot: { src: "/images/kindled.png", width: 1660, height: 907 },
